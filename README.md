@@ -1,8 +1,12 @@
-# Evidencia1📚
+# Libreria Nazareth📚
 
-# Integrantes y Roles👥
+La plataforma para la librería busca agilizar el tiempo del trabajador a la hora de registrar los productos y realizar las ventas. 
 
-Oyente: Gabriel Pavon Molina [gabipavonmolina@gmail.com](mailto:gabipavonmolina@gmail.com) | GitHub: gavipavon01
+# Fundamentación🔈
+
+Durante la pandemia cuando la economía fluctuaba se tenían que cambiar los precios uno por uno en cada producto del local, el cliente decidió empezar a buscar un método de organización digital el cual si bien ayudo, con el avanze del tiempo al incrementar la variedad de productos, volvió al problema principal, entonces en busca de un nuevo método le ofrecimos un sistema que le dejara registrar sus productos de manera más simple, realizar la carga del producto escaneando con el celular el código de barras y con un ágil sistema de búsqueda y filtros realizar las venta efectivizando el tiempo tanto del trabajador como del cliente. 
+
+# Integrantes y Roles
 
 
 | Nombre                           | Rol           | Correo                       | Github            | DNI      |
