@@ -1,0 +1,10 @@
+header {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 20px 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+header h2 {
+  font-size: 28px;
+}

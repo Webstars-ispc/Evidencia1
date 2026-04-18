@@ -1,0 +1,16 @@
+section {
+  padding: 20px 40px 60px 40px;
+}
+
+h3 {
+  font-size: 32px;
+  margin-bottom: 16px;
+  color: #1e3a8a;
+}
+
+p {
+  font-size: 19px;
+  max-width: 900px;
+  line-height: 1.7;
+  color: #374151;
+}
