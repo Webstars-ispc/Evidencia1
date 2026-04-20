@@ -90,13 +90,31 @@ El frontend quedará disponible en `http://localhost:4200`.
 3. Elegir el tipo de ajuste: porcentaje o valor fijo.
 4. Confirmar — los precios se actualizan de forma simultánea.
 
-## Panel de administración Django
+# Requerimientos Funcionales
+
+| ID | Nombre | Descripción | Prioridad | Estado | Módulo |
+| ----- | ----- | ----- | :---: | :---: | ----- |
+| **`RF-01`** | **Registro de productos** | El sistema debe permitir registrar productos con nombre, descripción, precio de costo, precio de venta, categoría y stock disponible. | **Alta** | Pendiente | Catálogo |
+| **`RF-02`** | **Escaneo de código de barras** | El sistema debe permitir cargar y buscar productos escaneando el código de barras con la cámara del dispositivo móvil. | **Alta** | Pendiente | Catálogo |
+| **`RF-03`** | **Búsqueda y filtros de productos** | El sistema debe ofrecer un buscador por nombre o código y filtros por categoría, rango de precio y disponibilidad de stock. | **Alta** | Pendiente | Catálogo |
+| **`RF-04`** | **Actualización masiva de precios** | El sistema debe permitir actualizar el precio de uno o varios productos simultáneamente, aplicando porcentaje o valor fijo a una selección o categoría completa. | **Alta** | Pendiente | Catálogo |
+| **`RF-05`** | **Registro de ventas** | El sistema debe registrar cada venta, descontando el stock de los productos vendidos automáticamente y generando un comprobante con fecha, productos y total. | **Alta** | Pendiente | Ventas |
+
+# Requerimientos No funcionales 
+
+| ID | Nombre | Descripción | Categoría | Criterio de aceptación |
+| ----- | ----- | ----- | :---: | ----- 
+|
+| **`RNF-01`** | **Usabilidad** | La interfaz debe ser intuitiva y simple, orientada a usuarios sin formación técnica. | **Usabilidad** | Un trabajador nuevo debe poder operar el sistema sin asistencia en menos de 10 minutos de capacitación inicial. |
+| **`RNF-02`** | **Rendimiento** | Las búsquedas y filtros deben devolver resultados de forma rápida incluso con catálogos grandes. | **Rendimiento** | Resultados de búsqueda en menos de 2 segundos con un catálogo de hasta 5.000 productos. |
+| **`RNF-03`** | **Compatibilidad móvil** | El sistema debe funcionar correctamente en dispositivos móviles para habilitar el escaneo de códigos de barras. | **Portabilidad** | Funcionalidad completa verificada en Android 10+ e iOS 14+ usando Chrome y Safari. |
+
+## Panel de Administración Django
 
 Accesible en `http://localhost:8000/admin` para gestión avanzada de usuarios,
 datos y configuración del sistema.
 
 # Integrantes y Roles
-
 
 | Nombre                           | Rol           | Correo                       | Github            | DNI      |
 | :------------------------------- | :------------ | :--------------------------- | :---------------- | :------- |
