@@ -103,8 +103,7 @@ El frontend quedará disponible en `http://localhost:4200`.
 # Requerimientos No funcionales 
 
 | ID | Nombre | Descripción | Categoría | Criterio de aceptación |
-| ----- | ----- | ----- | :---: | ----- 
-|
+| ----- | ----- | ----- | :---: | ----- |
 | **`RNF-01`** | **Usabilidad** | La interfaz debe ser intuitiva y simple, orientada a usuarios sin formación técnica. | **Usabilidad** | Un trabajador nuevo debe poder operar el sistema sin asistencia en menos de 10 minutos de capacitación inicial. |
 | **`RNF-02`** | **Rendimiento** | Las búsquedas y filtros deben devolver resultados de forma rápida incluso con catálogos grandes. | **Rendimiento** | Resultados de búsqueda en menos de 2 segundos con un catálogo de hasta 5.000 productos. |
 | **`RNF-03`** | **Compatibilidad móvil** | El sistema debe funcionar correctamente en dispositivos móviles para habilitar el escaneo de códigos de barras. | **Portabilidad** | Funcionalidad completa verificada en Android 10+ e iOS 14+ usando Chrome y Safari. |
