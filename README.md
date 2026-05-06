@@ -1,10 +1,26 @@
 # Libreria Nazareth📚
+ ![Estado](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
+![Versión](https://img.shields.io/badge/versión-1.0.0-blue)
+![Licencia](https://img.shields.io/badge/licencia-MIT-green)
 
 La plataforma para la librería busca agilizar el tiempo del trabajador a la hora de registrar los productos y realizar las ventas.
 
 # Fundamentación🔈
 
 Durante la pandemia cuando la economía fluctuaba se tenían que cambiar los precios uno por uno en cada producto del local, el cliente decidió empezar a buscar un método de organización digital el cual si bien ayudo, con el avanze del tiempo al incrementar la variedad de productos, volvió al problema principal, entonces en busca de un nuevo método le ofrecimos un sistema que le dejara registrar sus productos de manera más simple, realizar la carga del producto escaneando con el celular el código de barras y con un ágil sistema de búsqueda y filtros realizar las venta efectivizando el tiempo tanto del trabajador como del cliente.
+
+
+## Tecnologías utilizadas 
+| Capa | Tecnología | Versión |
+|-------------|-------------------|----------| 
+| Backend | Django | 5.x | 
+| API REST | Django RESTFramework | 3.x | 
+| Base de datos | PostgreSQL | 16.x | 
+| Frontend | Angular |17.x | 
+| Lenguajes | Python 3.11 / TypeScript 5 | |
+| Control de versiones | Git / GitHub |
+| Gestor de paquetes | pip / npm | |
+
 
 # Instrucciones de instalación
 
@@ -66,7 +82,7 @@ El frontend quedará disponible en `http://localhost:4200`.
 ## Registrar un producto
 
 1. Ir a **Catálogo → Nuevo producto**.
-2. Completar nombre, categoría, precio y stock.
+2. Completar rubro,nombre,descripción, marca, precio(costo y venta) y stock.
 3. Opcionalmente, escanear el código de barras con el celular pulsando el ícono de cámara.
 4. Guardar.
 
@@ -94,9 +110,9 @@ El frontend quedará disponible en `http://localhost:4200`.
 
 | ID | Nombre | Descripción | Prioridad | Estado | Módulo |
 | ----- | ----- | ----- | :---: | :---: | ----- |
-| **`RF-01`** | **Registro de productos** | El sistema debe permitir registrar productos con nombre, descripción, precio de costo, precio de venta, categoría y stock disponible. | **Alta** | Pendiente | Catálogo |
+| **`RF-01`** | **Registro de productos** | El sistema debe permitir registrar productos con nombre, descripción, precio de costo, precio de venta, marca,rubro y stock disponible. | **Alta** | Pendiente | Catálogo |
 | **`RF-02`** | **Escaneo de código de barras** | El sistema debe permitir cargar y buscar productos escaneando el código de barras con la cámara del dispositivo móvil. | **Alta** | Pendiente | Catálogo |
-| **`RF-03`** | **Búsqueda y filtros de productos** | El sistema debe ofrecer un buscador por nombre o código y filtros por categoría, rango de precio y disponibilidad de stock. | **Alta** | Pendiente | Catálogo |
+| **`RF-03`** | **Búsqueda y filtros de productos** | El sistema debe ofrecer un buscador por nombre o código y filtros por rubro, rango de precio y disponibilidad de stock. | **Alta** | Pendiente | Catálogo |
 | **`RF-04`** | **Actualización masiva de precios** | El sistema debe permitir actualizar el precio de uno o varios productos simultáneamente, aplicando porcentaje o valor fijo a una selección o categoría completa. | **Alta** | Pendiente | Catálogo |
 | **`RF-05`** | **Registro de ventas** | El sistema debe registrar cada venta, descontando el stock de los productos vendidos automáticamente y generando un comprobante con fecha, productos y total. | **Alta** | Pendiente | Ventas |
 
@@ -113,6 +129,14 @@ El frontend quedará disponible en `http://localhost:4200`.
 Accesible en `http://localhost:8000/admin` para gestión avanzada de usuarios,
 datos y configuración del sistema.
 
+## Variables de entorno 
+Crear un archivo `.env` en la raíz del backend con los siguientes
+valores: ```env SECRET_KEY=tu_clave_secreta_django DEBUG=True
+DB_NAME=nombre_base_de_datos DB_USER=postgres DB_PASSWORD=tu_contraseña
+DB_HOST=localhost DB_PORT=5432 ALLOWED_HOSTS=localhost,127.0.0.1 ```
+**Nunca subir el archivo `.env` al repositorio.**
+Agregarlo al `.gitignore`.
+
 # Integrantes y Roles
 
 | Nombre                           | Rol           | Correo                       | Github            | DNI      |
@@ -123,3 +147,12 @@ datos y configuración del sistema.
 | Gabriel Agustin Pavon Molina     | Oyente        | gabi.pavonmolina@gmail.com   | gabipavon01       | 43273165 |
 | Franco Agustin Trivini De Ejalde | Desarrollador | francodeelejalde@gmail.com   | Franco Trivini    | 41712450 |
 | Jesica Analia Aramayo            | Desarrollador | jessie.aramayo@gmail.com     | Jesica-A          | 38739456 |
+
+
+## Licencia 
+Este proyecto fue desarrollado con fines académicos. Distribuido bajo
+licencia [MIT](LICENSE). 
+## Contribuciones. 
+Este es un proyecto académico. 
+Para reportar errores o sugerencias, abrir un [Issue](https://github.com/usuario/repo/issues) en el
+repositorio.
