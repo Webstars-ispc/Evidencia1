@@ -70,7 +70,38 @@ ng serve
 El frontend quedará disponible en `http://localhost:4200`.
 
 ---
-
+# Arquitectura del sistema  
+```
++----------------+
+|   Navegador    |
+|   (Usuario)    |
++-------+--------+
+        |
+        | (Angular hace peticiones)
+        |
++-------v--------+
+|   Angular      |  <- Frontend (lo que ve el usuario / interfaz)
+|   (Puerto xxxx)|
++-------+--------+
+        |
+        | (HTTP - peticiones a dos servidores)
+        |
++-------v--------+          +----------------+
+|   Node.js      |          |    Django      |
+|   (Puerto xxxx)|          |   (Puerto xxxx)|
++-------+--------+          +-------+--------+
+peticiones rápidas          lógica compleja y seguridad
+(búsquedas)                 (pagos, actualización stock)
+        |                           |
+        | (ambos leen/escriben)     |
+        |                           |
+        +-----------v---------------+
+                    |
+            +-------v-------+
+            |    MySQL      |  <- Guarda todos los datos 
+            |  (Puerto xxxx)| 
+            +---------------+
+```
 # Uso básico
 
 ## Acceso al sistema
@@ -92,19 +123,14 @@ El frontend quedará disponible en `http://localhost:4200`.
 2. Apuntar la cámara al código del producto.
 3. El sistema completa automáticamente los campos del producto si ya existe en el catálogo.
 
-## Realizar una venta
+## Control stock
 
-1. Ir a **Ventas → Nueva venta**.
-2. Buscar productos por nombre, código o escaneando el código de barras.
-3. Ajustar cantidades en el carrito.
-4. Confirmar la venta — el stock se descuenta automáticamente y se genera el comprobante.
+1. Ir a **Buscar → filtros**.
+2. Buscar productos por nombre, código o escaneando el código de barras, rubro,marca.
+3. seleccionar producto.
+4. Mostrar detalle.
 
-## Actualizar precios en masa
 
-1. Ir a **Catálogo → Actualización de precios**.
-2. Seleccionar una categoría o productos individuales.
-3. Elegir el tipo de ajuste: porcentaje o valor fijo.
-4. Confirmar — los precios se actualizan de forma simultánea.
 
 # Requerimientos Funcionales
 
