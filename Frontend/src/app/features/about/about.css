@@ -9,7 +9,7 @@
 }
 
 .card {
-    background: #D2A047;
+    background: #AC9055;
     color: #eeeeee;
     transition: transform 0.2s ease-in-out;
     font-family: 'Raleway', sans-serif;
@@ -18,7 +18,9 @@
 .card:hover {
     transform: translateY(-10px);
 }
-
+.circle{
+    background-color: #284574;
+}
 .card-text{
     color: #eeeeee !important; 
 }
