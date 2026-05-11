@@ -1,10 +1,71 @@
-header {
-  background-color: #1e3a8a;
-  color: white;
-  padding: 20px 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Raleway:wght@300;400;500&display=swap');
+
+.header {
+  background: #161F48;
+  padding: 0 60px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #284574;
 }
 
-header h2 {
-  font-size: 28px;
+.header-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #E1C582;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.header-nav a {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #b8c4d8;
+  text-decoration: none;
+}
+
+.header-nav-link {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #b8c4d8;
+  text-decoration: none;
+}
+
+.header-nav-link:hover {
+  color: #E1C582;
+}
+
+.header-btn {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #161F48;
+  background: #D2A047;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
 }
