@@ -1,11 +1,24 @@
+.container h2,h3{
+    color: #E1C582;
+    font-family: 'Playfair Display', serif;
+}
+
+.container p,li{
+    color: #b8c4d8;
+    font-family: 'Raleway', sans-serif;
+}
+
 .card {
+    background: #D2A047;
+    color: #eeeeee;
     transition: transform 0.2s ease-in-out;
+    font-family: 'Raleway', sans-serif;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
 }
 
-h2 {
-    color: #2c3e50;
+.card-text{
+    color: #eeeeee !important; 
 }
