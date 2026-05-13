@@ -18,4 +18,8 @@ export const routes: Routes = [
         path: 'info',
         loadComponent: () => import('./features/info/info').then(c => c.Info)
     },
+    {
+        path: 'home',
+        loadComponent: () => import('./features/home/home').then(c => c.Home)
+    },
 ];
