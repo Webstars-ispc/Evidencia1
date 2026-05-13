@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Raleway:wght@300;400;500&display=swap');
+
+.login-page {
+  background: #161F48;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+.login-card {
+  background: #1C2E5D;
+  border: 1px solid #284574;
+  border-radius: 8px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: #E1C582;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 11px;
+  color: #7a8fad;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  color: #b8c4d8;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  background: #161F48;
+  border: 1px solid #284574;
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #E1C582;
+  font-family: 'Raleway', sans-serif;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.form-group input::placeholder {
+  color: #7a8fad;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #D2A047;
+}
+
+.form-group select option {
+  background: #161F48;
+}
+
+.btn-login {
+  width: 100%;
+  background: #D2A047;
+  color: #161F48;
+  border: none;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  margin-top: 8px;
+}
