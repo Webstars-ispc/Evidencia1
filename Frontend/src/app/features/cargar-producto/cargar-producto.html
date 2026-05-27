@@ -6,19 +6,32 @@
         <p class="form-subtitle">Ingresa los detalles de tu nuevo producto</p>
       </div>
 
+      <!-- Mensajes de feedback general -->
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
       <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form">
         
         <!-- Nombre y Código de Barras -->
         <div class="form-row">
           <div class="form-group">
             <label for="nombre" class="form-label">Nombre del Producto</label>
-            <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ej: Cuaderno Rivadavia 100 hojas">
+            <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ej: Cuaderno Rivadavia 100 hojas"
+                   [class.is-invalid]="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+            <div *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)" class="invalid-feedback">
+              <div *ngIf="nombre?.errors?.['required']">El nombre es obligatorio.</div>
+              <div *ngIf="nombre?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="codigo_barras" class="form-label">Código de Barras</label>
             <div class="input-with-button">
-              <input type="text" id="codigo_barras" class="form-control" formControlName="codigo_barras" placeholder="Escanee o ingrese">
+              <input type="text" id="codigo_barras" class="form-control" formControlName="codigo_barras" placeholder="Escanee o ingrese"
+                     [class.is-invalid]="codigo_barras?.invalid && (codigo_barras?.dirty || codigo_barras?.touched)">
               <button type="button" class="btn-scan" (click)="onEscanear()">📱 Escanear</button>
+            </div>
+            <div *ngIf="codigo_barras?.invalid && (codigo_barras?.dirty || codigo_barras?.touched)" class="invalid-feedback">
+              <div *ngIf="codigo_barras?.errors?.['pattern']">El código de barras debe ser numérico (8-13 dígitos).</div>
             </div>
           </div>
         </div>
@@ -27,20 +40,29 @@
         <div class="form-row">
           <div class="form-group">
             <label for="rubro" class="form-label">Rubro</label>
-            <select id="rubro" class="form-control" formControlName="rubro">
+            <select id="rubro" class="form-control" formControlName="rubro"
+                    [class.is-invalid]="rubro?.invalid && (rubro?.dirty || rubro?.touched)">
               <option value="">Seleccione un rubro</option>
               <option value="1">Librería</option>
               <option value="2">Bazar</option>
               <option value="3">Cotillón</option>
             </select>
+            <div *ngIf="rubro?.invalid && (rubro?.dirty || rubro?.touched)" class="invalid-feedback">
+              <div *ngIf="rubro?.errors?.['required']">El rubro es obligatorio.</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="marca" class="form-label">Marca (Opcional)</label>
-            <select id="marca" class="form-control" formControlName="marca">
+            <select id="marca" class="form-control" formControlName="marca"
+                    [class.is-invalid]="marca?.invalid && (marca?.dirty || marca?.touched)">
               <option value="">Seleccione una marca</option>
               <option value="1">Rivadavia</option>
               <option value="2">Éxito</option>
             </select>
+            <!-- No hay validación requerida para marca, pero se mantiene la clase por consistencia si se añade en el futuro -->
+            <div *ngIf="marca?.invalid && (marca?.dirty || marca?.touched)" class="invalid-feedback">
+              <!-- Mensajes de error para marca si se añaden validaciones -->
+            </div>
           </div>
         </div>
 
@@ -48,21 +70,37 @@
         <div class="form-group full-width">
           <label for="descripcion" class="form-label">Descripción</label>
           <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="3" placeholder="Detalles y características del producto..."></textarea>
+          <!-- No hay validación requerida para descripción -->
         </div>
 
         <!-- Precios y Stock -->
         <div class="form-row">
           <div class="form-group">
             <label for="precio_costo" class="form-label">Precio Costo</label>
-            <input type="number" id="precio_costo" class="form-control" formControlName="precio_costo" placeholder="0.00">
+            <input type="number" id="precio_costo" class="form-control" formControlName="precio_costo" placeholder="0.00" step="0.01"
+                   [class.is-invalid]="precio_costo?.invalid && (precio_costo?.dirty || precio_costo?.touched)">
+            <div *ngIf="precio_costo?.invalid && (precio_costo?.dirty || precio_costo?.touched)" class="invalid-feedback">
+              <div *ngIf="precio_costo?.errors?.['required']">El precio de costo es obligatorio.</div>
+              <div *ngIf="precio_costo?.errors?.['min']">El precio de costo debe ser mayor a 0.</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="precio_venta" class="form-label">Precio Venta</label>
-            <input type="number" id="precio_venta" class="form-control" formControlName="precio_venta" placeholder="0.00">
+            <input type="number" id="precio_venta" class="form-control" formControlName="precio_venta" placeholder="0.00" step="0.01"
+                   [class.is-invalid]="precio_venta?.invalid && (precio_venta?.dirty || precio_venta?.touched) && !precio_venta?.errors?.['precioVentaInvalido']">
+            <div *ngIf="precio_venta?.invalid && (precio_venta?.dirty || precio_venta?.touched)" class="invalid-feedback">
+              <div *ngIf="precio_venta?.errors?.['required']">El precio de venta es obligatorio.</div>
+              <div *ngIf="precio_venta?.errors?.['min']">El precio de venta debe ser mayor a 0.</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="stock" class="form-label">Stock Inicial</label>
-            <input type="number" id="stock" class="form-control" formControlName="stock" placeholder="0">
+            <input type="number" id="stock" class="form-control" formControlName="stock" placeholder="0"
+                   [class.is-invalid]="stock?.invalid && (stock?.dirty || stock?.touched)">
+            <div *ngIf="stock?.invalid && (stock?.dirty || stock?.touched)" class="invalid-feedback">
+              <div *ngIf="stock?.errors?.['required']">El stock es obligatorio.</div>
+              <div *ngIf="stock?.errors?.['min']">El stock no puede ser negativo.</div>
+            </div>
           </div>
         </div>
 

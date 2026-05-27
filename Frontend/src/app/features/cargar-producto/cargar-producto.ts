@@ -1,18 +1,20 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { CommonModule, NgIf } from '@angular/common';
 import { ProductoService } from '../../services/producto.service';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 
 @Component({
   selector: 'app-registro-producto',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NgIf],
   templateUrl: './cargar-producto.html',
   styleUrl: './cargar-producto.css'
 })
 export class CargarProducto implements OnInit {
   form: FormGroup;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
   mostrarScanner = false;
   leyendoCodigoBarras = false;
   videoRotation = 0;
@@ -26,17 +28,28 @@ export class CargarProducto implements OnInit {
     private formBuilder: FormBuilder,
     private productoService: ProductoService
   ) {
-    this.form = this.formBuilder.group({
-      nombre: ['', [Validators.required]],
-      descripcion: [''],
-      codigo_barras: [''],
-      precio_costo: ['', [Validators.required, Validators.min(0)]],
-      precio_venta: ['', [Validators.required, Validators.min(0)]],
-      stock: [0, [Validators.required, Validators.min(0)]],
-      rubro: ['', [Validators.required]],
-      marca: ['']
-    });
+    this.form = this.formBuilder.group(
+      {
+        nombre: ['', [Validators.required, Validators.minLength(3)]],
+        descripcion: [''],
+        codigo_barras: ['', [Validators.pattern(/^[0-9]{8,13}$/)]], // Ejemplo: 8 a 13 dígitos numéricos
+        precio_costo: ['', [Validators.required, Validators.min(0.01)]], // Mínimo 0.01 para evitar 0
+        precio_venta: ['', [Validators.required, Validators.min(0.01)]],
+        stock: [0, [Validators.required, Validators.min(0)]],
+        rubro: ['', [Validators.required]],
+        marca: ['']
+      }
+    );
   }
+
+  get nombre(): AbstractControl | null { return this.form.get('nombre'); }
+  get descripcion(): AbstractControl | null { return this.form.get('descripcion'); }
+  get codigo_barras(): AbstractControl | null { return this.form.get('codigo_barras'); }
+  get precio_costo(): AbstractControl | null { return this.form.get('precio_costo'); }
+  get precio_venta(): AbstractControl | null { return this.form.get('precio_venta'); }
+  get stock(): AbstractControl | null { return this.form.get('stock'); }
+  get rubro(): AbstractControl | null { return this.form.get('rubro'); }
+  get marca(): AbstractControl | null { return this.form.get('marca'); }
 
   ngOnInit(): void {
   }
@@ -145,23 +158,27 @@ export class CargarProducto implements OnInit {
   }
 
   onEnviar(event: Event): void {
-    event.preventDefault();
+    event.preventDefault(); 
+
+    this.successMessage = null;
+    this.errorMessage = null; 
 
     if (this.form.valid) {
       const nuevoProducto = this.form.value;
-
-      nuevoProducto.rubro = parseInt(nuevoProducto.rubro, 10);
-
+      nuevoProducto.rubro = nuevoProducto.rubro ? parseInt(nuevoProducto.rubro, 10) : null;
       if (nuevoProducto.marca && nuevoProducto.marca !== '') {
         nuevoProducto.marca = parseInt(nuevoProducto.marca, 10);
       } else {
         nuevoProducto.marca = null;
       }
+      nuevoProducto.precio_costo = parseFloat(nuevoProducto.precio_costo);
+      nuevoProducto.precio_venta = parseFloat(nuevoProducto.precio_venta);
+      nuevoProducto.stock = parseInt(nuevoProducto.stock, 10);
 
       this.productoService.guardarProducto(nuevoProducto).subscribe({
         next: (response: any) => {
           console.log('¡Producto guardado!', response);
-          alert('Producto guardado correctamente en la base de datos.');
+          this.successMessage = 'Producto guardado correctamente.';
           this.form.reset({ stock: 0, rubro: '', marca: '' });
         },
         error: (error: any) => {
@@ -170,6 +187,9 @@ export class CargarProducto implements OnInit {
         }
       });
     }
+    else {
+      this.form.markAllAsTouched();
+      this.errorMessage = 'Por favor, corrige los errores del formulario.';
+    }
   }
 }
-
