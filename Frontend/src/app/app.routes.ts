@@ -30,4 +30,8 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./features/home/home').then(c => c.Home)
   },
+  {
+    path: 'stock',
+    loadComponent: () => import('./features/stock/stock.component').then(c => c.StockComponent)
+  },
 ];
