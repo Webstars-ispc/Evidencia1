@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Raleway:wght@300;400;500&display=swap');
+
+:root {
+  --bg-dark: #161F48;
+  --card-bg: #1C2E5D;
+  --border-color: #284574;
+  --text-muted: #b8c4d8;
+  --text-accent: #E1C582;
+  --text-focus: #D2A047;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  min-height: 100vh;
+  background: #161F48 !important;
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+}
+
+.content-wrapper {
+  width: 100%;
+  max-width: 700px;
+}
+
+.form-section {
+  background: #1C2E5D !important;
+  border: 1px solid #284574 !important;
+  border-radius: 8px;
+  padding: 50px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #E1C582 !important;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.form-subtitle {
+  font-size: 11px;
+  color: #b8c4d8 !important;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #b8c4d8 !important;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-with-button .form-control {
+  flex: 1;
+}
+
+.btn-scan {
+  background: #E1C582 !important;
+  border: 1px solid #284574 !important;
+  border-radius: 4px;
+  color: #1C2E5D !important;
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Raleway', sans-serif;
+  white-space: nowrap;
+}
+
+.btn-scan:hover {
+  background: #D2A047 !important;
+  transform: translateY(-1px);
+}
+
+.btn-scan:active {
+  transform: translateY(0);
+}
+
+.form-control {
+  background: #161F48 !important;
+  border: 1px solid #284574 !important;
+  border-radius: 4px;
+  color: #E1C582 !important;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.form-control::placeholder {
+  color: #7a8fad !important;
+}
+
+.form-control:focus {
+  outline: none !important;
+  border-color: #D2A047 !important;
+}
+
+textarea.form-control {
+  resize: vertical;
+  font-family: 'Raleway', sans-serif;
+}
+
+.btn-submit {
+  width: 100%;
+  background: #E1C582 !important;
+  border: none !important;
+  color: #1C2E5D !important;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 12px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #D2A047 !important;
+  transform: translateY(-1px);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .page-container {
+    padding: 20px 12px;
+  }
+
+  .form-section {
+    padding: 30px 20px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full-width {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-section {
+    padding: 24px 16px;
+  }
+
+  .form-title {
+    font-size: 20px;
+  }
+
+  .form-subtitle {
+    font-size: 12px;
+  }
+}
+
+/* Scanner Modal */
+.scanner-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.scanner-content {
+  background: #1C2E5D;
+  border: 1px solid #284574;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #284574;
+  color: #E1C582;
+  font-family: 'Playfair Display', serif;
+}
+
+.scanner-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: #E1C582;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-close:hover {
+  color: #D2A047;
+  transform: scale(1.1);
+}
+
+.scanner-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.video-scanner {
+  width: 100%;
+  border-radius: 4px;
+  background: #000;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.scanner-info {
+  text-align: center;
+  color: #E1C582;
+  font-size: 14px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.scanner-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #284574;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #284574 !important;
+  border: 1px solid #284574 !important;
+  color: #E1C582 !important;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background: #1C2E5D !important;
+  border-color: #E1C582 !important;
+}

@@ -1,0 +1,100 @@
+<div class="page-container">
+  <div class="content-wrapper">
+    <div class="form-section">
+      <div class="form-header">
+        <h1 class="form-title">Cargar Producto</h1>
+        <p class="form-subtitle">Ingresa los detalles de tu nuevo producto</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form">
+        
+        <!-- Nombre y Código de Barras -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre" class="form-label">Nombre del Producto</label>
+            <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ej: Cuaderno Rivadavia 100 hojas">
+          </div>
+          <div class="form-group">
+            <label for="codigo_barras" class="form-label">Código de Barras</label>
+            <div class="input-with-button">
+              <input type="text" id="codigo_barras" class="form-control" formControlName="codigo_barras" placeholder="Escanee o ingrese">
+              <button type="button" class="btn-scan" (click)="onEscanear()">📱 Escanear</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rubro y Marca -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rubro" class="form-label">Rubro</label>
+            <select id="rubro" class="form-control" formControlName="rubro">
+              <option value="">Seleccione un rubro</option>
+              <option value="1">Librería</option>
+              <option value="2">Bazar</option>
+              <option value="3">Cotillón</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="marca" class="form-label">Marca (Opcional)</label>
+            <select id="marca" class="form-control" formControlName="marca">
+              <option value="">Seleccione una marca</option>
+              <option value="1">Rivadavia</option>
+              <option value="2">Éxito</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-group full-width">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="3" placeholder="Detalles y características del producto..."></textarea>
+        </div>
+
+        <!-- Precios y Stock -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="precio_costo" class="form-label">Precio Costo</label>
+            <input type="number" id="precio_costo" class="form-control" formControlName="precio_costo" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label for="precio_venta" class="form-label">Precio Venta</label>
+            <input type="number" id="precio_venta" class="form-control" formControlName="precio_venta" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label for="stock" class="form-label">Stock Inicial</label>
+            <input type="number" id="stock" class="form-control" formControlName="stock" placeholder="0">
+          </div>
+        </div>
+
+        <!-- Botón Enviar -->
+        <button type="submit" class="btn-submit" [disabled]="form.invalid">
+          Guardar Producto
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal del Scanner -->
+<div class="scanner-modal" *ngIf="mostrarScanner">
+  <div class="scanner-content">
+    <div class="scanner-header">
+      <h2>Escanear Código de Barras</h2>
+      <button type="button" class="btn-close" (click)="cerrarScanner()">✕</button>
+    </div>
+    
+    <div class="scanner-body">
+      <video id="video-scanner" class="video-scanner" autoplay muted playsinline [style.transform]="'rotate(' + videoRotation + 'deg)'" ></video>
+      <button type="button" class="btn-scan" (click)="toggleRotacionVideo()">
+        {{ videoRotation === 0 ? 'Girar video 180°' : 'Volver normal' }}
+      </button>
+      <div class="scanner-info">
+        <p *ngIf="leyendoCodigoBarras">📹 Apunta la cámara al código de barras...</p>
+      </div>
+    </div>
+    
+    <div class="scanner-footer">
+      <button type="button" class="btn-cancel" (click)="cerrarScanner()">Cancelar</button>
+    </div>
+  </div>
+</div>
