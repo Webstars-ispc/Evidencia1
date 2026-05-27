@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./features/login/login').then(c => c.Login),
-    title: 'Acceso al Sistema'
+    title: 'Iniciar Sesión'
   },
   {
     path: 'menu',
