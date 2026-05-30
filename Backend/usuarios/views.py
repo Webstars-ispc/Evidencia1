@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, serializers
 from django.contrib.auth.models import User
-from .serializers import RegisterSerializer, UserSerializer
+from .serializers import RegisterSerializer, UserSerializer, EmailTokenObtainPairSerializer
 from .permissions import IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
@@ -12,6 +12,7 @@ class RegisterView(generics.CreateAPIView):
 
 class LoginView(TokenObtainPairView):
     permission_classes = (permissions.AllowAny,)
+    serializer_class = EmailTokenObtainPairSerializer
 
 class RefreshView(TokenRefreshView):
     permission_classes = (permissions.AllowAny,)

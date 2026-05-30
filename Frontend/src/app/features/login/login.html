@@ -3,17 +3,20 @@
     <div class="login-logo">Librería Nazareth</div>
     <div class="login-subtitle">Sistema de gestión</div>
 
+    <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
     <div class="form-group">
-      <label>Usuario / Email</label>
-      <input type="email" placeholder="ejemplo@correo.com" />
+      <label>Email</label>
+      <input type="email" placeholder="ejemplo@correo.com" [(ngModel)]="email"/>
     </div>
 
     <div class="form-group">
       <label>Contraseña</label>
-      <input type="password" placeholder="••••••••" />
+      <input type="password" placeholder="••••••••" [(ngModel)]="password"/>
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label>Rol</label>
       <select>
         <option value="">Seleccioná tu rol</option>
@@ -21,8 +24,8 @@
         <option value="vendedor">Vendedor</option>
         <option value="invitado">Invitado</option>
       </select>
-    </div>
+    </div> -->
 
-    <button class="btn-login">Iniciar sesión</button>
+    <button class="btn-login" (click)="onLogin()">Iniciar sesión</button>
   </div>
 </div>

@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User, Group
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=6)
@@ -32,3 +34,37 @@ class UserSerializer(serializers.ModelSerializer):
         # Devuelve el primer grupo del usuario (o None si no tiene)
         group = obj.groups.first()
         return group.name if group else None
+    
+class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
+    #forzamos que busque por email (tiene por defecto username)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Reemplazamos el campo username por email
+        self.fields['email'] = serializers.CharField(required=True)
+        self.fields.pop('username', None)
+
+    def validate(self, attrs):
+        # Attrs ya tiene 'email' y 'password'
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        # Buscamos al usuario por email
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError('Credenciales inválidas.')
+
+        # Verificamos la contraseña
+        if not user.check_password(password):
+            raise serializers.ValidationError('Credenciales inválidas.')
+
+        if not user.is_active:
+            raise serializers.ValidationError('Usuario inactivo.')
+
+        # Generamos los tokens
+        refresh = self.get_token(user)
+        data = {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
+        return data
