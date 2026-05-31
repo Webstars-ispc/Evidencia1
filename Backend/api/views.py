@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Rubro, Marca, Producto, Usuario
-from .serializers import RubroSerializer, MarcaSerializer, ProductoSerializer, UsuarioSerializer
+from .models import Rubro, Marca, Producto
+from .serializers import RubroSerializer, MarcaSerializer, ProductoSerializer
 
 class RubroViewSet(viewsets.ModelViewSet):
     queryset = Rubro.objects.all()
@@ -13,7 +13,3 @@ class MarcaViewSet(viewsets.ModelViewSet):
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
-
-class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
