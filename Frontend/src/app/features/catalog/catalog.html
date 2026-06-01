@@ -1,1 +1,146 @@
-<p>catalog works!</p>
+<div class="catalog-container">
+
+  <div class="catalog-header">
+    <h1 class="catalog-title">Catálogo de Productos</h1>
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar producto..."
+        [value]="busqueda()"
+        (input)="onBusquedaChange($event)"
+        (focus)="onSearchFocus()"
+      />
+      @if (sugerenciasVisibles()) {
+        <div class="suggestions-box">
+          @for (s of sugerencias(); track s.id) {
+            <button class="suggestion-item" (click)="seleccionarSugerencia(s)">
+              <span class="suggestion-name">{{ s.nombre }}</span>
+              <span class="suggestion-code">{{ s.codigo_barras }}</span>
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="actions-bar">
+    <button class="btn-action btn-add" routerLink="/cargar-producto">
+      Agregar Producto
+    </button>
+    <span class="btn-tooltip">
+      <button
+        class="btn-action btn-edit"
+        [class.btn-active]="puedeEditar()"
+        [disabled]="!puedeEditar()"
+      >
+        Editar Producto
+      </button>
+      @if (!puedeEditar()) {
+        <span class="tooltip-text">Selecciona 1 producto para editar</span>
+      }
+    </span>
+    <span class="btn-tooltip">
+      <button
+        class="btn-action btn-delete"
+        [class.btn-active]="puedeEliminar()"
+        [disabled]="!puedeEliminar()"
+        (click)="abrirModal()"
+      >
+        Eliminar Producto
+      </button>
+      @if (!puedeEliminar()) {
+        <span class="tooltip-text">Selecciona al menos 1 producto para eliminar</span>
+      }
+    </span>
+  </div>
+
+  @if (cargando()) {
+    <p class="loading-text">Cargando productos...</p>
+  } @else {
+    <div class="table-responsive">
+      <table class="catalog-table">
+        <thead>
+          <tr>
+            <th class="col-check">
+              <input
+                type="checkbox"
+                [checked]="todosSeleccionados()"
+                (change)="toggleSeleccionTodos()"
+              />
+            </th>
+            @for (col of columnas; track col.key) {
+              <th>{{ col.label }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (producto of productosPagina(); track producto.id) {
+            <tr
+              class="catalog-row"
+              [class.row-selected]="isSelected(producto.id)"
+            >
+              <td class="col-check">
+                <input
+                  type="checkbox"
+                  [checked]="isSelected(producto.id)"
+                  (change)="toggleSeleccion(producto.id)"
+                />
+              </td>
+              @for (col of columnas; track col.key) {
+                <td>{{ celdaValue(producto, col.key) }}</td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td [attr.colspan]="columnas.length + 1" class="empty-row">
+                No hay productos para mostrar.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    @if (totalPaginas() > 1) {
+      <div class="pagination-bar">
+        <button
+          class="page-btn"
+          [disabled]="paginaActual() === 1"
+          (click)="irPagina(paginaActual() - 1)"
+        >
+          ‹
+        </button>
+        @for (p of paginasVisibles(); track $index) {
+          @if (p === '...') {
+            <span class="page-dots">…</span>
+          } @else {
+            <button
+              class="page-btn"
+              [class.page-active]="paginaActual() === p"
+              (click)="irPagina(p)"
+            >
+              {{ p }}
+            </button>
+          }
+        }
+        <button
+          class="page-btn"
+          [disabled]="paginaActual() === totalPaginas()"
+          (click)="irPagina(paginaActual() + 1)"
+        >
+          ›
+        </button>
+      </div>
+    }
+  }
+</div>
+
+@if (mostrandoModal()) {
+  <app-delete-modal
+    [cantidad]="cantidadSeleccionados()"
+    (confirmar)="confirmarEliminacion()"
+    (cancelar)="cerrarModal()"
+  />
+}

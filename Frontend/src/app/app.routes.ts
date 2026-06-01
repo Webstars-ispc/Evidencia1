@@ -39,6 +39,11 @@ export const routes: Routes = [
     title: 'Panel Principal'
   },
   {
+    path: 'catalogo',
+    loadComponent: () => import('./features/catalog/catalog').then(c => c.Catalog),
+    title: 'Catálogo de Productos'
+  },
+  {
     path: 'stock',
     loadComponent: () => import('./features/stock/stock.component').then(c => c.StockComponent),
     title: 'Gestión de Inventario'
