@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Hero } from './features/hero/hero';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -19,34 +20,33 @@ export const routes: Routes = [
     title: 'Iniciar Sesión'
   },
   {
-    path: 'menu',
-    loadComponent: () => import('./features/menu/menu.component').then(c => c.MenuComponent),
-    title: 'Menú de Operaciones'
-  },
-  {
-    path: 'cargar-producto',
-    loadComponent: () => import('./features/cargar-producto/cargar-producto').then(c => c.CargarProducto),
-    title: 'Registrar Producto'
-  },
-  {
     path: 'info',
     loadComponent: () => import('./features/info/info').then(c => c.Info),
     title: 'Información del Sistema'
   },
   {
+    path: 'cargar-producto',
+    loadComponent: () => import('./features/cargar-producto/cargar-producto').then(c => c.CargarProducto),
+    title: 'Registrar Producto',
+    canActivate: [authGuard]
+  },
+  {
     path: 'home',
     loadComponent: () => import('./features/home/home').then(c => c.Home),
-    title: 'Panel Principal'
+    title: 'Panel Principal',
+    canActivate: [authGuard]
   },
   {
     path: 'catalogo',
     loadComponent: () => import('./features/catalog/catalog').then(c => c.Catalog),
-    title: 'Catálogo de Productos'
+    title: 'Catálogo de Productos',
+    canActivate: [authGuard]
   },
   {
     path: 'stock',
     loadComponent: () => import('./features/stock/stock.component').then(c => c.StockComponent),
-    title: 'Gestión de Inventario'
+    title: 'Gestión de Inventario',
+    canActivate: [authGuard]
   },
   {
     path: '**',

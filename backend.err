@@ -1,40 +1,26 @@
 Watching for file changes with StatReloader
-[01/Jun/2026 13:05:51] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:05:51] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:05:51] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:07:18] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:07:18] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:07:18] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:10:58] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:10:58] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:10:58] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:11:01] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:11:01] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:11:01] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:15:50] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:15:50] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:15:50] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:15:54] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:15:54] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:15:54] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:22:21] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:22:21] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:22:21] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 13:31:31] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 13:31:31] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 13:31:31] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 14:14:10] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 14:14:10] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 14:14:10] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 14:20:06] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 14:20:06] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 14:20:06] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 14:20:43] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 14:20:43] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 14:20:43] "GET /api/productos/ HTTP/1.1" 200 25154
-[01/Jun/2026 14:23:34] "GET /api/rubros/ HTTP/1.1" 200 625
-[01/Jun/2026 14:23:34] "GET /api/marcas/ HTTP/1.1" 200 456
-[01/Jun/2026 14:23:34] "GET /api/productos/ HTTP/1.1" 200 25154
+Bad Request: /api/auth/login/
+[01/Jun/2026 15:33:29] "POST /api/auth/login/ HTTP/1.1" 400 107
+[01/Jun/2026 15:33:36] "POST /api/auth/login/ HTTP/1.1" 200 489
+[01/Jun/2026 15:33:36,677] - Broken pipe from ('127.0.0.1', 56386)
+[01/Jun/2026 15:33:43] "POST /api/auth/login/ HTTP/1.1" 200 489
+[01/Jun/2026 15:33:43,674] - Broken pipe from ('127.0.0.1', 56389)
+Bad Request: /api/auth/login/
+[01/Jun/2026 15:33:55] "POST /api/auth/login/ HTTP/1.1" 400 49
+[01/Jun/2026 15:33:55,270] - Broken pipe from ('127.0.0.1', 61452)
+Bad Request: /api/auth/login/
+[01/Jun/2026 15:34:03] "POST /api/auth/login/ HTTP/1.1" 400 49
+[01/Jun/2026 15:34:03,078] - Broken pipe from ('127.0.0.1', 58380)
+[01/Jun/2026 15:36:09] "POST /api/auth/login/ HTTP/1.1" 200 489
+[01/Jun/2026 15:36:09,461] - Broken pipe from ('127.0.0.1', 57769)
+[01/Jun/2026 15:36:55] "OPTIONS /api/auth/login/ HTTP/1.1" 200 0
+Bad Request: /api/auth/login/
+[01/Jun/2026 15:36:56] "POST /api/auth/login/ HTTP/1.1" 400 49
+Bad Request: /api/auth/login/
+[01/Jun/2026 15:36:58] "POST /api/auth/login/ HTTP/1.1" 400 49
+[01/Jun/2026 15:37:04] "POST /api/auth/login/ HTTP/1.1" 200 489
+[01/Jun/2026 15:37:05] "POST /api/auth/login/ HTTP/1.1" 200 489
+[01/Jun/2026 15:37:34] "POST /api/auth/login/ HTTP/1.1" 200 489
 C:\Users\frand\Documents\Repositorios\Proyecto integrador\Evidencia1\Backend\config\settings.py changed, reloading.
 Watching for file changes with StatReloader
 Exception in thread django-main-thread:

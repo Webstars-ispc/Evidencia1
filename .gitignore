@@ -11,5 +11,9 @@ dist/
 
 # Sistema
 Thumbs.db
-.DS_StoreTODO.md
+.DS_Store
 TODO.md
+
+# Logs
+*.log
+*.err

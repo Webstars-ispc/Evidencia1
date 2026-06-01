@@ -3,27 +3,32 @@
     <div class="login-logo">Librería Nazareth</div>
     <div class="login-subtitle">Sistema de gestión</div>
 
-    <div class="form-group">
-      <label>Usuario / Email</label>
-      <input type="email" placeholder="ejemplo@correo.com" />
-    </div>
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+    @if (successMessage) {
+      <div class="alert alert-success">{{ successMessage }}</div>
+    }
 
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" placeholder="••••••••" />
-    </div>
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="ejemplo@correo.com" [(ngModel)]="email" name="email" />
+      </div>
 
-    <div class="form-group">
-      <label>Rol</label>
-      <select>
-        <option value="">Seleccioná tu rol</option>
-        <option value="admin">Administrador</option>
-        <option value="vendedor">Vendedor</option>
-        <option value="invitado">Invitado</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" placeholder="••••••••" [(ngModel)]="password" name="password" />
+      </div>
 
-    <button class="btn-login" type="button" (click)="onLogin()">Iniciar sesión</button>
+      <button class="btn-login" type="submit" [disabled]="cargando()">
+        @if (cargando()) {
+          Cargando…
+        } @else {
+          Iniciar sesión
+        }
+      </button>
+    </form>
 
   </div>
 </div>
