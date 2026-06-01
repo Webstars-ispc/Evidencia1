@@ -39,8 +39,6 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=50, blank=True, null=True)
     apellido = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField(max_length=50, unique=True)
-
-    # Campos de 'auth' (para que admin/login no explote)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
