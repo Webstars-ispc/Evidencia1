@@ -1,13 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Raleway:wght@300;400;500&display=swap');
-
 .header {
   background: #161F48;
-  padding: 0 60px;
+  border-bottom: 1px solid #284574;
+}
+
+.header-inner {
+  max-width: 95%;
+  margin: 0 auto;
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #284574;
 }
 
 .header-logo {
@@ -23,22 +25,6 @@
   display: flex;
   align-items: center;
   gap: 32px;
-}
-
-.header-nav {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-.header-nav a {
-  font-family: 'Raleway', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #b8c4d8;
-  text-decoration: none;
 }
 
 .header-nav-link {
@@ -68,4 +54,47 @@
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .header-right {
+    gap: 8px;
+  }
+
+  .header-logo {
+    font-size: 15px;
+  }
+
+  .header-nav-link {
+    font-size: 9px;
+    letter-spacing: 0.5px;
+  }
+
+  .header-btn {
+    font-size: 9px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .header-inner {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .header-nav-link {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+  .header-btn {
+    font-size: 8px;
+    padding: 5px 10px;
+  }
 }

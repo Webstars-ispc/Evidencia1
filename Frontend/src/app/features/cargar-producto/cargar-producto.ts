@@ -6,7 +6,6 @@ import { BrowserMultiFormatReader } from '@zxing/browser';
 
 @Component({
   selector: 'app-registro-producto',
-  standalone: true,
   imports: [ReactiveFormsModule, CommonModule, NgIf],
   templateUrl: './cargar-producto.html',
   styleUrl: './cargar-producto.css'
