@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-balance',
-  standalone: true,
   imports: [CommonModule],
   template: `
     <div class="page">
