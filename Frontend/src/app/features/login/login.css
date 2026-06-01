@@ -33,6 +33,26 @@
   margin-bottom: 36px;
 }
 
+.alert {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.alert-error {
+  background: #4a1c1c;
+  border: 1px solid #e74c3c;
+  color: #f5b7b1;
+}
+
+.alert-success {
+  background: #1a3d2e;
+  border: 1px solid #2ecc71;
+  color: #a9dfbf;
+}
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -88,4 +108,10 @@
   cursor: pointer;
   font-family: 'Raleway', sans-serif;
   margin-top: 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

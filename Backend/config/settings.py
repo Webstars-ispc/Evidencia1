@@ -62,25 +62,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# SQLite config (comment/uncomment when SQLite is needed)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'librerianazareth'),
-        'USER': os.getenv('DB_USER', 'clauana'),
-        'PASSWORD': os.getenv('DB_PASSWORD', '2026'),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3306'),
-        'use_pure_python': True,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# MySQL config (comment/uncomment when MySQL is available)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.getenv('DB_NAME', 'librerianazareth'),
+#         'USER': os.getenv('DB_USER', 'clauana'),
+#         'PASSWORD': os.getenv('DB_PASSWORD', '2026'),
+#         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+#         'PORT': os.getenv('DB_PORT', '3306'),
+#         'use_pure_python': True,
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -126,8 +126,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-from django.db.backends.mysql.base import DatabaseWrapper
-DatabaseWrapper.features_class.can_return_columns_from_insert = False
-DatabaseWrapper.features_class.can_return_rows_from_bulk_insert = False
-from django.db.backends.base.base import BaseDatabaseWrapper
-BaseDatabaseWrapper.check_database_version_supported = lambda self: None
+# from django.db.backends.mysql.base import DatabaseWrapper
+# DatabaseWrapper.features_class.can_return_columns_from_insert = False
+# DatabaseWrapper.features_class.can_return_rows_from_bulk_insert = False
+# from django.db.backends.base.base import BaseDatabaseWrapper
+# BaseDatabaseWrapper.check_database_version_supported = lambda self: None
