@@ -25,50 +25,79 @@ Durante la pandemia cuando la economía fluctuaba se tenían que cambiar los pre
 # Instrucciones de instalación
 
 ## Requisitos previos
+Antes de empezar, necesitás tener instalado:
 
-- Python 3.10+
-- Node.js 18+
+- [Python 3.10 o superior](https://www.python.org/downloads/)
+- [Node.js 18 o superior](https://nodejs.org/) (incluye npm)
+- [Git](https://git-scm.com/downloads)
+- [XAMPP](https://www.apachefriends.org/) (incluye MariaDB) o MySQL standalone
 - npm 9+
-- Git
+- Editor de código recomendado: [VS Code](https://code.visualstudio.com/)
 - Irium Cam
 
-## Backend — Django
+# 🚀 Instalación paso a paso
+
+## 1. Clonar el repositorio
 
 ```bash
-
-git clone https://github.com/tu-org/libreria-nazareth.git
-cd libreria-nazareth
-
-
-python -m venv venv
-source venv/bin/activate        # Linux/macOS
-venv\Scripts\activate           # Windows
-
-pip install -r requirements.txt
-
-cp .env.example .env
-
-python manage.py migrate
-
-python manage.py createsuperuser
-
-python manage.py runserver
+git clone https://github.com/Webstars-ispc/LibreriaNazareth.git
+cd LibreriaNazareth
+git checkout main
 ```
 
-El backend quedará disponible en `http://localhost:8000`.
+## 2. Backend — Django
+* Iniciar MySQL/MariaDB: 
+Abrí el Panel de Control de XAMPP y hacé clic en Start en la fila de MySQL. Debe aparecer en verde.
+
+* Crear la base de datos: 
+Abrí phpMyAdmin (http://localhost/phpmyadmin) y creá una base de datos con el nombre LibreriaNazareth (o el que prefieras) con cotejamiento utf8mb4_general_ci.
+
+* Configurar variables de entorno: abri tu editor de codigo, dirigite a la carpeta BackEnd y modifica el archivo ".env_modelo" con tus credenciales:
+```
+SECRET_KEY=tu-clave-secreta #la genera django al crear el proyecto
+DEBUG=True
+DB_NAME=LibreriaNazareth
+DB_USER=root
+DB_PASSWORD=         # En XAMPP suele estar vacío
+DB_HOST=localhost
+DB_PORT=3306
+```
+(En caso de que no tengas una clave secreta, generala aleatoriamente: 
+```
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```
+Luego renombra el archivo a .env
+
+* Abri una terminal en la carpeta Backend
+* Crear entorno virtual, activarlo e instalar dependencias: 
+```
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+* Ejecutar migraciones: crea todas las tablas automaticamente
+```
+python manage.py migrate
+```
+
+* Inicializar el servidor:
+```
+python manage.py runserver
+```
+El backend estará disponible en http://127.0.0.1:8000/
 
 ## Frontend — Angular + Bootstrap
-
+Abrí otra terminal para la carpeta FrontEnd
 ```bash
-
 cd frontend
-
 npm install
-
+npm install @zxing/browser   # Dependencia para escanear códigos de barras
 ng serve
 ```
 
-El frontend quedará disponible en `http://localhost:4200`.
+El frontend quedará disponible en `http://localhost:4200`
 
 ---
 # Arquitectura del sistema  
