@@ -43,9 +43,7 @@
             <select id="rubro" class="form-control" formControlName="rubro"
                     [class.is-invalid]="rubro?.invalid && (rubro?.dirty || rubro?.touched)">
               <option value="">Seleccione un rubro</option>
-              <option value="1">Librería</option>
-              <option value="2">Bazar</option>
-              <option value="3">Cotillón</option>
+              <option *ngFor="let r of rubros" [value]="r.id">{{ r.nombre }}</option>
             </select>
             <div *ngIf="rubro?.invalid && (rubro?.dirty || rubro?.touched)" class="invalid-feedback">
               <div *ngIf="rubro?.errors?.['required']">El rubro es obligatorio.</div>
@@ -56,24 +54,16 @@
             <select id="marca" class="form-control" formControlName="marca"
                     [class.is-invalid]="marca?.invalid && (marca?.dirty || marca?.touched)">
               <option value="">Seleccione una marca</option>
-              <option value="1">Rivadavia</option>
-              <option value="2">Éxito</option>
+              <option *ngFor="let m of marcas" [value]="m.id">{{ m.nombre }}</option>
             </select>
-            <!-- No hay validación requerida para marca, pero se mantiene la clase por consistencia si se añade en el futuro -->
             <div *ngIf="marca?.invalid && (marca?.dirty || marca?.touched)" class="invalid-feedback">
-              <!-- Mensajes de error para marca si se añaden validaciones -->
             </div>
           </div>
         </div>
-
-        <!-- Descripción -->
         <div class="form-group full-width">
           <label for="descripcion" class="form-label">Descripción</label>
           <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="3" placeholder="Detalles y características del producto..."></textarea>
-          <!-- No hay validación requerida para descripción -->
         </div>
-
-        <!-- Precios y Stock -->
         <div class="form-row">
           <div class="form-group">
             <label for="precio_costo" class="form-label">Precio Costo</label>

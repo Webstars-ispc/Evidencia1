@@ -174,7 +174,12 @@ export class CargarProducto implements OnInit {
         },
         error: (error: any) => {
           console.error('Error al guardar:', error);
-          alert('Error al guardar. Asegúrate de que los IDs de rubro y marca existan en Django.');
+          let detallesError = 'Error de conexión con el servidor.';
+          if (error.error && typeof error.error === 'object') {
+            detallesError = JSON.stringify(error.error);
+          }
+          
+          this.errorMessage = `No se pudo guardar: ${detallesError}`;
         }
       });
     }
