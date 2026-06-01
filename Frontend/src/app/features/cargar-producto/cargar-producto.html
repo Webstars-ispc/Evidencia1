@@ -103,8 +103,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Botón Enviar -->
         <button type="submit" class="btn-submit" [disabled]="form.invalid">
           Guardar Producto
         </button>
@@ -112,8 +110,6 @@
     </div>
   </div>
 </div>
-
-<!-- Modal del Scanner -->
 <div class="scanner-modal" *ngIf="mostrarScanner">
   <div class="scanner-content">
     <div class="scanner-header">
@@ -122,13 +118,7 @@
     </div>
     
     <div class="scanner-body">
-      <video id="video-scanner" class="video-scanner" autoplay muted playsinline [style.transform]="'rotate(' + videoRotation + 'deg)'" ></video>
-      <button type="button" class="btn-scan" (click)="toggleRotacionVideo()">
-        {{ videoRotation === 0 ? 'Girar video 180°' : 'Volver normal' }}
-      </button>
-      <div class="scanner-info">
-        <p *ngIf="leyendoCodigoBarras">📹 Apunta la cámara al código de barras...</p>
-      </div>
+      <video id="video-scanner" class="video-scanner" autoplay muted playsinline></video>
     </div>
     
     <div class="scanner-footer">
