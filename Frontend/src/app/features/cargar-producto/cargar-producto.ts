@@ -16,7 +16,6 @@ export class CargarProducto implements OnInit {
   errorMessage: string | null = null;
   mostrarScanner = false;
   leyendoCodigoBarras = false;
-  videoRotation = 0;
 
   @ViewChild('video', { static: false }) videoElement: ElementRef | undefined;
 
@@ -54,17 +53,12 @@ export class CargarProducto implements OnInit {
   }
 
   onEscanear(): void {
-    this.videoRotation = 0;
     this.mostrarScanner = true;
     this.leyendoCodigoBarras = true;
 
     setTimeout(() => {
       this.iniciarScanner();
     }, 100);
-  }
-
-  toggleRotacionVideo(): void {
-    this.videoRotation = this.videoRotation === 0 ? 180 : 0;
   }
 
   private iniciarScanner(): void {
@@ -91,7 +85,6 @@ export class CargarProducto implements OnInit {
     try {
       video.muted = true;
       video.setAttribute('playsinline', 'true');
-      video.style.transform = `rotate(${this.videoRotation}deg) scaleX(1)`;
 
       const constraints: MediaStreamConstraints = {
         video: {
@@ -110,17 +103,17 @@ export class CargarProducto implements OnInit {
           return video.play();
         })
         .then(() => {
-          console.log('[Scanner] decodeFromVideoElement()');
+          console.log('[Scanner] Iniciando lectura de video...');
 
-          this.codeReader?.decodeFromVideoElement(video, (result) => {
-            if (!result) {
-              return;
-            }
-
-            console.log('[Scanner] ✅ Código leído:', result.getText());
-            this.form.patchValue({ codigo_barras: result.getText() });
-            this.cerrarScanner();
-          });
+          if (this.codeReader) {
+            this.codeReader.decodeFromVideoElement(video, (result, error) => {
+              if (result) {
+                console.log('[Scanner] ✅ Código leído:', result.getText());
+                this.form.patchValue({ codigo_barras: result.getText() });
+                this.cerrarScanner();
+              }
+            });
+          }
         })
         .catch((err) => {
           console.error('[Scanner] Error getUserMedia/decode:', err);
@@ -144,15 +137,14 @@ export class CargarProducto implements OnInit {
   cerrarScanner(): void {
     console.log('[Scanner] cerrarScanner()');
 
-    this.detenerStreams();
-
     if (this.codeReader) {
       this.codeReader = null;
     }
 
+    this.detenerStreams();
+
     this.mostrarScanner = false;
     this.leyendoCodigoBarras = false;
-    this.videoRotation = 0;
     this.scannerActivo = false;
   }
 
