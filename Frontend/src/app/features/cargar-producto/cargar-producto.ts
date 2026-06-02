@@ -16,6 +16,8 @@ export class CargarProducto implements OnInit {
   errorMessage: string | null = null;
   mostrarScanner = false;
   leyendoCodigoBarras = false;
+  rubros: any[] = [];
+  marcas: any[] = [];
 
   @ViewChild('video', { static: false }) videoElement: ElementRef | undefined;
 
@@ -50,8 +52,25 @@ export class CargarProducto implements OnInit {
   get marca(): AbstractControl | null { return this.form.get('marca'); }
 
   ngOnInit(): void {
+    this.cargarRubros();
+    this.cargarMarcas();
   }
 
+  cargarRubros(): void {
+    this.productoService.obtenerRubros().subscribe({
+      next: (data) => this.rubros = data,
+      error: (err) => console.error('Error al cargar rubros:', err)
+    });
+  }
+
+  cargarMarcas(): void {
+    this.productoService.obtenerMarcas().subscribe({
+      next: (data) => this.marcas = data,
+      error: (err) => console.error('Error al cargar marcas:', err)
+    });
+  }
+
+  
   onEscanear(): void {
     this.mostrarScanner = true;
     this.leyendoCodigoBarras = true;
@@ -59,7 +78,7 @@ export class CargarProducto implements OnInit {
     setTimeout(() => {
       this.iniciarScanner();
     }, 100);
-  }
+  } 
 
   private iniciarScanner(): void {
     console.log('[Scanner] iniciarScanner()');
