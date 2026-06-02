@@ -25,6 +25,18 @@ export class ProductoService {
     );
   }
 
+  obtenerRubros(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8000/api/rubros/').pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  obtenerMarcas(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8000/api/marcas/').pipe(
+      catchError(this.handleError)
+    );
+  }
+
   // Read One (Obtener un producto por ID)
   obtenerProducto(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}${id}/`).pipe(
