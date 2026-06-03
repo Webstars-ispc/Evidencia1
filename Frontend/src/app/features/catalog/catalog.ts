@@ -2,8 +2,9 @@ import { Component, signal, computed, OnInit, inject, HostListener } from '@angu
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { ProductoService } from '../../services/producto.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DeleteModal } from './components/delete-modal/delete-modal';
+import { BarcodeScanner } from '../../shared/components/barcode-scanner/barcode-scanner';
 
 interface Producto {
   id: number;
@@ -20,15 +21,21 @@ interface Producto {
   marca_nombre?: string;
 }
 
+interface MensajeEscaneo {
+  tipo: 'success' | 'danger';
+  texto: string;
+}
+
 @Component({
   selector: 'app-catalog',
-  imports: [RouterLink, DeleteModal],
+  imports: [RouterLink, DeleteModal, BarcodeScanner],
   templateUrl: './catalog.html',
   styleUrl: './catalog.css',
 })
 export class Catalog implements OnInit {
   private http = inject(HttpClient);
   private productoService = inject(ProductoService);
+  private router = inject(Router);
 
   productos = signal<Producto[]>([]);
   busqueda = signal('');
@@ -37,6 +44,9 @@ export class Catalog implements OnInit {
   sugerenciasAbiertas = signal(false);
   mostrandoModal = signal(false);
   cargando = signal(true);
+  mensajeEscaneo = signal<MensajeEscaneo | null>(null);
+
+  private mensajeTimeout: ReturnType<typeof setTimeout> | null = null;
 
   rubroMap = new Map<number, string>();
   marcaMap = new Map<number, string>();
@@ -276,5 +286,56 @@ export class Catalog implements OnInit {
         return v != null ? String(v) : '—';
       }
     }
+  }
+
+  irAEditar(): void {
+    if (!this.puedeEditar()) return;
+    const id = +Object.keys(this.seleccionados())[0];
+    if (id) {
+      this.router.navigate(['/editar-producto', id]);
+    }
+  }
+
+  onCodigoEscaneado(codigo: string): void {
+    const codigoLimpio = (codigo ?? '').trim();
+    if (!codigoLimpio) return;
+
+    const encontrado = this.productos().find(
+      (p) => p.codigo_barras && p.codigo_barras === codigoLimpio
+    );
+
+    if (!encontrado) {
+      this.mostrarMensaje({
+        tipo: 'danger',
+        texto: `No se encontró ningún producto con el código "${codigoLimpio}".`,
+      });
+      return;
+    }
+
+    this.busqueda.set('');
+    this.sugerenciasAbiertas.set(false);
+    this.seleccionados.set({ [encontrado.id]: true });
+
+    const index = this.productos().findIndex((p) => p.id === encontrado.id);
+    const pagina = Math.floor(index / this.PAGINA_TAMANIO) + 1;
+    this.paginaActual.set(pagina);
+
+    this.mostrarMensaje({
+      tipo: 'success',
+      texto: `Producto "${encontrado.nombre}" encontrado.`,
+    });
+
+    setTimeout(() => {
+      const row = document.querySelector(
+        `[data-producto-id="${encontrado.id}"]`
+      );
+      row?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+  }
+
+  private mostrarMensaje(msg: MensajeEscaneo): void {
+    this.mensajeEscaneo.set(msg);
+    if (this.mensajeTimeout) clearTimeout(this.mensajeTimeout);
+    this.mensajeTimeout = setTimeout(() => this.mensajeEscaneo.set(null), 5000);
   }
 }

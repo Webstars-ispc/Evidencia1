@@ -36,7 +36,7 @@ export class Login {
         this.authService.saveToken(response.access);
         this.successMessage = '✅ Login exitoso. Redirigiendo...';
         setTimeout(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/catalogo']);
         }, 1000);
       },
       error: (error) => {

@@ -9,7 +9,7 @@
     <div class="col-12 col-md-5">
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" placeholder="Buscar producto">
+        <input type="text" id="home-search" name="busqueda" class="search-input" placeholder="Buscar producto">
       </div>
     </div>
   </div>
@@ -19,12 +19,12 @@
     <div class="filter-box">
       <span class="filter-icon">📅</span>
       <select class="filter-select" (change)="onFilterChange($event)">
-        <option value="1">Último día</option>
-        <option value="7" selected>Últimos 7 días</option>
-        <option value="30">Últimos 30 días</option>
-        <option value="90">Últimos 90 días</option>
-        <option value="180">Últimos 180 días</option>
-        <option value="365">Último año</option>
+        <option value="1">Ultimo dia</option>
+        <option value="7" selected>Ultimos 7 dias</option>
+        <option value="30">Ultimos 30 dias</option>
+        <option value="90">Ultimos 90 dias</option>
+        <option value="180">Ultimos 180 dias</option>
+        <option value="365">Ultimo anio</option>
         <option value="custom">Personalizado...</option>
       </select>
     </div>
@@ -44,7 +44,7 @@
     }
   </div>
 
-  <!-- stats cards -->
+  <!-- stat cards -->
   <div class="row g-3 mb-4 align-items-stretch">
     <div class="col-6 col-lg-3">
       <div class="stat-card stat-card--gold h-100">

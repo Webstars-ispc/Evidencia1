@@ -12,6 +12,12 @@
   margin: 0 auto;
 }
 
+@media (max-width: 767.98px) {
+  .content-wrapper {
+    width: 95%;
+  }
+}
+
 /* card del form */
 .form-section {
   background: #1C2E5D;
@@ -19,6 +25,12 @@
   border-radius: 4px;
   padding: 40px 32px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 575.98px) {
+  .form-section {
+    padding: 24px 16px;
+  }
 }
 
 .form-header {
@@ -33,6 +45,12 @@
   color: #E1C582;
   margin: 0 0 8px 0;
   letter-spacing: 0.5px;
+}
+
+@media (max-width: 575.98px) {
+  .form-title {
+    font-size: 1.4rem;
+  }
 }
 
 .form-subtitle {
@@ -70,7 +88,7 @@
   display: block;
 }
 
-/* override bootstrap form-control */
+/* form-control  */
 .form-control {
   background: #161F48 !important;
   border: 1px solid #284574 !important;
@@ -107,7 +125,7 @@ textarea.form-control {
   min-height: 80px;
 }
 
-/* validacion */
+/* invalid (override Bootstrap red) */
 .form-control.is-invalid {
   border-color: #dc2626 !important;
   background-image: none !important;
@@ -121,21 +139,8 @@ textarea.form-control {
   margin-top: 4px;
 }
 
-/* input con boton (codigo de barras) */
-.input-with-button {
-  display: flex;
-  gap: 8px;
-  align-items: stretch;
-}
-
-.input-with-button .form-control {
-  flex: 1;
-  min-width: 0;
-}
-
-/* boton submit */
+/* botones */
 .btn-submit {
-  width: 100%;
   background: #E1C582 !important;
   border: none !important;
   color: #1C2E5D !important;
@@ -147,7 +152,6 @@ textarea.form-control {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: 8px;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -163,6 +167,27 @@ textarea.form-control {
 .btn-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.btn-cancel-action {
+  background: transparent !important;
+  border: 1px solid #284574 !important;
+  color: #b8c4d8 !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Raleway', sans-serif;
+}
+
+.btn-cancel-action:hover {
+  background: #284574 !important;
+  color: #E1C582 !important;
+  border-color: #E1C582 !important;
 }
 
 /* alertas y loading */
@@ -192,19 +217,4 @@ textarea.form-control {
   padding: 32px 0;
   font-family: 'Raleway', sans-serif;
   font-size: 0.9rem;
-}
-
-/* responsive */
-@media (max-width: 765px) {
-  .content-wrapper {
-    width: 95%;
-  }
-
-  .form-section {
-    padding: 24px 16px;
-  }
-
-  .form-title {
-    font-size: 1.4rem;
-  }
 }

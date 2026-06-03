@@ -17,3 +17,8 @@ TODO.md
 # Logs
 *.log
 *.err
+
+# Python
+__pycache__/
+*.pyc
+db.sqlite3

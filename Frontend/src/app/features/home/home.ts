@@ -12,13 +12,13 @@ export class Home {
   userName = signal('Franco');
   userRole = signal('Administrador');
 
-  // stats cards
+  // stat cards
   ventasHoy = signal(4500);
   ventasMes = signal(125000);
   stockCritico = signal(5);
   topVendedor = signal({ nombre: 'Carlos Ruiz', ventas: 1200 });
 
-  // botones
+  // botones de accion
   quickActions = [
     { label: 'Nueva Venta', icon: '➕', route: '/ventas/nueva', color: 'success' },
     { label: 'Escanear Código', icon: '📱', route: '/escanear', color: 'primary' },

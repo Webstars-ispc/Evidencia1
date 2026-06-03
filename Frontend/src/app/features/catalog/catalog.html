@@ -6,12 +6,18 @@
       <span class="search-icon">🔍</span>
       <input
         type="text"
+        id="catalog-search"
+        name="busqueda"
         class="search-input"
         placeholder="Buscar producto..."
         [value]="busqueda()"
         (input)="onBusquedaChange($event)"
         (focus)="onSearchFocus()"
       />
+      <app-barcode-scanner
+        [compact]="true"
+        (codigoEscaneado)="onCodigoEscaneado($event)"
+      ></app-barcode-scanner>
       @if (sugerenciasVisibles()) {
         <div class="suggestions-box">
           @for (s of sugerencias(); track s.id) {
@@ -34,6 +40,7 @@
         class="btn-action btn-edit"
         [class.btn-active]="puedeEditar()"
         [disabled]="!puedeEditar()"
+        (click)="irAEditar()"
       >
         Editar Producto
       </button>
@@ -55,6 +62,16 @@
       }
     </span>
   </div>
+
+  @if (mensajeEscaneo(); as msg) {
+    <div
+      class="alert-msg"
+      [class.alert-msg--success]="msg.tipo === 'success'"
+      [class.alert-msg--danger]="msg.tipo === 'danger'"
+    >
+      {{ msg.texto }}
+    </div>
+  }
 
   @if (cargando()) {
     <p class="loading-text">Cargando productos...</p>
@@ -80,6 +97,7 @@
             <tr
               class="catalog-row"
               [class.row-selected]="isSelected(producto.id)"
+              [attr.data-producto-id]="producto.id"
             >
               <td class="col-check">
                 <input

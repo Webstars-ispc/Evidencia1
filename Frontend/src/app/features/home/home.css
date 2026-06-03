@@ -1,4 +1,4 @@
-/* container */
+/* contenedor */
 .home-container {
   max-width: 80%;
   margin: 0 auto;
@@ -21,7 +21,7 @@
   color: #b8c4d8;
 }
 
-/* buscador*/
+/* buscador */
 .search-box {
   display: flex;
   align-items: center;
@@ -82,7 +82,7 @@
   color: #b8c4d8;
 }
 
-/* stat cards*/
+/* stat cards */
 .stat-card {
   background: #284574;
   border-radius: 4px;
@@ -156,7 +156,7 @@
   opacity: 0.4;
 }
 
-/* botones */
+/* botones de accion */
 .action-card {
   display: flex;
   align-items: center;
@@ -196,7 +196,7 @@
   color: #E1C582;
 }
 
-/* grafico + tabla */
+/* panel grafico y tabla */
 .panel-card {
   background: #284574;
   border-radius: 4px;
@@ -220,7 +220,7 @@
   margin: 0 0 16px;
 }
 
-/* grafico*/
+/* grafico */
 .chart-wrapper {
   display: flex;
   gap: 8px;
@@ -285,8 +285,8 @@
   background: #1C2E5D;
 }
 
-/* mobile*/
-@media (max-width: 767.98px) {
+/* responsive */
+@media (max-width: 765px) {
   .home-container {
     max-width: 95%;
   }

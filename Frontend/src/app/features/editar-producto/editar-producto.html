@@ -3,19 +3,16 @@
 
     <div class="form-section">
       <div class="form-header">
-        <h1 class="form-title">Cargar Producto</h1>
-        <p class="form-subtitle">Ingresá los detalles de tu nuevo producto</p>
+        <h1 class="form-title">Editar Producto</h1>
+        <p class="form-subtitle">Modificá los datos del producto</p>
       </div>
 
-      @if (success()) {
-        <div class="alert-msg alert-msg--success">{{ success() }}</div>
-      }
       @if (error()) {
         <div class="alert-msg alert-msg--danger">{{ error() }}</div>
       }
 
-      @if (cargandoCatalogos()) {
-        <p class="loading-text">Cargando catálogos...</p>
+      @if (cargando()) {
+        <p class="loading-text">Cargando producto...</p>
       } @else {
         <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form">
 
@@ -44,20 +41,14 @@
 
             <div class="col-12 col-md-6">
               <label for="codigo_barras" class="form-label">Código de Barras</label>
-              <div class="input-with-button">
-                <input
-                  type="text"
-                  id="codigo_barras"
-                  class="form-control"
-                  formControlName="codigo_barras"
-                  placeholder="Escaneá o ingresá manualmente"
-                  [class.is-invalid]="form.controls.codigo_barras.invalid && (form.controls.codigo_barras.dirty || form.controls.codigo_barras.touched)"
-                />
-                <app-barcode-scanner
-                  label="Escanear"
-                  (codigoEscaneado)="onCodigoEscaneado($event)"
-                ></app-barcode-scanner>
-              </div>
+              <input
+                type="text"
+                id="codigo_barras"
+                class="form-control"
+                formControlName="codigo_barras"
+                placeholder="Ingresá el código"
+                [class.is-invalid]="form.controls.codigo_barras.invalid && (form.controls.codigo_barras.dirty || form.controls.codigo_barras.touched)"
+              />
               @if (form.controls.codigo_barras.invalid && (form.controls.codigo_barras.dirty || form.controls.codigo_barras.touched)) {
                 <div class="invalid-feedback">
                   @if (form.controls.codigo_barras.errors?.['pattern']) {
@@ -172,7 +163,7 @@
             </div>
 
             <div class="col-12 col-md-4">
-              <label for="stock" class="form-label">Stock Inicial</label>
+              <label for="stock" class="form-label">Stock</label>
               <input
                 type="number"
                 id="stock"
@@ -192,10 +183,15 @@
             </div>
           </div>
 
-          <!-- boton enviar -->
-          <button type="submit" class="btn-submit" [disabled]="form.invalid || enviando()">
-            {{ enviando() ? 'Guardando…' : 'Guardar Producto' }}
-          </button>
+          <!-- botones -->
+          <div class="d-flex gap-2 mt-2">
+            <button type="button" class="btn-cancel-action flex-fill" (click)="onCancelar()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-submit flex-fill" [disabled]="form.invalid || enviando()">
+              {{ enviando() ? 'Actualizando…' : 'Actualizar Producto' }}
+            </button>
+          </div>
         </form>
       }
     </div>
