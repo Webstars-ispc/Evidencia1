@@ -18,6 +18,9 @@ TODO.md
 *.log
 *.err
 
+# Archivos auxiliares
+iniciar.bat
+
 # Python
 __pycache__/
 *.pyc
