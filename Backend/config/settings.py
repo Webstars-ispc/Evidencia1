@@ -64,21 +64,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME', 'librerianazareth'),
+        'USER': os.getenv('DB_USER', 'clauana'),
+        'PASSWORD': os.getenv('DB_PASSWORD', '2026'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+        'PORT': os.getenv('DB_PORT', '3306'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
-# MySQL config (comment/uncomment when MySQL is available)
+# SQLite config (dev sin MySQL)
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.getenv('DB_NAME', 'librerianazareth'),
-#         'USER': os.getenv('DB_USER', 'clauana'),
-#         'PASSWORD': os.getenv('DB_PASSWORD', '2026'),
-#         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-#         'PORT': os.getenv('DB_PORT', '3306'),
-#         'use_pure_python': True,
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
