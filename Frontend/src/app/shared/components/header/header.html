@@ -1,8 +1,26 @@
 <header class="header">
-  <a routerLink="/" class="header-logo">Librería Nazareth</a>
-  <div class="header-right">
-    <a routerLink="/" class="header-nav-link">Inicio</a>
-    <a routerLink="/about" class="header-nav-link">Quiénes somos</a>
-    <a routerLink="/login" class="header-btn">Iniciar sesión</a>
+  <div class="header-inner">
+    <a [routerLink]="auth.logueado() ? '/catalogo' : '/'" class="header-logo">Librería Nazareth</a>
+    <div class="header-right">
+      <a [routerLink]="auth.logueado() ? '/catalogo' : '/'" class="header-nav-link">Inicio</a>
+      <a routerLink="/about" class="header-nav-link">Quiénes somos</a>
+      @if (auth.logueado()) {
+        <a class="header-btn" (click)="confirmarLogout()">Cerrar sesión</a>
+      } @else {
+        <a routerLink="/login" class="header-btn">Iniciar sesión</a>
+      }
+    </div>
   </div>
 </header>
+
+@if (mostrandoModalLogout()) {
+  <div class="modal-overlay" (click)="cancelarLogout()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <p class="modal-text">¿Seguro que quieres cerrar sesión?</p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-cancel" (click)="cancelarLogout()">Cancelar</button>
+        <button class="modal-btn modal-confirm" (click)="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,13 +1,14 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / '.env')
 
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
@@ -21,8 +22,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', 
+    'rest_framework_simplejwt',
     'corsheaders',
     'api',
+    'usuarios',
 ]
 
 MIDDLEWARE = [
@@ -67,9 +70,19 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD', '2026'),
         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('DB_PORT', '3306'),
-        'use_pure_python': True,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
+
+# SQLite config (dev sin MySQL)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -86,6 +99,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'usuarios.email_backend.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
 LANGUAGE_CODE = 'es-ar'
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
@@ -99,10 +128,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-from django.db.backends.mysql.base import DatabaseWrapper
-
-DatabaseWrapper.features_class.can_return_columns_from_insert = False
-DatabaseWrapper.features_class.can_return_rows_from_bulk_insert = False
-
-from django.db.backends.base.base import BaseDatabaseWrapper
-BaseDatabaseWrapper.check_database_version_supported = lambda self: None
+# from django.db.backends.mysql.base import DatabaseWrapper
+# DatabaseWrapper.features_class.can_return_columns_from_insert = False
+# DatabaseWrapper.features_class.can_return_rows_from_bulk_insert = False
+# from django.db.backends.base.base import BaseDatabaseWrapper
+# BaseDatabaseWrapper.check_database_version_supported = lambda self: None

@@ -1,10 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Raleway:wght@300;400;500&display=swap');
-
 .footer {
-  background: #111827;
-  padding: 48px 60px 24px;
+  background: #161F48;
   border-top: 1px solid #284574;
   font-family: 'Raleway', sans-serif;
+  margin-top: 48px;
+}
+
+.footer-inner {
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 48px 0 24px;
 }
 
 .footer-top {
@@ -12,6 +16,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 40px;
+  gap: 40px;
 }
 
 .footer-brand h3 {
@@ -59,6 +64,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .footer-bottom p {
@@ -72,4 +78,17 @@
   font-size: 11px;
   color: #7a8fad;
   letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .footer-top {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
 }

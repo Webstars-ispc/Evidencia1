@@ -20,6 +20,8 @@
     "@angular/platform-server": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@angular/ssr": "^21.2.7",
+    "@zxing/browser": "^0.2.0",
+    "@zxing/library": "^0.22.0",
     "bootstrap": "^5.3.8",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",

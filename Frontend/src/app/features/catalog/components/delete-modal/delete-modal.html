@@ -1,0 +1,17 @@
+<div class="modal-overlay" (click)="onCancelar()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-icon">⚠️</span>
+      <h3 class="modal-title">Confirmar Eliminación</h3>
+    </div>
+    <p class="modal-text">
+      Estás por eliminar <strong>{{ cantidad() }}</strong>
+      {{ cantidad() === 1 ? 'producto' : 'productos' }}. Esta acción no se puede
+      deshacer.
+    </p>
+    <div class="modal-actions">
+      <button class="btn-modal btn-cancel" (click)="onCancelar()">Cancelar</button>
+      <button class="btn-modal btn-delete" (click)="onConfirmar()">Eliminar</button>
+    </div>
+  </div>
+</div>

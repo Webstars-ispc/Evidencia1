@@ -1,0 +1,203 @@
+<div class="page-container py-4">
+  <div class="content-wrapper">
+
+    <div class="form-section">
+      <div class="form-header">
+        <h1 class="form-title">Cargar Producto</h1>
+        <p class="form-subtitle">Ingresá los detalles de tu nuevo producto</p>
+      </div>
+
+      @if (success()) {
+        <div class="alert-msg alert-msg--success">{{ success() }}</div>
+      }
+      @if (error()) {
+        <div class="alert-msg alert-msg--danger">{{ error() }}</div>
+      }
+
+      @if (cargandoCatalogos()) {
+        <p class="loading-text">Cargando catálogos...</p>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form">
+
+          <!-- nombre y codigo de barras -->
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label for="nombre" class="form-label">Nombre del Producto</label>
+              <input
+                type="text"
+                id="nombre"
+                class="form-control"
+                formControlName="nombre"
+                placeholder="Ej: Cuaderno Rivadavia 100 hojas"
+                [class.is-invalid]="form.controls.nombre.invalid && (form.controls.nombre.dirty || form.controls.nombre.touched)"
+              />
+              @if (form.controls.nombre.invalid && (form.controls.nombre.dirty || form.controls.nombre.touched)) {
+                <div class="invalid-feedback">
+                  @if (form.controls.nombre.errors?.['required']) {
+                    El nombre es obligatorio.
+                  } @else if (form.controls.nombre.errors?.['minlength']) {
+                    El nombre debe tener al menos 3 caracteres.
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="codigo_barras" class="form-label">Código de Barras</label>
+              <div class="input-with-button">
+                <input
+                  type="text"
+                  id="codigo_barras"
+                  class="form-control"
+                  formControlName="codigo_barras"
+                  placeholder="Escaneá o ingresá manualmente"
+                  [class.is-invalid]="form.controls.codigo_barras.invalid && (form.controls.codigo_barras.dirty || form.controls.codigo_barras.touched)"
+                />
+                <app-barcode-scanner
+                  label="Escanear"
+                  (codigoEscaneado)="onCodigoEscaneado($event)"
+                ></app-barcode-scanner>
+              </div>
+              @if (form.controls.codigo_barras.invalid && (form.controls.codigo_barras.dirty || form.controls.codigo_barras.touched)) {
+                <div class="invalid-feedback">
+                  @if (form.controls.codigo_barras.errors?.['pattern']) {
+                    El código debe ser numérico (8 a 13 dígitos).
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- rubro y marca -->
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <label for="rubro" class="form-label">Rubro</label>
+              <select
+                id="rubro"
+                class="form-control"
+                formControlName="rubro"
+                [class.is-invalid]="form.controls.rubro.invalid && (form.controls.rubro.dirty || form.controls.rubro.touched)"
+              >
+                <option value="">Seleccioná un rubro</option>
+                @for (r of rubros(); track r.id) {
+                  <option [value]="r.id">{{ r.nombre }}</option>
+                }
+              </select>
+              @if (form.controls.rubro.invalid && (form.controls.rubro.dirty || form.controls.rubro.touched)) {
+                <div class="invalid-feedback">El rubro es obligatorio.</div>
+              }
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label for="marca" class="form-label">Marca (Opcional)</label>
+              <input
+                type="text"
+                id="marca"
+                class="form-control"
+                [value]="marcaNueva()"
+                (input)="onMarcaNuevaChange($event)"
+                placeholder="Ej: Staedtler, Faber-Castell..."
+                list="marcas-list"
+                autocomplete="off"
+              />
+              <datalist id="marcas-list">
+                @for (m of marcas(); track m.id) {
+                  <option [value]="m.nombre"></option>
+                }
+              </datalist>
+              <small class="form-hint">Si la marca no existe, se crea automáticamente.</small>
+            </div>
+          </div>
+
+          <!-- descripcion -->
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <textarea
+                id="descripcion"
+                class="form-control"
+                formControlName="descripcion"
+                rows="3"
+                placeholder="Detalles y características del producto..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- precios y stock -->
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <label for="precio_costo" class="form-label">Precio Costo</label>
+              <input
+                type="number"
+                id="precio_costo"
+                class="form-control"
+                formControlName="precio_costo"
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                [class.is-invalid]="form.controls.precio_costo.invalid && (form.controls.precio_costo.dirty || form.controls.precio_costo.touched)"
+              />
+              @if (form.controls.precio_costo.invalid && (form.controls.precio_costo.dirty || form.controls.precio_costo.touched)) {
+                <div class="invalid-feedback">
+                  @if (form.controls.precio_costo.errors?.['required']) {
+                    Obligatorio.
+                  } @else if (form.controls.precio_costo.errors?.['min']) {
+                    Debe ser mayor a 0.
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label for="precio_venta" class="form-label">Precio Venta</label>
+              <input
+                type="number"
+                id="precio_venta"
+                class="form-control"
+                formControlName="precio_venta"
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                [class.is-invalid]="form.controls.precio_venta.invalid && (form.controls.precio_venta.dirty || form.controls.precio_venta.touched)"
+              />
+              @if (form.controls.precio_venta.invalid && (form.controls.precio_venta.dirty || form.controls.precio_venta.touched)) {
+                <div class="invalid-feedback">
+                  @if (form.controls.precio_venta.errors?.['required']) {
+                    Obligatorio.
+                  } @else if (form.controls.precio_venta.errors?.['min']) {
+                    Debe ser mayor a 0.
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label for="stock" class="form-label">Stock Inicial</label>
+              <input
+                type="number"
+                id="stock"
+                class="form-control"
+                formControlName="stock"
+                placeholder="0"
+                min="0"
+                [class.is-invalid]="form.controls.stock.invalid && (form.controls.stock.dirty || form.controls.stock.touched)"
+              />
+              @if (form.controls.stock.invalid && (form.controls.stock.dirty || form.controls.stock.touched)) {
+                <div class="invalid-feedback">
+                  @if (form.controls.stock.errors?.['min']) {
+                    No puede ser negativo.
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- boton enviar -->
+          <button type="submit" class="btn-submit" [disabled]="form.invalid || enviando()">
+            {{ enviando() ? 'Guardando…' : 'Guardar Producto' }}
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+</div>

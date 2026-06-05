@@ -12,3 +12,17 @@ dist/
 # Sistema
 Thumbs.db
 .DS_Store
+TODO.md
+
+# Logs
+*.log
+*.err
+
+# Archivos auxiliares
+iniciar.bat
+
+# Python
+__pycache__/
+*.pyc
+db.sqlite3
+.env

@@ -1,0 +1,220 @@
+/* pagina */
+.page-container {
+  min-height: calc(100vh - 70px);
+  background: #161F48;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+}
+
+.content-wrapper {
+  width: 80%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 767.98px) {
+  .content-wrapper {
+    width: 95%;
+  }
+}
+
+/* card del form */
+.form-section {
+  background: #1C2E5D;
+  border: 1px solid #284574;
+  border-radius: 4px;
+  padding: 40px 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 575.98px) {
+  .form-section {
+    padding: 24px 16px;
+  }
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #E1C582;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 575.98px) {
+  .form-title {
+    font-size: 1.4rem;
+  }
+}
+
+.form-subtitle {
+  font-size: 0.7rem;
+  color: #b8c4d8;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* formulario */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #b8c4d8;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.form-hint {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  color: #7a8fad;
+  margin-top: 4px;
+  display: block;
+}
+
+/* form-control  */
+.form-control {
+  background: #161F48 !important;
+  border: 1px solid #284574 !important;
+  border-radius: 4px;
+  color: #E1C582 !important;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.form-control::placeholder {
+  color: #7a8fad !important;
+}
+
+.form-control:focus {
+  outline: none !important;
+  border-color: #D2A047 !important;
+  box-shadow: 0 0 0 2px rgba(210, 160, 71, 0.18) !important;
+}
+
+select.form-control {
+  cursor: pointer;
+}
+
+select.form-control option {
+  background: #1C2E5D;
+  color: #b8c4d8;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* invalid (override Bootstrap red) */
+.form-control.is-invalid {
+  border-color: #dc2626 !important;
+  background-image: none !important;
+  padding-right: 14px !important;
+}
+
+.invalid-feedback {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.75rem;
+  color: #fca5a5;
+  margin-top: 4px;
+}
+
+/* botones */
+.btn-submit {
+  background: #E1C582 !important;
+  border: none !important;
+  color: #1C2E5D !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Raleway', sans-serif;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #D2A047 !important;
+  transform: translateY(-1px);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-cancel-action {
+  background: transparent !important;
+  border: 1px solid #284574 !important;
+  color: #b8c4d8 !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Raleway', sans-serif;
+}
+
+.btn-cancel-action:hover {
+  background: #284574 !important;
+  color: #E1C582 !important;
+  border-color: #E1C582 !important;
+}
+
+/* alertas y loading */
+.alert-msg {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.alert-msg--success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+}
+
+.alert-msg--danger {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #fca5a5;
+}
+
+.loading-text {
+  color: #b8c4d8;
+  text-align: center;
+  padding: 32px 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+}
