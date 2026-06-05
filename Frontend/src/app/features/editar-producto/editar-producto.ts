@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, computed, input } from '@angular/core';
+import { Component, OnInit, inject, computed, input, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductoFormService } from '../../services/producto-form.service';
@@ -29,10 +29,16 @@ export class EditarProducto implements OnInit {
     () => this.cargandoCatalogos() || this.cargandoProducto()
   );
 
+  private readonly _catalogosListos = effect(() => {
+    if (!this.cargandoCatalogos()) {
+      this.formService.cargarProducto(this.id());
+      this._catalogosListos.destroy();
+    }
+  });
+
   ngOnInit(): void {
     this.formService.resetear();
     this.formService.cargarCatalogos();
-    this.formService.cargarProducto(this.id());
   }
 
   onMarcaNuevaChange(event: Event): void {

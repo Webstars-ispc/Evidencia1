@@ -5,9 +5,8 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    component: Hero,
+    redirectTo: 'catalogo',
     pathMatch: 'full',
-    title: 'Librería Nazareth - Inicio'
   },
   {
     path: 'about',
