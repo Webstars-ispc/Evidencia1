@@ -1,6 +1,6 @@
 # Libreria Nazareth📚
  ![Estado](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
-![Versión](https://img.shields.io/badge/versión-1.0.0-blue)
+![Versión](https://img.shields.io/badge/versión-2.0.0-blue)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-green)
 
 La plataforma para la librería busca agilizar el tiempo del trabajador a la hora de registrar los productos y realizar las ventas.
@@ -81,7 +81,10 @@ pip install -r requirements.txt
 ```
 python manage.py migrate
 ```
-
+* Las tablas van a estar vacias asi que hay que cargar datos, para no hacerlo manualmente uno por uno ejecutamos 
+```
+python cargar_datos.py
+```
 * Inicializar el servidor:
 ```
 python manage.py runserver
@@ -97,7 +100,7 @@ npm install @zxing/browser   # Dependencia para escanear códigos de barras
 ng serve
 ```
 
-El frontend quedará disponible en `http://localhost:4200`
+El frontend quedará disponible en http://localhost:4200/
 
 ---
 # Arquitectura del sistema  
@@ -180,7 +183,6 @@ Agregarlo al `.gitignore`.
 | Anabella Lujan Medrano           | Scrum Master  | analujan761@gmail.com          | Anaabella         | 46717059 |
 | Sofia Gimena Ledesma             | Desarrollador | ledesmasofiagimena49@gmail.com | SOFILEDESMA       | 33969603 |
 | Claudia Del Pilar Farias         | Desarrollador | claudiafarias1881@gmail.com    | Claudiafarias2022 | 28432825 |
-| Gabriel Agustin Pavon Molina     | Desarrollador | gabi.pavonmolina@gmail.com     | gabipavon01       | 43273165 |
 | Franco Agustin Trivini De Ejalde | Desarrollador | francodeelejalde@gmail.com     | FrancoTrivini     | 41712450 |
 | Jesica Analia Aramayo            | Desarrollador | jessie.aramayo@gmail.com       | Jesica-A          | 38739456 |
 
