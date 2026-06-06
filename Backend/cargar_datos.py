@@ -5,6 +5,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from api.models import Rubro, Marca, Producto
+from django.contrib.auth.models import User, Group
 
 print("Iniciando carga de datos...")
 
@@ -208,5 +209,38 @@ for p in productos_data:
             'marca': marca,
         }
     )
+
+
+# ========== USUARIOS ==========
+# Crear grupos si no existen
+admin_group, _ = Group.objects.get_or_create(name='Administrador')
+empleado_group, _ = Group.objects.get_or_create(name='Empleado')
+
+# Usuario administrador
+admin_user, created_admin = User.objects.get_or_create(
+    username='ana',
+    defaults={'email': 'ana@libreria.com'}
+)
+if created_admin:
+    admin_user.set_password('admin123')
+    admin_user.groups.add(admin_group)
+    admin_user.save()
+    print("✅ Usuario administrador 'ana' creado.")
+else:
+    print("ℹ️ El usuario 'ana' ya existe, no se modificó.")
+
+# Usuario empleado
+empleado_user, created_empleado = User.objects.get_or_create(
+    username='juan',
+    defaults={'email': 'juan@libreria.com'}
+)
+if created_empleado:
+    empleado_user.set_password('empleado123')
+    empleado_user.groups.add(empleado_group)
+    empleado_user.save()
+    print("✅ Usuario empleado 'juan' creado.")
+else:
+    print("ℹ️ El usuario 'juan' ya existe, no se modificó.")
+
 print(f"✅ {Producto.objects.count()} productos cargados.")
 print("🎉 Carga de datos iniciales completada.")
