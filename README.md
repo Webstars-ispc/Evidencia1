@@ -31,7 +31,7 @@ Antes de empezar, necesitás tener instalado:
 - [Node.js 18 o superior](https://nodejs.org/) (incluye npm)
 - [Git](https://git-scm.com/downloads)
 - [XAMPP](https://www.apachefriends.org/) (incluye MariaDB) o MySQL standalone
-- Angular CLI instalado globalmente: `npm install -g @angular/cli`
+- npm 9+
 - Editor de código recomendado: [VS Code](https://code.visualstudio.com/)
 - Irium Cam
 
