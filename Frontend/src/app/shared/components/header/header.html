@@ -1,9 +1,11 @@
 <header class="header">
   <div class="header-inner">
-    <a [routerLink]="auth.logueado() ? '/catalogo' : '/'" class="header-logo">Librería Nazareth</a>
+    <a [routerLink]="auth.logueado() ? '/home' : '/'" class="header-logo">Librería Nazareth</a>
     <div class="header-right">
-      <a [routerLink]="auth.logueado() ? '/catalogo' : '/'" class="header-nav-link">Inicio</a>
+      <a [routerLink]="auth.logueado() ? '/home' : '/'" class="header-nav-link">Inicio</a>
+      @if (!auth.logueado()) {
       <a routerLink="/about" class="header-nav-link">Quiénes somos</a>
+      }
       @if (auth.logueado()) {
         <a class="header-btn" (click)="confirmarLogout()">Cerrar sesión</a>
       } @else {

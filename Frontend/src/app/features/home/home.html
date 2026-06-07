@@ -46,7 +46,8 @@
 
   <!-- stat cards -->
   <div class="row g-3 mb-4 align-items-stretch">
-    <div class="col-6 col-lg-3">
+
+    <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
       <div class="stat-card stat-card--gold h-100">
         <div class="stat-card-body">
           <div class="stat-content">
@@ -59,7 +60,7 @@
       </div>
     </div>
 
-    <div class="col-6 col-lg-3">
+    <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
       <div class="stat-card h-100">
         <div class="stat-card-body">
           <div class="stat-content">
@@ -71,7 +72,7 @@
       </div>
     </div>
 
-    <div class="col-6 col-lg-3">
+    <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
       <div class="stat-card h-100">
         <div class="stat-card-body">
           <div class="stat-content">
@@ -84,28 +85,34 @@
       </div>
     </div>
 
-    <div class="col-6 col-lg-3">
-      <div class="stat-card h-100">
-        <div class="stat-card-body">
-          <div class="stat-content">
-            <p class="stat-label">Top Vendedor</p>
-            <p class="stat-value">{{ topVendedor().nombre }}</p>
-            <p class="stat-sub">${{ topVendedor().ventas.toLocaleString() }}/día</p>
+    @if (userRole() === 'Administrador') {
+      <div class="col-6 col-lg-3">
+        <div class="stat-card h-100">
+          <div class="stat-card-body">
+            <div class="stat-content">
+              <p class="stat-label">Top Vendedor</p>
+              <p class="stat-value">{{ topVendedor().nombre }}</p>
+              <p class="stat-sub">${{ topVendedor().ventas.toLocaleString() }}/día</p>
+            </div>
+            <span class="stat-icon stat-icon--light">👤</span>
           </div>
-          <span class="stat-icon stat-icon--light">👤</span>
         </div>
       </div>
-    </div>
+    }
+
   </div>
 
   <div class="row g-3 mb-4">
     @for (action of quickActions; track action.label) {
-      <div class="col-6 col-md-3">
-        <a [routerLink]="action.route" class="action-card">
-          <span class="action-icon-circle">{{ action.icon }}</span>
-          <span class="action-label">{{ action.label }}</span>
-        </a>
-      </div>
+      <!-- Solo muestra "Gestionar Equipo" si es Administrador -->
+      @if (action.label !== 'Gestionar Equipo' || userRole() === 'Administrador') {
+        <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
+            <a [routerLink]="action.route" class="action-card">
+              <span class="action-icon-circle">{{ action.icon }}</span>
+              <span class="action-label">{{ action.label }}</span>
+            </a>
+        </div>
+      }
     }
   </div>
 
