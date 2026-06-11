@@ -7,9 +7,11 @@
       </div>
       <div class="footer-links">
         <h4>Navegación</h4>
-        <a routerLink="/">Inicio</a>
+        <a [routerLink]="auth.logueado() ? '/home' : '/'">Inicio</a>
         <a routerLink="/about">Quiénes somos</a>
+        @if (!auth.logueado()) {
         <a routerLink="/login">Iniciar sesión</a>
+        }
       </div>
     </div>
     <div class="footer-bottom">

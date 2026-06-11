@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard';
+import { authGuard, guestGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard'; //cuando creemos el componente gestion-equipo lo descomentamos.
 
 export const routes: Routes = [
   {
@@ -15,8 +16,14 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./features/login/login').then(c => c.Login),
-    title: 'Iniciar Sesión'
+    title: 'Iniciar Sesión',
+    canActivate: [guestGuard]
   },
+  /* {
+    path: 'equipo',
+    loadComponent: () => import('./features/gestionar-equipo/gestionar-equipo').then(c => c.GestionarEquipo),
+    canActivate: [authGuard, adminGuard],   // ← Verifica autenticación Y rol
+  }, */
   {
     path: 'cargar-producto',
     loadComponent: () => import('./features/cargar-producto/cargar-producto').then(c => c.CargarProducto),
