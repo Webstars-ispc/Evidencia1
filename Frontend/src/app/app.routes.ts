@@ -19,11 +19,11 @@ export const routes: Routes = [
     title: 'Iniciar Sesión',
     canActivate: [guestGuard]
   },
-  /* {
+{
     path: 'equipo',
-    loadComponent: () => import('./features/gestionar-equipo/gestionar-equipo').then(c => c.GestionarEquipo),
+    loadComponent: () => import('./features/equipo/equipo').then(c => c.GestionarEquipo),
     canActivate: [authGuard, adminGuard],   // ← Verifica autenticación Y rol
-  }, */
+  }, 
   {
     path: 'cargar-producto',
     loadComponent: () => import('./features/cargar-producto/cargar-producto').then(c => c.CargarProducto),
