@@ -21,6 +21,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         group = Group.objects.get(name=role)
         user.groups.add(group)
         return user
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        role = validated_data.pop('role', None)
+
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+
+        if password:
+            instance.set_password(password)
+
+        if role:
+            instance.groups.clear()
+            group = Group.objects.get(name=role)
+            instance.groups.add(group)
+
+        instance.save()
+        return instance
     
     
 class UserSerializer(serializers.ModelSerializer):

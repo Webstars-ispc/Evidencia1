@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +18,18 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login/`, { email, password });
   }
+
+  getProfile(): Observable<{ username: string; email: string; role: string }> {
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    });
+    return this.http.get<{ username: string; email: string; role: string }>(
+        `${this.apiUrl}/me/`,
+        { headers }
+    );
+}
 
   saveToken(token: string): void {
     localStorage.setItem('access_token', token);

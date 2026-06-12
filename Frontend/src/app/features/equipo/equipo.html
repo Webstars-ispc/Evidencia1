@@ -1,0 +1,114 @@
+<div class="gestion-container">
+    <div class="gestion-header">
+        <h2 class="gestion-title">👥 Gestionar Equipo</h2>
+    </div>
+
+    <div class="actions-bar">
+        <button class="btn-action btn-add" (click)="mostrarFormulario()">+ Agregar Usuario</button>
+    </div>
+
+    <!-- Formulario (se oculta/muestra) -->
+    @if (mostrandoForm) {
+    <div class="form-card">
+        <h3 class="form-title">{{ editando ? 'Editar Usuario' : 'Nuevo Usuario' }}</h3>
+
+        <!-- FORMULARIO REACTIVO: agregá [formGroup] y (ngSubmit) -->
+        <form [formGroup]="form" (ngSubmit)="guardarUsuario($event)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Username *</label>
+                    <input type="text" class="form-input" formControlName="username" placeholder="Nombre de usuario">
+                    @if (usernameError) {
+                    <small class="error-msg">{{ usernameError }}</small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" class="form-input" formControlName="email" placeholder="correo@ejemplo.com">
+                    @if (emailError) {
+                    <small class="error-msg">{{ emailError }}</small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contraseña *</label>
+                    <input type="password" class="form-input" formControlName="password" placeholder="••••••••">
+                    @if (passwordError) {
+                    <small class="error-msg">{{ passwordError }}</small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Rol *</label>
+                    <select class="form-select" formControlName="role">
+                        <option value="Empleado">Empleado</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Mensajes de error/éxito generales -->
+            @if (errorMessage) {
+            <div class="alert-msg alert-msg--danger">{{ errorMessage }}</div>
+            }
+            @if (successMessage) {
+            <div class="alert-msg alert-msg--success">{{ successMessage }}</div>
+            }
+
+            <div class="form-actions">
+                <button type="button" class="btn-action btn-danger" (click)="cancelar()"
+                    [disabled]="enviando">Cancelar</button>
+                <button type="submit" class="btn-action btn-add" [disabled]="enviando">
+                    @if (enviando) {
+                    <span>Guardando...</span>
+                    } @else {
+                    {{ editando ? 'Actualizar' : 'Crear' }}
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+    }
+
+    <!-- Tabla de usuarios -->
+    <div class="table-responsive">
+        <table class="gestion-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of usuarios; track user.id) {
+                <tr class="gestion-row">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <button class="btn-action btn-edit" (click)="editarUsuario(user)">Editar</button>
+                        <button class="btn-action btn-danger" (click)="eliminarUsuario(user)">Eliminar</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal de confirmación para eliminar -->
+    @if (mostrandoModalEliminar) {
+    <div class="modal-overlay" (click)="cancelarEliminacion()">
+        <div class="modal-box" (click)="$event.stopPropagation()">
+        <p class="modal-text">¿Seguro que quieres eliminar a {{ usuarioAEliminar?.username }}?</p>
+        <div class="modal-actions">
+            <button class="modal-btn modal-cancel" (click)="cancelarEliminacion()">Cancelar</button>
+            <button class="modal-btn modal-confirm" (click)="confirmarEliminacion()">Eliminar</button>
+        </div>
+        </div>
+    </div>
+    }
+</div>
