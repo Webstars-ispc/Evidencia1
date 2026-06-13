@@ -1,11 +1,17 @@
 import os
 import django
+from unidecode import unidecode
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from api.models import Rubro, Marca, Producto
 from django.contrib.auth.models import User, Group
+
+def estandarizar(texto):
+    if not texto:
+        return texto
+    return unidecode(str(texto).strip().upper())
 
 print("Iniciando carga de datos...")
 
@@ -19,7 +25,7 @@ rubros_data = [
 ]
 
 for r in rubros_data:
-    Rubro.objects.get_or_create(nombre=r['nombre'], defaults={'descripcion': r['descripcion']})
+    Rubro.objects.get_or_create(nombre=estandarizar(r['nombre']), defaults={'descripcion': estandarizar(r['descripcion'])})
 print(f"✅ {Rubro.objects.count()} rubros cargados.")
 
 # ========== MARCAS (10) ==========
@@ -37,7 +43,7 @@ marcas_data = [
 ]
 
 for m in marcas_data:
-    Marca.objects.get_or_create(nombre=m['nombre'])
+    Marca.objects.get_or_create(nombre=estandarizar(m['nombre']))
 print(f"✅ {Marca.objects.count()} marcas cargadas.")
 
 # ========== PRODUCTOS (15) ==========
@@ -195,13 +201,13 @@ productos_data = [
 ]
 
 for p in productos_data:
-    rubro = Rubro.objects.get(nombre=p['rubro'])
-    marca = Marca.objects.get(nombre=p['marca'])
+    rubro = Rubro.objects.get(nombre=estandarizar(p['rubro']))
+    marca = Marca.objects.get(nombre=estandarizar(p['marca']))
     Producto.objects.get_or_create(
         codigo_barras=p['codigo_barras'],
         defaults={
-            'nombre': p['nombre'],
-            'descripcion': p['descripcion'],
+            'nombre': estandarizar(p['nombre']),
+            'descripcion': estandarizar(p['descripcion']),
             'precio_costo': p['precio_costo'],
             'precio_venta': p['precio_venta'],
             'stock': p['stock'],
