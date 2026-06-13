@@ -2,163 +2,193 @@
 
   <div class="catalog-header">
     <h1 class="catalog-title">Catálogo de Productos</h1>
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="actions-bar">
+    <button class="btn-action" (click)="abrirCargaExcel()" title="Cargar desde Excel">📂 Cargar Excel</button>
+    <button class="btn-action btn-add" routerLink="/cargar-producto">Agregar Producto</button>
+
+    <span class="btn-tooltip">
+      <button class="btn-action btn-edit" [class.btn-active]="puedeEditar()" [disabled]="!puedeEditar()"
+        (click)="irAEditar()">Editar Producto</button>
+      @if (!puedeEditar()) {
+      <span class="tooltip-text">Selecciona 1 producto para editar</span>
+      }
+    </span>
+
+    <span class="btn-tooltip">
+      <button class="btn-action btn-delete" [class.btn-active]="puedeEliminar()" [disabled]="!puedeEliminar()"
+        (click)="abrirModal()">Eliminar Producto</button>
+      @if (!puedeEliminar()) {
+      <span class="tooltip-text">Selecciona al menos 1 producto para eliminar</span>
+      }
+    </span>
+  </div>
+
+  <!--Búsqueda y filtros -->
+  <div class="filters-row">
+    <!-- Buscador de productos -->
     <div class="search-wrapper">
       <span class="search-icon">🔍</span>
-      <input
-        type="text"
-        id="catalog-search"
-        name="busqueda"
-        class="search-input"
-        placeholder="Buscar producto..."
-        [value]="busqueda()"
-        (input)="onBusquedaChange($event)"
-        (focus)="onSearchFocus()"
-      />
-      <app-barcode-scanner
-        [compact]="true"
-        (codigoEscaneado)="onCodigoEscaneado($event)"
-      ></app-barcode-scanner>
+      <input type="text" id="catalog-search" name="busqueda" class="search-input" placeholder="Buscar producto..."
+        [value]="busqueda()" (input)="onBusquedaChange($event)" (focus)="onSearchFocus()" />
+      <app-barcode-scanner [compact]="true" (codigoEscaneado)="onCodigoEscaneado($event)"></app-barcode-scanner>
       @if (sugerenciasVisibles()) {
+      <div class="suggestions-box">
+        @for (s of sugerencias(); track s.id) {
+        <button class="suggestion-item" (click)="seleccionarSugerencia(s)">
+          <span class="suggestion-name">{{ s.nombre }}</span>
+          <span class="suggestion-code">{{ s.codigo_barras }}</span>
+        </button>
+        }
+      </div>
+      }
+    </div>
+
+    <!-- Filtro por Rubro -->
+    <div class="filter-wrapper">
+      <div class="search-wrapper">
+        <span class="search-icon">🏷️</span>
+        <input type="text" class="search-input" placeholder="Filtrar por rubro..." [value]="filtroRubroTexto()"
+          (input)="onFiltroRubroChange($event)" (focus)="sugerenciasRubroAbiertas.set(true)" />
+        @if (filtroRubroTexto()) {
+        <button class="filter-clear" (click)="limpiarFiltroRubro()">✕</button>
+        }
+        @if (sugerenciasRubroAbiertas() && sugerenciasRubro().length > 0) {
         <div class="suggestions-box">
-          @for (s of sugerencias(); track s.id) {
-            <button class="suggestion-item" (click)="seleccionarSugerencia(s)">
-              <span class="suggestion-name">{{ s.nombre }}</span>
-              <span class="suggestion-code">{{ s.codigo_barras }}</span>
-            </button>
+          @for (rubro of sugerenciasRubro(); track rubro.id) {
+          <button class="suggestion-item" (click)="seleccionarRubro(rubro)">
+            <span class="suggestion-name">{{ rubro.nombre }}</span>
+          </button>
           }
         </div>
-      }
+        }
+      </div>
+    </div>
+
+    <!-- Filtro por Marca -->
+    <div class="filter-wrapper">
+      <div class="search-wrapper">
+        <span class="search-icon">🏷️</span>
+        <input type="text" class="search-input" placeholder="Filtrar por marca..." [value]="filtroMarcaTexto()"
+          (input)="onFiltroMarcaChange($event)" (focus)="sugerenciasMarcaAbiertas.set(true)" />
+        @if (filtroMarcaTexto()) {
+        <button class="filter-clear" (click)="limpiarFiltroMarca()">✕</button>
+        }
+        @if (sugerenciasMarcaAbiertas() && sugerenciasMarca().length > 0) {
+        <div class="suggestions-box">
+          @for (marca of sugerenciasMarca(); track marca.id) {
+          <button class="suggestion-item" (click)="seleccionarMarca(marca)">
+            <span class="suggestion-name">{{ marca.nombre }}</span>
+          </button>
+          }
+        </div>
+        }
+      </div>
     </div>
   </div>
 
-  <div class="actions-bar">
-    <button class="btn-action btn-add" routerLink="/cargar-producto">
-      Agregar Producto
-    </button>
-    <span class="btn-tooltip">
-      <button
-        class="btn-action btn-edit"
-        [class.btn-active]="puedeEditar()"
-        [disabled]="!puedeEditar()"
-        (click)="irAEditar()"
-      >
-        Editar Producto
-      </button>
-      @if (!puedeEditar()) {
-        <span class="tooltip-text">Selecciona 1 producto para editar</span>
+  <!-- Formulario de carga Excel -->
+  @if (mostrandoCargaExcel()) {
+  <div class="form-card">
+    <h3 class="form-title">Cargar productos desde Excel</h3>
+    <p class="form-subtitle">El archivo debe tener 1 hoja llamada "PRODUCTOS"</p>
+
+    <div class="excel-upload form-group">
+      <input type="file" accept=".xlsx" (change)="onFileSelected($event)" [disabled]="cargandoExcel()"
+        class="form-control" />
+
+      @if (cargandoExcel()) {
+      <p class="loading-text mt-3">Procesando archivo...</p>
       }
-    </span>
-    <span class="btn-tooltip">
-      <button
-        class="btn-action btn-delete"
-        [class.btn-active]="puedeEliminar()"
-        [disabled]="!puedeEliminar()"
-        (click)="abrirModal()"
-      >
-        Eliminar Producto
-      </button>
-      @if (!puedeEliminar()) {
-        <span class="tooltip-text">Selecciona al menos 1 producto para eliminar</span>
+
+      @if (mensajeExcel()) {
+      <div class="alert-msg alert-msg--success mt-3">{{ mensajeExcel() }}</div>
       }
-    </span>
+      @if (errorExcel()) {
+      <div class="alert-msg alert-msg--danger mt-3">{{ errorExcel() }}</div>
+      }
+
+      <p class="form-hint mt-3">
+        Columnas importadas: Producto, Rubro, Marca, Codigo, Precio Costo, Precio Venta, Stock.
+        ASEGURECE DE QUE LOS NOMBRES DE LAS COLUMNAS COINCIDAN EXACTAMENTE.
+        En caso de algunos productos ya existan en la base de datos, se actualizarán con los nuevos datos del Excel.
+      </p>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-action btn-danger" (click)="cerrarCargaExcel()">Cancelar</button>
+    </div>
   </div>
+  }
 
   @if (mensajeEscaneo(); as msg) {
-    <div
-      class="alert-msg"
-      [class.alert-msg--success]="msg.tipo === 'success'"
-      [class.alert-msg--danger]="msg.tipo === 'danger'"
-    >
-      {{ msg.texto }}
-    </div>
+  <div class="alert-msg" [class.alert-msg--success]="msg.tipo === 'success'"
+    [class.alert-msg--danger]="msg.tipo === 'danger'">
+    {{ msg.texto }}
+  </div>
   }
 
   @if (cargando()) {
-    <p class="loading-text">Cargando productos...</p>
+  <p class="loading-text">Cargando productos...</p>
   } @else {
-    <div class="table-responsive">
-      <table class="catalog-table">
-        <thead>
-          <tr>
-            <th class="col-check">
-              <input
-                type="checkbox"
-                [checked]="todosSeleccionados()"
-                (change)="toggleSeleccionTodos()"
-              />
-            </th>
-            @for (col of columnas; track col.key) {
-              <th>{{ col.label }}</th>
-            }
-          </tr>
-        </thead>
-        <tbody>
-          @for (producto of productosPagina(); track producto.id) {
-            <tr
-              class="catalog-row"
-              [class.row-selected]="isSelected(producto.id)"
-              [attr.data-producto-id]="producto.id"
-            >
-              <td class="col-check">
-                <input
-                  type="checkbox"
-                  [checked]="isSelected(producto.id)"
-                  (change)="toggleSeleccion(producto.id)"
-                />
-              </td>
-              @for (col of columnas; track col.key) {
-                <td>{{ celdaValue(producto, col.key) }}</td>
-              }
-            </tr>
-          } @empty {
-            <tr>
-              <td [attr.colspan]="columnas.length + 1" class="empty-row">
-                No hay productos para mostrar.
-              </td>
-            </tr>
+  <div class="table-responsive">
+    <table class="catalog-table">
+      <thead>
+        <tr>
+          <th class="col-check">
+            <input type="checkbox" [checked]="todosSeleccionados()" (change)="toggleSeleccionTodos()" />
+          </th>
+          @for (col of columnas; track col.key) {
+          <th>{{ col.label }}</th>
           }
-        </tbody>
-      </table>
-    </div>
-
-    @if (totalPaginas() > 1) {
-      <div class="pagination-bar">
-        <button
-          class="page-btn"
-          [disabled]="paginaActual() === 1"
-          (click)="irPagina(paginaActual() - 1)"
-        >
-          ‹
-        </button>
-        @for (p of paginasVisibles(); track $index) {
-          @if (p === '...') {
-            <span class="page-dots">…</span>
-          } @else {
-            <button
-              class="page-btn"
-              [class.page-active]="paginaActual() === p"
-              (click)="irPagina(p)"
-            >
-              {{ p }}
-            </button>
+        </tr>
+      </thead>
+      <tbody>
+        @for (producto of productosPagina(); track producto.id) {
+        <tr class="catalog-row" [class.row-selected]="isSelected(producto.id)" [attr.data-producto-id]="producto.id">
+          <td class="col-check">
+            <input type="checkbox" [checked]="isSelected(producto.id)" (change)="toggleSeleccion(producto.id)" />
+          </td>
+          @for (col of columnas; track col.key) {
+          <td>{{ celdaValue(producto, col.key) }}</td>
           }
+        </tr>
+        } @empty {
+        <tr>
+          <td [attr.colspan]="columnas.length + 1" class="empty-row">
+            No hay productos para mostrar.
+          </td>
+        </tr>
         }
-        <button
-          class="page-btn"
-          [disabled]="paginaActual() === totalPaginas()"
-          (click)="irPagina(paginaActual() + 1)"
-        >
-          ›
-        </button>
-      </div>
+      </tbody>
+    </table>
+  </div>
+
+  @if (totalPaginas() > 1) {
+  <div class="pagination-bar">
+    <button class="page-btn" [disabled]="paginaActual() === 1" (click)="irPagina(paginaActual() - 1)">
+
+    </button>
+    @for (p of paginasVisibles(); track $index) {
+    @if (p === '...') {
+    <span class="page-dots">…</span>
+    } @else {
+    <button class="page-btn" [class.page-active]="paginaActual() === p" (click)="irPagina(p)">
+      {{ p }}
+    </button>
     }
+    }
+    <button class="page-btn" [disabled]="paginaActual() === totalPaginas()" (click)="irPagina(paginaActual() + 1)">
+
+    </button>
+  </div>
+  }
   }
 </div>
 
 @if (mostrandoModal()) {
-  <app-delete-modal
-    [cantidad]="cantidadSeleccionados()"
-    (confirmar)="confirmarEliminacion()"
-    (cancelar)="cerrarModal()"
-  />
+<app-delete-modal [cantidad]="cantidadSeleccionados()" (confirmar)="confirmarEliminacion()"
+  (cancelar)="cerrarModal()" />
 }

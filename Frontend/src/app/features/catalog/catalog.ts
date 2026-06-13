@@ -1,5 +1,5 @@
 import { Component, signal, computed, OnInit, inject, HostListener } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { ProductoService } from '../../services/producto.service';
 import { Router, RouterLink } from '@angular/router';
@@ -45,6 +45,16 @@ export class Catalog implements OnInit {
   mostrandoModal = signal(false);
   cargando = signal(true);
   mensajeEscaneo = signal<MensajeEscaneo | null>(null);
+  mostrandoCargaExcel = signal(false);
+  cargandoExcel = signal(false);
+  mensajeExcel = signal('');
+  errorExcel = signal('');
+
+  // Filtros
+  filtroRubroTexto = signal('');
+  filtroMarcaTexto = signal('');
+  sugerenciasRubroAbiertas = signal(false);
+  sugerenciasMarcaAbiertas = signal(false);
 
   private mensajeTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -90,9 +100,54 @@ export class Catalog implements OnInit {
       .slice(0, 5);
   });
 
+  sugerenciasRubro = computed(() => {
+    const q = this.filtroRubroTexto().toLowerCase();
+    if (!q) return [];
+    const rubrosUnicos = new Map<number, string>();
+    this.productos().forEach(p => {
+      if (p.rubro && p.rubro_nombre) {
+        rubrosUnicos.set(p.rubro, p.rubro_nombre);
+      }
+    });
+    return Array.from(rubrosUnicos.entries())
+      .filter(([id, nombre]) => nombre.toLowerCase().includes(q))
+      .map(([id, nombre]) => ({ id, nombre }))
+      .slice(0, 5);
+  });
+
+  sugerenciasMarca = computed(() => {
+    const q = this.filtroMarcaTexto().toLowerCase();
+    if (!q) return [];
+    const marcasUnicas = new Map<number, string>();
+    this.productos().forEach(p => {
+      if (p.marca && p.marca_nombre && p.marca_nombre !== '—') {
+        marcasUnicas.set(p.marca, p.marca_nombre);
+      }
+    });
+    return Array.from(marcasUnicas.entries())
+      .filter(([id, nombre]) => nombre.toLowerCase().includes(q))
+      .map(([id, nombre]) => ({ id, nombre }))
+      .slice(0, 5);
+  });
+
   productosFiltrados = computed(() => {
-    if (this.busquedaActiva()) return [...this.sugerencias()];
-    return [...this.productos()].sort(
+    let resultado = this.busquedaActiva() ? [...this.sugerencias()] : [...this.productos()];
+
+    if (this.filtroRubroTexto()) {
+      const q = this.filtroRubroTexto().toLowerCase();
+      resultado = resultado.filter(p =>
+        p.rubro_nombre && p.rubro_nombre.toLowerCase().includes(q)
+      );
+    }
+
+    if (this.filtroMarcaTexto()) {
+      const q = this.filtroMarcaTexto().toLowerCase();
+      resultado = resultado.filter(p =>
+        p.marca_nombre && p.marca_nombre.toLowerCase().includes(q)
+      );
+    }
+
+    return resultado.sort(
       (a, b) =>
         new Date(b.fecha_creacion).getTime() -
         new Date(a.fecha_creacion).getTime()
@@ -146,6 +201,10 @@ export class Catalog implements OnInit {
     if (!(event.target as HTMLElement).closest('.search-wrapper')) {
       this.sugerenciasAbiertas.set(false);
     }
+    if (!(event.target as HTMLElement).closest('.filter-wrapper')) {
+      this.sugerenciasRubroAbiertas.set(false);
+      this.sugerenciasMarcaAbiertas.set(false);
+    }
   }
 
   onSearchFocus() {
@@ -195,6 +254,38 @@ export class Catalog implements OnInit {
     this.busqueda.set(value);
     this.paginaActual.set(1);
     this.sugerenciasAbiertas.set(value.length >= 3);
+  }
+
+  onFiltroRubroChange(event: Event) {
+    this.filtroRubroTexto.set((event.target as HTMLInputElement).value);
+    this.sugerenciasRubroAbiertas.set(true);
+    this.paginaActual.set(1);
+  }
+
+  onFiltroMarcaChange(event: Event) {
+    this.filtroMarcaTexto.set((event.target as HTMLInputElement).value);
+    this.sugerenciasMarcaAbiertas.set(true);
+    this.paginaActual.set(1);
+  }
+
+  seleccionarRubro(rubro: { id: number; nombre: string }) {
+    this.filtroRubroTexto.set(rubro.nombre);
+    this.sugerenciasRubroAbiertas.set(false);
+  }
+
+  seleccionarMarca(marca: { id: number; nombre: string }) {
+    this.filtroMarcaTexto.set(marca.nombre);
+    this.sugerenciasMarcaAbiertas.set(false);
+  }
+
+  limpiarFiltroRubro() {
+    this.filtroRubroTexto.set('');
+    this.paginaActual.set(1);
+  }
+
+  limpiarFiltroMarca() {
+    this.filtroMarcaTexto.set('');
+    this.paginaActual.set(1);
   }
 
   seleccionarSugerencia(producto: Producto) {
@@ -337,5 +428,51 @@ export class Catalog implements OnInit {
     this.mensajeEscaneo.set(msg);
     if (this.mensajeTimeout) clearTimeout(this.mensajeTimeout);
     this.mensajeTimeout = setTimeout(() => this.mensajeEscaneo.set(null), 5000);
+  }
+
+  abrirCargaExcel() {
+    this.mostrandoCargaExcel.set(true);
+    this.mensajeExcel.set('');
+    this.errorExcel.set('');
+  }
+
+  cerrarCargaExcel() {
+    this.mostrandoCargaExcel.set(false);
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.subirExcel(input.files[0]);
+    }
+  }
+
+  subirExcel(archivo: File) {
+    this.cargandoExcel.set(true);
+    this.mensajeExcel.set('');
+    this.errorExcel.set('');
+
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+
+    const token = localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post('http://127.0.0.1:8000/api/cargar-excel/', formData, { headers }).subscribe({
+      next: (resp: any) => {
+        this.mensajeExcel.set(resp.mensaje);
+        this.cargandoExcel.set(false);
+        setTimeout(() => {
+          this.cerrarCargaExcel();
+          this.cargarCatalogos();
+        }, 2000);
+      },
+      error: (err) => {
+        this.errorExcel.set(err.error?.error || 'Error al subir el archivo.');
+        this.cargandoExcel.set(false);
+      }
+    });
   }
 }

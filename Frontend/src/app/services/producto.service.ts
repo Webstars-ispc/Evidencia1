@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -11,13 +11,20 @@ export class ProductoService {
 
   constructor(private http: HttpClient) { }
 
-  // Create (Crear)
+  private getHttpOptions() {
+    const token = localStorage.getItem('access_token');
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return { headers };
+  }
+
   guardarProducto(producto: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, producto).pipe(
       catchError(this.handleError)
     );
   }
-
 
   obtenerProductos(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl).pipe(
@@ -26,13 +33,13 @@ export class ProductoService {
   }
 
   obtenerRubros(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8000/api/rubros/').pipe(
+    return this.http.get<any[]>('http://127.0.0.1:8000/api/rubros/', this.getHttpOptions()).pipe(
       catchError(this.handleError)
     );
   }
 
   obtenerMarcas(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8000/api/marcas/').pipe(
+    return this.http.get<any[]>('http://127.0.0.1:8000/api/marcas/', this.getHttpOptions()).pipe(
       catchError(this.handleError)
     );
   }
