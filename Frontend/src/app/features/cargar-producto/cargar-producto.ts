@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductoFormService } from '../../services/producto-form.service';
 import { BarcodeScanner } from '../../shared/components/barcode-scanner/barcode-scanner';
+import { Volver } from '../../shared/components/volver/volver';
 
 @Component({
   selector: 'app-registro-producto',
-  imports: [ReactiveFormsModule, BarcodeScanner],
+  imports: [ReactiveFormsModule, BarcodeScanner, Volver],
   templateUrl: './cargar-producto.html',
   styleUrl: './cargar-producto.css',
 })
