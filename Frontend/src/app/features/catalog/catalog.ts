@@ -5,6 +5,7 @@ import { ProductoService } from '../../services/producto.service';
 import { Router, RouterLink } from '@angular/router';
 import { DeleteModal } from './components/delete-modal/delete-modal';
 import { BarcodeScanner } from '../../shared/components/barcode-scanner/barcode-scanner';
+import { Volver } from '../../shared/components/volver/volver';
 
 interface Producto {
   id: number;
@@ -28,7 +29,7 @@ interface MensajeEscaneo {
 
 @Component({
   selector: 'app-catalog',
-  imports: [RouterLink, DeleteModal, BarcodeScanner],
+  imports: [RouterLink, DeleteModal, BarcodeScanner, Volver],
   templateUrl: './catalog.html',
   styleUrl: './catalog.css',
 })

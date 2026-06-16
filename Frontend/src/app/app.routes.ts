@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard, guestGuard } from './guards/auth.guard';
-import { adminGuard } from './guards/admin.guard'; //cuando creemos el componente gestion-equipo lo descomentamos.
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -50,7 +50,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
+    loadComponent: () => import('./features/not-found/not-found').then(c => c.NotFound),
+    title: 'Página No Encontrada'
+  }
 ];

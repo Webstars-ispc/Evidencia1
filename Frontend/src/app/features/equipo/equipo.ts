@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Volver } from '../../shared/components/volver/volver';
 
 @Component({
   selector: 'app-gestionar-equipo',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Volver],
   templateUrl: './equipo.html',
   styleUrls: ['./equipo.css']
 })

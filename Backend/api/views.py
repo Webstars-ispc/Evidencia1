@@ -4,13 +4,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
 from .models import Rubro, Marca, Producto
-from .serializers import RubroSerializer, MarcaSerializer, ProductoSerializer
+from .serializers import RubroSerializer, MarcaSerializer, ProductoSerializer, estandarizar
 
 import openpyxl
 from unidecode import unidecode
-
-def estandarizar(texto):
-    return unidecode(str(texto).strip().upper())
 
 class CustomModelViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):

@@ -2,10 +2,11 @@ import { Component, OnInit, inject, computed, input, effect } from '@angular/cor
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductoFormService } from '../../services/producto-form.service';
+import { Volver } from '../../shared/components/volver/volver';
 
 @Component({
   selector: 'app-editar-producto',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Volver],
   templateUrl: './editar-producto.html',
   styleUrl: './editar-producto.css',
 })
