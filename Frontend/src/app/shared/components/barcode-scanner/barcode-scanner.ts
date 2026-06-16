@@ -451,13 +451,16 @@ export class BarcodeScanner implements OnDestroy {
 
   private codeReader: any = null;
   private streamActivo: MediaStream | null = null;
+  private scanVersion = 0;
 
   abrir(): void {
     if (this.mostrar()) return;
     this.error.set(null);
     this.mostrar.set(true);
     this.iniciando.set(true);
-    setTimeout(() => this.iniciar(), 150);
+    this.scanVersion++;
+    const currentVersion = this.scanVersion;
+    setTimeout(() => this.iniciar(currentVersion), 150);
   }
 
   cerrar(): void {
@@ -468,7 +471,7 @@ export class BarcodeScanner implements OnDestroy {
     this.detener();
   }
 
-  private async iniciar(): Promise<void> {
+  private async iniciar(currentVersion: number): Promise<void> {
     if (!navigator.mediaDevices?.getUserMedia) {
       this.error.set(
         'Tu navegador no soporta el escáner de cámara. Ingresá el código manualmente.'
@@ -493,6 +496,11 @@ export class BarcodeScanner implements OnDestroy {
         audio: false,
       });
 
+      if (this.scanVersion !== currentVersion) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
       this.streamActivo = stream;
       video.muted = true;
       video.setAttribute('playsinline', 'true');
@@ -500,9 +508,24 @@ export class BarcodeScanner implements OnDestroy {
       if (video.paused) {
         await video.play();
       }
+
+      await new Promise<void>((resolve) => {
+        if (video.readyState >= 2) {
+          resolve();
+        } else {
+          video.onloadeddata = () => resolve();
+        }
+      });
+
+      if (this.scanVersion !== currentVersion) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+
       this.iniciando.set(false);
 
       this.codeReader.decodeFromVideoElement(video, (result: any) => {
+        if (this.scanVersion !== currentVersion) return;
         if (!result) return;
         const codigo = String(result.getText() ?? '').trim();
         if (!codigo) return;
@@ -510,6 +533,7 @@ export class BarcodeScanner implements OnDestroy {
         this.detener();
       });
     } catch (err: any) {
+      if (this.scanVersion !== currentVersion) return;
       console.error('[BarcodeScanner] Error:', err);
       this.iniciando.set(false);
       this.error.set(this.traducirError(err));
@@ -517,18 +541,27 @@ export class BarcodeScanner implements OnDestroy {
   }
 
   private detener(): void {
-    if (this.streamActivo) {
-      this.streamActivo.getTracks().forEach((track) => track.stop());
-      this.streamActivo = null;
-    }
-    const video = this.videoElement()?.nativeElement;
-    if (video) {
-      video.srcObject = null;
-    }
+    try {
       if (this.codeReader) {
         try { this.codeReader.reset(); } catch {}
+        this.codeReader = null;
       }
-      this.codeReader = null;
+    } catch {}
+
+    try {
+      if (this.streamActivo) {
+        this.streamActivo.getTracks().forEach((track) => track.stop());
+        this.streamActivo = null;
+      }
+    } catch {}
+
+    try {
+      const video = this.videoElement()?.nativeElement;
+      if (video) {
+        video.srcObject = null;
+      }
+    } catch {}
+
     this.mostrar.set(false);
     this.iniciando.set(false);
     this.error.set(null);
