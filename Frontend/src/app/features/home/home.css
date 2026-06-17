@@ -165,7 +165,7 @@
   background: #284574;
   border: 1px solid #284574;
   border-radius: 4px;
-  padding: 14px 16px;
+  padding: 1.5rem;
   text-decoration: none;
   transition: all 0.2s;
   cursor: pointer;
@@ -191,7 +191,7 @@
 
 .action-label {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #E1C582;
 }

@@ -9,7 +9,7 @@
   </div>
 
   <!-- filtro de fechas -->
-  <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+  <!-- <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
     <div class="filter-box">
       <span class="filter-icon">📅</span>
       <select class="filter-select" (change)="onFilterChange($event)">
@@ -36,12 +36,12 @@
         </div>
       </div>
     }
-  </div>
+  </div> -->
 
   <!-- stat cards -->
   <div class="row g-3 mb-4 align-items-stretch">
 
-    <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
+    <!-- <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
       <div class="stat-card stat-card--gold h-100">
         <div class="stat-card-body">
           <div class="stat-content">
@@ -94,27 +94,27 @@
       </div>
     }
 
-  </div>
+  </div> -->
 
-  <div class="row g-3 mb-4">
-    @for (action of quickActions; track action.label) {
+    <div class="row g-3 mb-4">
+      @for (action of quickActions; track action.label) {
       <!-- Solo muestra "Gestionar Equipo" si es Administrador -->
       @if (action.label !== 'Gestionar Equipo' || userRole() === 'Administrador') {
-        <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
-            <a [routerLink]="action.route" class="action-card">
-              <span class="action-icon-circle">{{ action.icon }}</span>
-              <span class="action-label">{{ action.label }}</span>
-            </a>
-        </div>
+      <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-4' : 'col-6 col-md-4'">
+        <a [routerLink]="action.route" class="action-card">
+          <span class="action-icon-circle">{{ action.icon }}</span>
+          <span class="action-label">{{ action.label }}</span>
+        </a>
+      </div>
       }
-    }
-  </div>
+      }
+    </div>
 
-  <!-- fila inferior -->
-  <div class="row g-4">
-
+    <!-- fila inferior -->
+    <!-- <div class="row g-4">
+ -->
     <!-- grafico ventas semanales -->
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6">
       <div class="panel-card">
         <h5 class="panel-title">Ventas Semanales</h5>
         <div class="chart-wrapper">
@@ -152,9 +152,9 @@
         </div>
       </div>
     </div>
-
+ -->
     <!-- tabla top 5 productos -->
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6">
       <div class="panel-card">
         <h5 class="panel-title">Top 5 Productos Más Vendidos</h5>
         <p class="panel-subtitle">{{ rangoSeleccionado() }}</p>
@@ -183,8 +183,8 @@
           </table>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <!-- </div> -->
 
   </div>
-
-</div>
