@@ -1,30 +1,31 @@
 # Libreria Nazareth📚
  ![Estado](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
-![Versión](https://img.shields.io/badge/versión-2.0.0-blue)
+![Versión](https://img.shields.io/badge/versión-2.1.0-blue)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-green)
 
-La plataforma para la librería busca agilizar el tiempo del trabajador a la hora de registrar los productos y realizar las ventas.
+Plataforma de gestión de stock para un polirrubro. Permite registrar productos, cargarlos masivamente desde Excel, buscar con filtros, escanear códigos de barras y administrar usuarios con roles diferenciados.  
 
-# Fundamentación🔈
+## Fundamentación
 
 Durante la pandemia cuando la economía fluctuaba se tenían que cambiar los precios uno por uno en cada producto del local, el cliente decidió empezar a buscar un método de organización digital, el cual si bien ayudó, con el avance del tiempo y al incrementar la variedad de productos, dicho problema volvió. Entonces en busca de un nuevo método, le ofrecimos un sistema que le dejara registrar sus productos de manera más simple, realizar la carga del producto escaneando con el celular el código de barras, también con un ágil sistema de búsqueda y filtros realizar las venta efectivizando el tiempo tanto del trabajador como del cliente.
 
 
 ## Tecnologías utilizadas 
 | Capa | Tecnología | Versión |
-|-------------|-------------------|----------| 
-| Backend | Django | 5.x | 
-| API REST | Django RESTFramework | 3.x | 
-| Base de datos | PostgreSQL | 16.x | 
+|:---|:---|:---| 
+| Backend | Django | 6.0.x | 
+| API REST | Django RESTFramework | 3.17.x | 
+| Autenticación | JWT (Simple JWT) | 5.5.x |
+| Base de datos | MySQL / MariaDB | 10.6+ |
 | Frontend | Angular |21.x | 
-| Lenguajes | Python 3.11 / TypeScript 5 | |
+| Lenguajes | Python 3.14 / TypeScript 5.9 |
 | Control de versiones | Git / GitHub |
 | Gestor de paquetes | pip / npm | |
 
 
-# Instrucciones de instalación
+## Instrucciones de instalación
 
-## Requisitos previos
+### Requisitos previos
 Antes de empezar, necesitás tener instalado:
 
 - [Python 3.10 o superior](https://www.python.org/downloads/)
@@ -33,11 +34,10 @@ Antes de empezar, necesitás tener instalado:
 - [XAMPP](https://www.apachefriends.org/) (incluye MariaDB) o MySQL standalone
 - Angular CLI instalado globalmente: `npm install -g @angular/cli`
 - Editor de código recomendado: [VS Code](https://code.visualstudio.com/)
-- Irium Cam
+- Iriun Webcam (en pc y celular)
 
-# 🚀 Instalación paso a paso
 
-## 1. Clonar el repositorio
+### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/Webstars-ispc/LibreriaNazareth.git
@@ -45,31 +45,31 @@ cd LibreriaNazareth
 git checkout main
 ```
 
-## 2. Backend — Django
-* Iniciar MySQL/MariaDB: 
+### 2. Backend — Django
+1. Iniciar MySQL/MariaDB: 
 Abrí el Panel de Control de XAMPP y hacé clic en Start en la fila de MySQL. Debe aparecer en verde.
 
-* Crear la base de datos: 
+2. Crear la base de datos: 
 Abrí phpMyAdmin (http://localhost/phpmyadmin) y creá una base de datos con el nombre LibreriaNazareth (o el que prefieras) con cotejamiento utf8mb4_general_ci.
 
-* Configurar variables de entorno: abri tu editor de codigo, dirigite a la carpeta BackEnd y modifica el archivo ".env_modelo" con tus credenciales:
+3. Configurar variables de entorno: abri tu editor de codigo, dirigite a la carpeta BackEnd y modifica el archivo ".env_modelo" con tus credenciales:
 ```
-SECRET_KEY=tu-clave-secreta #la genera django al crear el proyecto
+SECRET_KEY=tu-clave-secreta 
 DEBUG=True
 DB_NAME=LibreriaNazareth
 DB_USER=root
-DB_PASSWORD=         # En XAMPP suele estar vacío
+DB_PASSWORD=         
 DB_HOST=localhost
 DB_PORT=3306
 ```
-(En caso de que no tengas una clave secreta, generala aleatoriamente: 
+En caso de que no tengas una clave secreta, generala aleatoriamente: 
 ```
 python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 ```
-Luego renombra el archivo a .env
+Luego renombra el archivo a .env 
 
-* Abri una terminal en la carpeta Backend
-* Crear entorno virtual, activarlo e instalar dependencias: 
+4. Abri una terminal en la carpeta Backend
+5. Crear entorno virtual, activarlo e instalar dependencias: 
 ```
 python -m venv venv
 
@@ -77,21 +77,21 @@ venv\Scripts\activate
 
 pip install -r requirements.txt
 ```
-* Ejecutar migraciones: crea todas las tablas automaticamente
+6. Ejecutar migraciones: crea todas las tablas automaticamente
 ```
 python manage.py migrate
 ```
-* Las tablas van a estar vacias asi que hay que cargar datos, para no hacerlo manualmente uno por uno ejecutamos 
+7. Las tablas van a estar vacias asi que hay que cargar datos, para no hacerlo manualmente uno por uno ejecutamos 
 ```
 python cargar_datos.py
 ```
-* Inicializar el servidor:
+8. Inicializar el servidor:
 ```
 python manage.py runserver
 ```
 El backend estará disponible en http://127.0.0.1:8000/
 
-## Frontend — Angular + Bootstrap
+### 3. Frontend — Angular + Bootstrap
 Abrí otra terminal para la carpeta FrontEnd
 ```bash
 cd frontend
@@ -156,25 +156,25 @@ peticiones rápidas          lógica compleja y seguridad
 2. Apuntar la cámara al código del producto.
 3. El sistema completa automáticamente los campos del producto si ya existe en el catálogo.
 
-## Control stock
+## Buscar y filtrar productos
 
-1. Ir a **Buscar → filtros**.
-2. Buscar productos por nombre, código o escaneando el código de barras, rubro,marca.
-3. seleccionar producto.
-4. Mostrar detalle.
+1. Ir a **Catalogo**.
+2. Usar el buscador principal para buscar por nombre, código, rubro o marca.
+3. Todos los filtros muestran sugerencias automáticas según los productos existentes.
+
+## Cargar productos desde un Excel
+1. En el catálogo, hacer clic en 📂 Cargar Excel.  
+2. Seleccionar un archivo .xlsx que contenga una hoja llamada PRODUCTOS.   
+3. El sistema procesa el archivo, estandariza los nombres y evita duplicados.
+
+## Gestionar equipo (solo Administrador)
+1. Ir a Gestionar Equipo desde el panel principal.  
+2. Permite listar, crear, editar y eliminar usuarios empleados.  
 
 ## Panel de Administración Django
+Accesible en http://127.0.0.1:8000/admin para gestión avanzada.
 
-Accesible en `http://localhost:8000/admin` para gestión avanzada de usuarios,
-datos y configuración del sistema.
 
-## Variables de entorno 
-Crear un archivo `.env` en la raíz del backend con los siguientes
-valores: ```env SECRET_KEY=tu_clave_secreta_django DEBUG=True
-DB_NAME=nombre_base_de_datos DB_USER=postgres DB_PASSWORD=tu_contraseña
-DB_HOST=localhost DB_PORT=5432 ALLOWED_HOSTS=localhost,127.0.0.1 ```
-**Nunca subir el archivo `.env` al repositorio.**
-Agregarlo al `.gitignore`.
 
 # Integrantes y Roles
 
@@ -190,6 +190,7 @@ Agregarlo al `.gitignore`.
 ## Licencia 
 Este proyecto fue desarrollado con fines académicos. Distribuido bajo
 licencia [MIT](LICENSE). 
+
 ## Contribuciones. 
 Este es un proyecto académico. 
 Para reportar errores o sugerencias, abrir un [Issue](https://github.com/usuario/repo/issues) en el
