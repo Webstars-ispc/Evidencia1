@@ -34,9 +34,10 @@ export class Login {
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
         this.authService.saveToken(response.access);
+        this.authService.getProfile().subscribe();
         this.successMessage = '✅ Login exitoso. Redirigiendo...';
         setTimeout(() => {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/catalogo']);
         }, 1000);
       },
       error: (error) => {

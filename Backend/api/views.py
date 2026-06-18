@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.http import Http404
 from .models import Rubro, Marca, Producto
 from .serializers import RubroSerializer, MarcaSerializer, ProductoSerializer, estandarizar
@@ -10,6 +10,7 @@ import openpyxl
 from unidecode import unidecode
 
 class CustomModelViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)

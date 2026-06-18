@@ -10,12 +10,16 @@ export const adminGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
+  const role = auth.getRole();
+  if (role === 'Administrador') return true;
+  if (role !== null) return router.parseUrl('/catalogo');
+
   return auth.getProfile().pipe(
     map(profile => {
       if (profile.role === 'Administrador') {
         return true;
       }
-      return router.parseUrl('/home');
+      return router.parseUrl('/catalogo');
     }),
     catchError(() => {
       return of(router.parseUrl('/login'));

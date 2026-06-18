@@ -53,7 +53,7 @@ export class ProductoService {
 
   // Update (Actualizar producto entero)
   actualizarProducto(id: number, producto: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}${id}/`, this.getHttpOptions(), producto).pipe(
+    return this.http.put<any>(`${this.apiUrl}${id}/`, producto, this.getHttpOptions()).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,20 @@ export class AuthService {
     return this.http.get<{ username: string; email: string; role: string }>(
         `${this.apiUrl}/me/`,
         { headers }
+    ).pipe(
+      tap(profile => {
+        localStorage.setItem('user_role', profile.role);
+      })
     );
-}
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem('user_role');
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'Administrador';
+  }
 
   saveToken(token: string): void {
     localStorage.setItem('access_token', token);
@@ -46,6 +58,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('user_role');
     this.logueado.set(false);
   }
 }

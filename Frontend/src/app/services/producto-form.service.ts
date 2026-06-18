@@ -71,8 +71,8 @@ export class ProductoFormService {
   cargarCatalogos(): void {
     this.cargandoCatalogos.set(true);
     forkJoin({
-      rubros: this.http.get<Rubro[]>('http://localhost:8000/api/rubros/'),
-      marcas: this.http.get<Marca[]>('http://localhost:8000/api/marcas/'),
+      rubros: this.productoService.obtenerRubros(),
+      marcas: this.productoService.obtenerMarcas(),
     })
       .pipe(
         catchError((err) => {

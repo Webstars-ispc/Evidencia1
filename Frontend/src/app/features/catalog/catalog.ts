@@ -58,6 +58,7 @@ export class Catalog implements OnInit {
   sugerenciasMarcaAbiertas = signal(false);
 
   private mensajeTimeout: ReturnType<typeof setTimeout> | null = null;
+  private ultimoCodigoEscaneado = '';
 
   rubroMap = new Map<number, string>();
   marcaMap = new Map<number, string>();
@@ -218,8 +219,8 @@ export class Catalog implements OnInit {
     this.cargando.set(true);
 
     forkJoin({
-      rubros: this.http.get<any[]>('http://localhost:8000/api/rubros/'),
-      marcas: this.http.get<any[]>('http://localhost:8000/api/marcas/'),
+      rubros: this.productoService.obtenerRubros(),
+      marcas: this.productoService.obtenerMarcas(),
       productos: this.productoService.obtenerProductos(),
     }).subscribe({
       next: ({ rubros, marcas, productos }) => {
@@ -391,6 +392,9 @@ export class Catalog implements OnInit {
   onCodigoEscaneado(codigo: string): void {
     const codigoLimpio = (codigo ?? '').trim();
     if (!codigoLimpio) return;
+    if (codigoLimpio === this.ultimoCodigoEscaneado) return;
+    this.ultimoCodigoEscaneado = codigoLimpio;
+    setTimeout(() => { this.ultimoCodigoEscaneado = ''; }, 2000);
 
     const encontrado = this.productos().find(
       (p) => p.codigo_barras && p.codigo_barras === codigoLimpio

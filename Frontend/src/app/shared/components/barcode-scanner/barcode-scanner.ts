@@ -451,9 +451,11 @@ export class BarcodeScanner implements OnDestroy {
 
   private codeReader: any = null;
   private streamActivo: MediaStream | null = null;
+  private scanVersion = 0;
 
   abrir(): void {
     if (this.mostrar()) return;
+    this.scanVersion++;
     this.error.set(null);
     this.mostrar.set(true);
     this.iniciando.set(true);
@@ -469,6 +471,8 @@ export class BarcodeScanner implements OnDestroy {
   }
 
   private async iniciar(): Promise<void> {
+    const currentVersion = this.scanVersion;
+
     if (!navigator.mediaDevices?.getUserMedia) {
       this.error.set(
         'Tu navegador no soporta el escáner de cámara. Ingresá el código manualmente.'
@@ -486,12 +490,20 @@ export class BarcodeScanner implements OnDestroy {
 
     try {
       const { BrowserMultiFormatReader } = await import('@zxing/browser');
+
+      if (this.scanVersion !== currentVersion) return;
+
       this.codeReader = new BrowserMultiFormatReader();
 
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: 'environment' } },
         audio: false,
       });
+
+      if (this.scanVersion !== currentVersion) {
+        stream.getTracks().forEach((t) => t.stop());
+        return;
+      }
 
       this.streamActivo = stream;
       video.muted = true;
@@ -503,6 +515,7 @@ export class BarcodeScanner implements OnDestroy {
       this.iniciando.set(false);
 
       this.codeReader.decodeFromVideoElement(video, (result: any) => {
+        if (this.scanVersion !== currentVersion) return;
         if (!result) return;
         const codigo = String(result.getText() ?? '').trim();
         if (!codigo) return;
@@ -510,6 +523,7 @@ export class BarcodeScanner implements OnDestroy {
         this.detener();
       });
     } catch (err: any) {
+      if (this.scanVersion !== currentVersion) return;
       console.error('[BarcodeScanner] Error:', err);
       this.iniciando.set(false);
       this.error.set(this.traducirError(err));
@@ -517,18 +531,18 @@ export class BarcodeScanner implements OnDestroy {
   }
 
   private detener(): void {
-    if (this.streamActivo) {
-      this.streamActivo.getTracks().forEach((track) => track.stop());
-      this.streamActivo = null;
+    if (this.codeReader) {
+      try { this.codeReader.reset(); } catch {}
+      this.codeReader = null;
     }
     const video = this.videoElement()?.nativeElement;
     if (video) {
       video.srcObject = null;
     }
-      if (this.codeReader) {
-        try { this.codeReader.reset(); } catch {}
-      }
-      this.codeReader = null;
+    if (this.streamActivo) {
+      this.streamActivo.getTracks().forEach((track) => track.stop());
+      this.streamActivo = null;
+    }
     this.mostrar.set(false);
     this.iniciando.set(false);
     this.error.set(null);

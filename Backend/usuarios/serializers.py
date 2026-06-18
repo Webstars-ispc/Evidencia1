@@ -18,6 +18,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         role = validated_data.pop('role', 'Empleado')
         user = User.objects.create_user(**validated_data)
+        if role == 'Administrador':
+            user.is_staff = True
+            user.save()
         group = Group.objects.get(name=role)
         user.groups.add(group)
         return user
