@@ -1,0 +1,81 @@
+<div class="page-container">
+  <div class="content-wrapper py-4">
+    <app-volver></app-volver>
+
+    <div class="form-section">
+      <div class="form-header">
+        <h2 class="form-title">Aumentos y Descuentos Masivos</h2>
+        <p class="form-subtitle">Aplicá un porcentaje de aumento o descuento a los precios de venta</p>
+      </div>
+
+      <!-- Tipo de aumento -->
+      <div class="form-group">
+        <label class="form-label">Tipo de aumento / descuento</label>
+        <select class="form-select" [(ngModel)]="tipoAumento" style="width: 100%; padding: 10px 12px; border: 1px solid #3a5690; border-radius: 8px; background: #1f3560; color: #b8c4d8;">
+          <option value="general">General (todos los productos)</option>
+          <option value="rubro">Por rubro</option>
+          <option value="marca">Por marca</option>
+          <option value="individual">Individual (un producto)</option>
+        </select>
+      </div>
+
+      <!-- Porcentaje -->
+      <div class="form-group">
+        <label class="form-label">Porcentaje (%) Ingrese numero positivo para aumento, negativo para descuento</label>
+        <input type="number" class="form-input" [(ngModel)]="porcentaje" placeholder="Ej: 10 para aumentar 10%, -5 para bajar 5%">
+      </div>
+
+      <!-- Selector de rubro -->
+      @if (tipoAumento() === 'rubro') {
+        <div class="form-group">
+          <label class="form-label">Rubro</label>
+          <select class="form-select" [(ngModel)]="rubroId" style="width: 100%; padding: 10px 12px; border: 1px solid #3a5690; border-radius: 8px; background: #1f3560; color: #b8c4d8;">
+            <option [ngValue]="null">Seleccioná un rubro...</option>
+            @for (rubro of rubros; track rubro.id) {
+              <option [ngValue]="rubro.id">{{ rubro.nombre }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Selector de marca -->
+      @if (tipoAumento() === 'marca') {
+        <div class="form-group">
+          <label class="form-label">Marca</label>
+          <select class="form-select" [(ngModel)]="marcaId" style="width: 100%; padding: 10px 12px; border: 1px solid #3a5690; border-radius: 8px; background: #1f3560; color: #b8c4d8;">
+            <option [ngValue]="null">Seleccioná una marca...</option>
+            @for (marca of marcas; track marca.id) {
+              <option [ngValue]="marca.id">{{ marca.nombre }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Selector de producto -->
+      @if (tipoAumento() === 'individual') {
+        <div class="form-group">
+          <label class="form-label">Producto</label>
+          <select class="form-select" [(ngModel)]="productoId" style="width: 100%; padding: 10px 12px; border: 1px solid #3a5690; border-radius: 8px; background: #1f3560; color: #b8c4d8;">
+            <option [ngValue]="null">Seleccioná un producto...</option>
+            @for (producto of productos; track producto.id) {
+              <option [ngValue]="producto.id">{{ producto.nombre }} - ${{ producto.precio_venta }}</option>
+            }
+          </select>
+        </div>
+      }
+
+      <!-- Mensajes -->
+      @if (mensaje()) {
+        <div class="alert-msg alert-msg--success mt-3">{{ mensaje() }}</div>
+      }
+      @if (error()) {
+        <div class="alert-msg alert-msg--danger mt-3">{{ error() }}</div>
+      }
+
+      <!-- Botón -->
+      <button class="btn-submit mt-3" (click)="aplicarAumento()" [disabled]="cargando()">
+        {{ cargando() ? 'Aplicando...' : 'Aplicar modificación de precios' }}
+      </button>
+    </div>
+  </div>
+</div>

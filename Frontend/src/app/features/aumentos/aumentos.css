@@ -1,0 +1,15 @@
+.form-label {
+    margin-top: 1rem;
+}
+
+.form-section {
+  background: #1C2E5D;
+  border: 1px solid #284574;
+  border-radius: 4px;
+  padding: 40px 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.form-group {
+  margin-top: 1.5rem;
+}

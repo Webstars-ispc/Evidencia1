@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.http import Http404
 from .models import Rubro, Marca, Producto
 from .serializers import RubroSerializer, MarcaSerializer, ProductoSerializer, estandarizar
+from decimal import Decimal, ROUND_HALF_UP
 
 import openpyxl
 from unidecode import unidecode
@@ -206,3 +207,147 @@ def cargar_excel(request):
         mensaje += f' Errores: {"; ".join(errores)}'
 
     return Response({'mensaje': mensaje}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def aumento_general(request):
+    """Aplica un porcentaje de aumento a TODOS los productos."""
+    porcentaje = request.data.get('porcentaje')
+    if porcentaje is None:
+        return Response({'error': 'El campo "porcentaje" es obligatorio.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        porcentaje = float(porcentaje)
+    except (ValueError, TypeError):
+        return Response({'error': 'El porcentaje debe ser un número válido. Ej: "3" para aumento o "-3" para descuento'}, status=status.HTTP_400_BAD_REQUEST)
+
+    productos = Producto.objects.all()
+    actualizados = 0
+    
+    for producto in productos:
+        # Calcular el nuevo precio
+        nuevo_precio = producto.precio_venta * (Decimal('1') + Decimal(str(porcentaje)) / Decimal('100'))
+
+        # Redondear a múltiplos de 100
+        nuevo_precio = (nuevo_precio / Decimal('100')).quantize(Decimal('1'), rounding=ROUND_HALF_UP) * Decimal('100')
+
+        producto.precio_venta = nuevo_precio
+        producto.save()
+        actualizados += 1
+
+    return Response({
+        'mensaje': f'Aumento general del {porcentaje}% aplicado.',
+        'productos_actualizados': actualizados
+    }, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def aumento_por_rubro(request):
+    """Aplica un porcentaje de aumento a todos los productos de un rubro."""
+    rubro_id = request.data.get('rubro_id')
+    porcentaje = request.data.get('porcentaje')
+
+    if not rubro_id or porcentaje is None:
+        return Response({'error': 'Los campos "rubro_id" y "porcentaje" son obligatorios.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        porcentaje = float(porcentaje)
+    except (ValueError, TypeError):
+        return Response({'error': 'El porcentaje debe ser un número válido. Ej: "3" para aumento o "-3" para descuento'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        rubro = Rubro.objects.get(id=rubro_id)
+    except Rubro.DoesNotExist:
+        return Response({'error': 'El rubro especificado no existe.'}, status=status.HTTP_404_NOT_FOUND)
+
+    productos = Producto.objects.filter(rubro=rubro)
+    actualizados = 0
+
+    for producto in productos:
+        # Calcular el nuevo precio
+        nuevo_precio = producto.precio_venta * (Decimal('1') + Decimal(str(porcentaje)) / Decimal('100'))
+
+        # Redondear a múltiplos de 100
+        nuevo_precio = (nuevo_precio / Decimal('100')).quantize(Decimal('1'), rounding=ROUND_HALF_UP) * Decimal('100')
+        producto.precio_venta = nuevo_precio
+        producto.save()
+        actualizados += 1
+
+    return Response({
+        'mensaje': f'Aumento del {porcentaje}% aplicado al rubro "{rubro.nombre}".',
+        'productos_actualizados': actualizados
+    }, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def aumento_por_marca(request):
+    """Aplica un porcentaje de aumento a todos los productos de una marca."""
+    marca_id = request.data.get('marca_id')
+    porcentaje = request.data.get('porcentaje')
+
+    if not marca_id or porcentaje is None:
+        return Response({'error': 'Los campos "marca_id" y "porcentaje" son obligatorios.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        porcentaje = float(porcentaje)
+    except (ValueError, TypeError):
+        return Response({'error': 'El porcentaje debe ser un número válido. Ej: "3" para aumento o "-3" para descuento'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        marca = Marca.objects.get(id=marca_id)
+    except Marca.DoesNotExist:
+        return Response({'error': 'La marca especificada no existe.'}, status=status.HTTP_404_NOT_FOUND)
+
+    productos = Producto.objects.filter(marca=marca)
+    actualizados = 0
+
+    for producto in productos:
+        # Calcular el nuevo precio
+        nuevo_precio = producto.precio_venta * (Decimal('1') + Decimal(str(porcentaje)) / Decimal('100'))
+
+        # Redondear a múltiplos de 100
+        nuevo_precio = (nuevo_precio / Decimal('100')).quantize(Decimal('1'), rounding=ROUND_HALF_UP) * Decimal('100')
+
+        producto.precio_venta = nuevo_precio
+        producto.save()
+        actualizados += 1
+
+    return Response({
+        'mensaje': f'Aumento del {porcentaje}% aplicado a la marca "{marca.nombre}".',
+        'productos_actualizados': actualizados
+    }, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def aumento_individual(request):
+    """Aplica un porcentaje de aumento a un producto específico."""
+    producto_id = request.data.get('producto_id')
+    porcentaje = request.data.get('porcentaje')
+
+    if not producto_id or porcentaje is None:
+        return Response({'error': 'Los campos "producto_id" y "porcentaje" son obligatorios.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        porcentaje = float(porcentaje)
+    except (ValueError, TypeError):
+        return Response({'error': 'El porcentaje debe ser un número válido. Ej: "3" para aumento o "-3" para descuento'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        producto = Producto.objects.get(id=producto_id)
+    except Producto.DoesNotExist:
+        return Response({'error': 'El producto especificado no existe.'}, status=status.HTTP_404_NOT_FOUND)
+
+    # Calcular el nuevo precio
+    nuevo_precio = producto.precio_venta * (Decimal('1') + Decimal(str(porcentaje)) / Decimal('100'))
+
+    # Redondear a múltiplos de 100
+    nuevo_precio = (nuevo_precio / Decimal('100')).quantize(Decimal('1'), rounding=ROUND_HALF_UP) * Decimal('100')
+    producto.precio_venta = nuevo_precio
+    producto.save()
+
+    return Response({
+        'mensaje': f'Aumento del {porcentaje}% aplicado a "{producto.nombre}". Nuevo precio: ${producto.precio_venta}.',
+    }, status=status.HTTP_200_OK)

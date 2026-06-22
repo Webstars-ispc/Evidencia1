@@ -29,6 +29,7 @@ export class Home implements OnInit {
     /* { icon: '➕', label: 'Nueva Venta', route: '/ventas/nueva', color: 'success' }, */
     { icon: '📦', label: 'Ver Catálogo', route: '/catalogo' },
     { icon: '➕', label: 'Cargar Producto', route: '/cargar-producto' },
+    { icon: '📊', label: 'Aumento/Descuento', route: '/aumentos' },
     { icon: '👥', label: 'Gestionar Equipo', route: '/equipo', color: 'secondary' },
   ];
 
