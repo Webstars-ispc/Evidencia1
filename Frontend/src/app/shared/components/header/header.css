@@ -1,101 +1,90 @@
 .header {
-  background: #161F48;
-  border-bottom: 1px solid #284574;
+  background: var(--color-fondo);
+  border-bottom: 1px solid var(--color-borde);
 }
 
 .header-inner {
   max-width: 95%;
   margin: 0 auto;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: 4.375rem;  
 }
 
 .header-logo {
+  font-size: 1.25rem;  
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
   font-weight: 500;
-  color: #E1C582;
+  color: var(--color-dorado);
   text-decoration: none;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03125rem; 
+  line-height: 1.2;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.header-nav-link {
-  font-family: 'Raleway', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #b8c4d8;
-  text-decoration: none;
-}
-
-.header-nav-link:hover {
-  color: #E1C582;
+.header-logo-line {
+  display: block;
 }
 
 .header-btn {
-  font-family: 'Raleway', sans-serif;
-  font-size: 11px;
+  font-size: 0.6875rem;  
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 0.125rem;
   text-transform: uppercase;
-  color: #161F48;
-  background: #D2A047;
+  color: var(--color-fondo);
+  background: var(--color-dorado-oscuro);
   border: none;
-  padding: 10px 24px;
-  border-radius: 4px;
+  padding: 0.625rem 1.5rem; 
+  border-radius: 0.25rem;
   cursor: pointer;
   text-decoration: none;
 }
 
+.header-nav-link, .footer-link {
+  color: var(--color-texto-principal);
+  text-decoration: none;
+}
 
 @media (max-width: 700px) {
   .header-right {
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   .header-logo {
-    font-size: 15px;
+    font-size: 0.9375rem; 
   }
 
   .header-nav-link {
-    font-size: 9px;
-    letter-spacing: 0.5px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.0625rem;
   }
 
   .header-btn {
-    font-size: 9px;
-    padding: 6px 12px;
+    font-size: 0.5625rem; 
+    padding: 0.375rem 0.75rem;
   }
 }
 
 @media (max-width: 500px) {
   .header-inner {
     height: auto;
-    padding: 10px 0;
+    padding: 0.625rem 0;
   }
 
   .header-right {
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: 4px;
+    gap: 0.9375rem;
   }
 
   .header-nav-link {
-    font-size: 8px;
-    letter-spacing: 0;
+    font-size: 0.625rem;
+    letter-spacing: 0.03125rem;
   }
 
   .header-btn {
-    font-size: 8px;
-    padding: 5px 10px;
+    font-size: 0.625rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .header-logo {
+    font-size: 0.875rem; 
   }
 }

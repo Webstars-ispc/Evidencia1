@@ -1,4 +1,4 @@
-<div class="home-container py-4">
+<div class="home-container p-4">
 
   <!-- titulo y busqueda -->
   <div class="row align-items-center mb-4">
@@ -9,8 +9,8 @@
   </div>
 
   <!-- filtro de fechas -->
-  <!-- <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
-    <div class="filter-box">
+  <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+    <div class="filter-box d-flex align-items-center gap-2">
       <span class="filter-icon">📅</span>
       <select class="filter-select" (change)="onFilterChange($event)">
         <option value="1">Ultimo dia</option>
@@ -24,27 +24,27 @@
     </div>
 
     @if (isCustomRange()) {
-      <div class="d-flex align-items-center gap-2">
-        <div class="filter-box">
-          <span class="filter-icon">Desde</span>
-          <input type="date" class="filter-input" [value]="fechaDesde()" (change)="onFechaDesdeChange($event)">
-        </div>
-        <span class="home-subtitle">-</span>
-        <div class="filter-box">
-          <span class="filter-icon">Hasta</span>
-          <input type="date" class="filter-input" [value]="fechaHasta()" (change)="onFechaHastaChange($event)">
-        </div>
+    <div class="d-flex align-items-center gap-2">
+      <div class="filter-box d-flex align-items-center gap-2">
+        <span class="filter-icon">Desde</span>
+        <input type="date" class="filter-input" [value]="fechaDesde()" (change)="onFechaDesdeChange($event)">
       </div>
+      <span class="home-subtitle">-</span>
+      <div class="filter-box d-flex align-items-center gap-2">
+        <span class="filter-icon">Hasta</span>
+        <input type="date" class="filter-input" [value]="fechaHasta()" (change)="onFechaHastaChange($event)">
+      </div>
+    </div>
     }
-  </div> -->
+  </div>
 
   <!-- stat cards -->
   <div class="row g-3 mb-4 align-items-stretch">
 
-    <!-- <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
+    <div [class]="userRole() === 'Administrador' ? 'col-12 col-md-6 col-lg-3' : 'col-12 col-md-4'">
       <div class="stat-card stat-card--gold h-100">
-        <div class="stat-card-body">
-          <div class="stat-content">
+        <div class="stat-card-body d-flex justify-content-between align-items-start gap-2">
+          <div class="stat-content flex-grow-1">
             <p class="stat-label">Ventas de Hoy</p>
             <p class="stat-value">${{ ventasHoy().toLocaleString() }}</p>
             <p class="stat-change">+15% vs ayer</p>
@@ -54,10 +54,10 @@
       </div>
     </div>
 
-    <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
-      <div class="stat-card h-100">
-        <div class="stat-card-body">
-          <div class="stat-content">
+    <div [class]="userRole() === 'Administrador' ? 'col-12 col-md-6 col-lg-3' : 'col-12 col-md-4'">
+      <div class="stat-card stat-card--gold h-100">
+        <div class="stat-card-body d-flex justify-content-between align-items-start gap-2">
+          <div class="stat-content flex-grow-1">
             <p class="stat-label">Ventas Mes Actual</p>
             <p class="stat-value">${{ ventasMes().toLocaleString() }}</p>
           </div>
@@ -66,10 +66,10 @@
       </div>
     </div>
 
-    <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-3' : 'col-6 col-md-4'">
-      <div class="stat-card h-100">
-        <div class="stat-card-body">
-          <div class="stat-content">
+    <div [class]="userRole() === 'Administrador' ? 'col-12 col-md-6 col-lg-3' : 'col-12 col-md-4'">
+      <div class="stat-card stat-card--gold h-100">
+        <div class="stat-card-body d-flex justify-content-between align-items-start gap-2">
+          <div class="stat-content flex-grow-1">
             <p class="stat-label">Stock Crítico</p>
             <p class="stat-value stat-value--danger">{{ stockCritico() }} Artículos</p>
             <p class="stat-sub">Menos de 10 unidades</p>
@@ -80,45 +80,43 @@
     </div>
 
     @if (userRole() === 'Administrador') {
-      <div class="col-6 col-lg-3">
-        <div class="stat-card h-100">
-          <div class="stat-card-body">
-            <div class="stat-content">
-              <p class="stat-label">Top Vendedor</p>
-              <p class="stat-value">{{ topVendedor().nombre }}</p>
-              <p class="stat-sub">${{ topVendedor().ventas.toLocaleString() }}/día</p>
-            </div>
-            <span class="stat-icon stat-icon--light">👤</span>
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="stat-card stat-card--gold h-100">
+        <div class="stat-card-body d-flex justify-content-between align-items-start gap-2">
+          <div class="stat-content flex-grow-1">
+            <p class="stat-label">Top Vendedor</p>
+            <p class="stat-value">{{ topVendedor().nombre }}</p>
+            <p class="stat-sub">${{ topVendedor().ventas.toLocaleString() }}/día</p>
           </div>
+          <span class="stat-icon stat-icon--light">👤</span>
         </div>
       </div>
-    }
-
-  </div> -->
-
-    <div class="row g-3 mb-4">
-      @for (action of quickActions; track action.label) {
-      <!-- Solo muestra "Gestionar Equipo" si es Administrador -->
-      @if (action.label !== 'Gestionar Equipo' || userRole() === 'Administrador') {
-      <div [class]="userRole() === 'Administrador' ? 'col-6 col-lg-4' : 'col-6 col-md-4'">
-        <a [routerLink]="action.route" class="action-card">
-          <span class="action-icon-circle">{{ action.icon }}</span>
-          <span class="action-label">{{ action.label }}</span>
-        </a>
-      </div>
-      }
-      }
     </div>
+    }
+  </div>
 
-    <!-- fila inferior -->
-    <!-- <div class="row g-4">
- -->
+  <!-- quick actions -->
+  <div class="row g-3 mb-4">
+    @for (action of quickActions; track action.label) {
+    @if (action.label !== 'Gestionar Equipo' || userRole() === 'Administrador') {
+    <div class="col-12 col-md-6 col-lg-4">
+      <a [routerLink]="action.route" class="action-card d-flex align-items-center justify-content-center gap-2">
+        <span class="action-icon-circle d-inline-flex align-items-center justify-content-center">{{ action.icon }}</span>
+        <span class="action-label">{{ action.label }}</span>
+      </a>
+    </div>
+    }
+    }
+  </div>
+
+  <!-- fila inferior -->
+  <div class="row g-4">
     <!-- grafico ventas semanales -->
-    <!-- <div class="col-lg-6">
+    <div class="col-lg-6">
       <div class="panel-card">
         <h5 class="panel-title">Ventas Semanales</h5>
-        <div class="chart-wrapper">
-          <div class="chart-y">
+        <div class="chart-wrapper d-flex gap-2">
+          <div class="chart-y d-flex flex-column justify-content-between">
             <span>$5,000</span>
             <span>$4,000</span>
             <span>$3,000</span>
@@ -126,40 +124,32 @@
             <span>$1,000</span>
             <span>$0</span>
           </div>
-          <div class="chart-main">
-            <svg class="chart-svg" viewBox="0 0 400 160" preserveAspectRatio="none">
-              <polyline
-                fill="none"
-                stroke="#E1C582"
-                stroke-width="2.5"
-                points="0,140 44,50 89,102 133,117 178,72 222,35 266,87 311,12 356,2 400,2"
-              />
+          <div class="chart-main d-flex flex-column flex-grow-1">
+            <svg class="chart-svg flex-grow-1 w-100" viewBox="0 0 400 160" preserveAspectRatio="none">
+              <polyline fill="none" stroke="#E1C582" stroke-width="2.5"
+                points="0,140 44,50 89,102 133,117 178,72 222,35 266,87 311,12 356,2 400,2" />
               @for (point of ventasSemanales; track point.dia; let i = $index) {
-                <circle
-                  [attr.cx]="i * (400 / (ventasSemanales.length - 1))"
-                  [attr.cy]="160 - (point.monto / 5000) * 160"
-                  r="4"
-                  fill="#E1C582"
-                />
+              <circle [attr.cx]="i * (400 / (ventasSemanales.length - 1))" [attr.cy]="160 - (point.monto / 5000) * 160"
+                r="4" fill="#E1C582" />
               }
             </svg>
-            <div class="chart-x">
+            <div class="chart-x d-flex justify-content-between">
               @for (point of ventasSemanales; track point.dia) {
-                <span>{{ point.dia }}</span>
+              <span>{{ point.dia }}</span>
               }
             </div>
           </div>
         </div>
       </div>
     </div>
- -->
+
     <!-- tabla top 5 productos -->
-    <!-- <div class="col-lg-6">
+    <div class="col-lg-6">
       <div class="panel-card">
         <h5 class="panel-title">Top 5 Productos Más Vendidos</h5>
         <p class="panel-subtitle">{{ rangoSeleccionado() }}</p>
         <div class="table-responsive">
-          <table class="home-table">
+          <table class="home-table w-100">
             <thead>
               <tr>
                 <th>Producto</th>
@@ -171,20 +161,19 @@
             </thead>
             <tbody>
               @for (producto of topProductos; track producto.nombre) {
-                <tr>
-                  <td>{{ producto.nombre }}</td>
-                  <td>{{ producto.categoria }}</td>
-                  <td>${{ producto.precio }}</td>
-                  <td>{{ producto.unidades }}</td>
-                  <td>{{ producto.total.toLocaleString() }}</td>
-                </tr>
+              <tr>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.categoria }}</td>
+                <td>${{ producto.precio }}</td>
+                <td>{{ producto.unidades }}</td>
+                <td>{{ producto.total.toLocaleString() }}</td>
+              </tr>
               }
             </tbody>
           </table>
         </div>
       </div>
-    </div> -->
-
-    <!-- </div> -->
-
+    </div>
   </div>
+
+</div>

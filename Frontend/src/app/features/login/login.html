@@ -1,5 +1,5 @@
-<div class="login-page">
-  <div class="login-card">
+<div class="login-page d-flex align-items-center justify-content-center">
+  <div class="login-card text-center">
     <div class="login-logo">Librería Nazareth</div>
     <div class="login-subtitle">Sistema de gestión</div>
 
@@ -11,17 +11,17 @@
     }
 
     <form (ngSubmit)="onLogin()">
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="ejemplo@correo.com" [(ngModel)]="email" name="email" />
+      <div class="mb-3">
+        <label class="form-label-login">Email</label>
+        <input type="email" class="form-input-login" placeholder="ejemplo@correo.com" [(ngModel)]="email" name="email" />
       </div>
 
-      <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" placeholder="••••••••" [(ngModel)]="password" name="password" />
+      <div class="mb-3">
+        <label class="form-label-login">Contraseña</label>
+        <input type="password" class="form-input-login" placeholder="••••••••" [(ngModel)]="password" name="password" />
       </div>
 
-      <button class="btn-login" type="submit" [disabled]="cargando()">
+      <button class="btn-login w-100" type="submit" [disabled]="cargando()">
         @if (cargando()) {
           Cargando…
         } @else {
@@ -29,6 +29,5 @@
         }
       </button>
     </form>
-
   </div>
 </div>

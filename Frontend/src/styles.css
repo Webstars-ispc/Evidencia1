@@ -1,7 +1,100 @@
+:root {
+  --color-fondo: #161F48;
+  --color-fondo-claro: #1C2E5D;
+  --color-fondo-medio: #284574;
+  --color-borde: #284574;
+  --color-dorado: #E1C582;
+  --color-dorado-oscuro: #D2A047;
+  --color-dorado-medio: #AC9055;
+  --color-texto-principal: #b8c4d8;
+  --color-texto-secundario: #7a8fad;
+  --color-texto-muted: #6e86b0;
+  --color-exito: #6fcf97;
+  --color-error: #e57373;
+}
+
+/* --- Tipografía base --- */
 body {
   margin: 0;
   padding: 0;
-  background-color: #161F48;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  color: var(--color-texto-principal);
+  background-color: var(--color-fondo);
+}
+
+/* --- Títulos --- */
+h1, .form-title, .catalog-title, .gestion-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-dorado);
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-dorado);
+}
+
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-dorado);
+}
+
+h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  color: var(--color-dorado);
+}
+
+/* --- Párrafos --- */
+p {
+  line-height: 1.6;
+}
+
+/* --- Subtítulos / textos secundarios --- */
+.form-subtitle, .home-subtitle, .panel-subtitle, .login-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario);
+}
+
+/* --- Labels de formulario --- */
+.form-label, .form-group label, .form-label-login {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.125rem;
+  text-transform: uppercase;
+  color: var(--color-texto-principal);
+  display: block;
+  margin-bottom: 0.375rem;
+}
+
+/* --- Texto pequeño / hints --- */
+.form-hint, small, .text-muted, .error-msg {
+  font-size: 0.75rem;
+  color: var(--color-texto-muted);
+}
+
+/* --- Links de navegación --- */
+.header-nav-link, .footer-link {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.125rem;
+  color: var(--color-texto-principal);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.header-nav-link {
+  text-transform: uppercase;
+}
+
+.header-nav-link:hover, .footer-link:hover {
+  color: var(--color-dorado);
 }
 
 /* ---------- MODAL ---------- */
@@ -16,38 +109,35 @@ body {
 }
 
 .modal-box {
-  background: #1C2E5D;
-  border: 1px solid #284574;
-  border-radius: 10px;
-  padding: 32px;
-  max-width: 380px;
+  background: var(--color-fondo-claro);
+  border: 1px solid var(--color-fondo-medio);
+  border-radius: 0.625rem;
+  padding: 2rem;
+  max-width: 23.75rem;
   width: 90%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.5);
 }
 
 .modal-text {
-  font-family: Raleway, sans-serif;
   font-size: 1rem;
-  color: #b8c4d8;
   text-align: center;
-  margin: 0 0 24px;
+  margin: 0 0 1.5rem;
 }
 
 .modal-actions {
   display: flex;
-  gap: 12px;
+  gap: 0.75rem;
   justify-content: center;
 }
 
 .modal-btn {
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-family: Raleway, sans-serif;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.375rem;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
 }
 
 .modal-btn:hover {
@@ -56,22 +146,21 @@ body {
 
 .modal-cancel {
   background: transparent;
-  border: 1px solid #3a5690;
-  color: #b8c4d8;
+  border: 1px solid var(--color-borde);
+  color: var(--color-texto-principal);
 }
 
 .modal-confirm {
-  background: #c0392b;
+  background: var(--color-error);
   color: #fff;
 }
 
 /* ---------- ALERTAS ---------- */
 .alert-msg {
-  font-family: Raleway, sans-serif;
   font-size: 0.9rem;
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 16px;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
 }
 
 .alert-msg--success {
@@ -88,37 +177,37 @@ body {
 
 /* ---------- BOTONES DE ACCIÓN ---------- */
 .btn-action {
-  padding: 8px 16px;
-  border: 1px solid #3a5690;
-  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 0.375rem;
   background: transparent;
-  color: #b8c4d8;
-  font-family: Raleway, sans-serif;
+  color: var(--color-texto-principal);
   font-size: 0.85rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   user-select: none;
 }
 
 .btn-action:hover {
-  border-color: #E1C582;
-  color: #E1C582;
+  border-color: var(--color-dorado);
+  color: var(--color-dorado);
 }
 
 .btn-add {
-  color: #6fcf97;
-  border-color: #6fcf97;
+  color: var(--color-exito);
+  border-color: var(--color-exito);
 }
 
 .btn-add:hover {
   background: rgba(111, 207, 151, 0.1);
-  border-color: #6fcf97;
-  color: #6fcf97;
+  border-color: var(--color-exito);
+  color: var(--color-exito);
 }
 
 .btn-edit {
-  color: #E1C582;
-  border-color: #E1C582;
+  color: var(--color-dorado);
+  border-color: var(--color-dorado);
 }
 
 .btn-edit:hover {
@@ -126,8 +215,8 @@ body {
 }
 
 .btn-danger {
-  color: #e57373;
-  border-color: #e57373;
+  color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 .btn-danger:hover {
@@ -136,15 +225,14 @@ body {
 
 /* ---------- CONTENEDORES DE PÁGINA ---------- */
 .page-container {
-  min-height: calc(100vh - 70px);
-  background: #161F48;
-  font-family: 'Raleway', sans-serif;
+  min-height: calc(100vh - 4.375rem);
+  background: var(--color-fondo);
   width: 100%;
 }
 
 .content-wrapper {
   width: 80%;
-  max-width: 900px;
+  max-width: 56.25rem;
   margin: 0 auto;
 }
 
@@ -155,69 +243,33 @@ body {
 }
 
 /* ---------- FORMULARIOS (genéricos) ---------- */
-.form-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.75rem;
-  font-weight: 500;
-  color: #E1C582;
-  margin: 0 0 8px 0;
-  letter-spacing: 0.5px;
-}
-
-.form-subtitle {
-  font-size: 0.7rem;
-  color: #b8c4d8;
-  font-weight: 400;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.form-label {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #b8c4d8;
-  display: block;
-  margin-bottom: 6px;
-}
-
-.form-hint {
-  font-family: 'Raleway', sans-serif;
-  font-size: 0.7rem;
-  color: #7a8fad;
-  margin-top: 4px;
-  display: block;
-}
-
 .form-card {
-  background: #1a2d55;
-  border: 1px solid #2a4070;
-  border-radius: 10px;
-  padding: 24px;
-  margin-bottom: 24px;
+  background: var(--color-fondo-claro);
+  border: 1px solid var(--color-fondo-medio);
+  border-radius: 0.625rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 }
+
 .form-control {
-  background: #161F48 !important;
-  border: 1px solid #284574 !important;
-  border-radius: 4px;
-  color: #E1C582 !important;
-  padding: 10px 14px;
+  background: var(--color-fondo) !important;
+  border: 1px solid var(--color-fondo-medio) !important;
+  border-radius: 0.25rem;
+  color: var(--color-dorado) !important;
+  padding: 0.625rem 0.875rem;
   font-size: 0.9rem;
-  font-family: 'Raleway', sans-serif;
   transition: all 0.2s ease;
   width: 100%;
 }
 
 .form-control::placeholder {
-  color: #7a8fad !important;
+  color: var(--color-texto-secundario) !important;
 }
 
 .form-control:focus {
   outline: none !important;
-  border-color: #D2A047 !important;
-  box-shadow: 0 0 0 2px rgba(210, 160, 71, 0.18) !important;
+  border-color: var(--color-dorado-oscuro) !important;
+  box-shadow: 0 0 0 0.125rem rgba(210, 160, 71, 0.18);
 }
 
 select.form-control {
@@ -225,46 +277,44 @@ select.form-control {
 }
 
 select.form-control option {
-  background: #1C2E5D;
-  color: #b8c4d8;
+  background: var(--color-fondo-claro);
+  color: var(--color-texto-principal);
 }
 
 textarea.form-control {
   resize: vertical;
-  min-height: 80px;
+  min-height: 5rem;
 }
 
 .form-control.is-invalid {
   border-color: #dc2626 !important;
   background-image: none !important;
-  padding-right: 14px !important;
+  padding-right: 0.875rem;
 }
 
 .invalid-feedback {
-  font-family: 'Raleway', sans-serif;
   font-size: 0.75rem;
   color: #fca5a5;
-  margin-top: 4px;
+  margin-top: 0.25rem;
 }
 
 .btn-submit {
-  background: #E1C582 !important;
+  background: var(--color-dorado) !important;
   border: none !important;
-  color: #1C2E5D !important;
+  color: var(--color-fondo-claro) !important;
   font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-weight: 500;
+  letter-spacing: 0.125rem;
   text-transform: uppercase;
-  padding: 14px 24px;
-  border-radius: 4px;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.25rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Raleway', sans-serif;
 }
 
 .btn-submit:hover:not(:disabled) {
-  background: #D2A047 !important;
-  transform: translateY(-1px);
+  background: var(--color-dorado-oscuro) !important;
+  transform: translateY(-0.0625rem);
 }
 
 .btn-submit:active:not(:disabled) {
@@ -278,29 +328,27 @@ textarea.form-control {
 
 .btn-cancel-action {
   background: transparent !important;
-  border: 1px solid #284574 !important;
-  color: #b8c4d8 !important;
+  border: 1px solid var(--color-fondo-medio) !important;
+  color: var(--color-texto-principal) !important;
   font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-weight: 500;
+  letter-spacing: 0.125rem;
   text-transform: uppercase;
-  padding: 14px 24px;
-  border-radius: 4px;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.25rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Raleway', sans-serif;
 }
 
 .btn-cancel-action:hover {
-  background: #284574 !important;
-  color: #E1C582 !important;
-  border-color: #E1C582 !important;
+  background: var(--color-fondo-medio) !important;
+  color: var(--color-dorado) !important;
+  border-color: var(--color-dorado) !important;
 }
 
 .loading-text {
-  color: #b8c4d8;
+  color: var(--color-texto-principal);
   text-align: center;
-  padding: 32px 0;
-  font-family: 'Raleway', sans-serif;
+  padding: 2rem 0;
   font-size: 0.9rem;
 }

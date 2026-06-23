@@ -1,17 +1,12 @@
 .not-found-container {
     min-height: calc(100vh - 70px - 180px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #161F48;
+    background: var(--color-fondo);
     font-family: 'Raleway', sans-serif;
-    padding: 24px;
 }
 
 .not-found-card {
-    text-align: center;
-    background: #1C2E5D;
-    border: 1px solid #284574;
+    background: var(--color-fondo-claro);
+    border: 1px solid var(--color-borde);
     border-radius: 8px;
     padding: 48px 40px;
     max-width: 450px;
@@ -22,7 +17,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 6rem;
     font-weight: 700;
-    color: #E1C582;
+    color: var(--color-dorado);
     margin: 0 0 2.5rem;
     line-height: 1;
 }
@@ -30,23 +25,22 @@
 .not-found-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
-    color: #E1C582;
+    color: var(--color-dorado);
     margin: 0 0 16px;
 }
 
 .not-found-text {
     font-size: 0.9rem;
-    color: #b8c4d8;
+    color: var(--color-texto-principal);
     margin: 0 0 32px;
 }
 
 .not-found-link {
-    display: inline-block;
-    color: #E1C582;
+    color: var(--color-dorado);
     text-decoration: none;
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
-    border: 1px solid #E1C582;
+    border: 1px solid var(--color-dorado);
     padding: 10px 24px;
     border-radius: 6px;
     transition: all 0.2s;

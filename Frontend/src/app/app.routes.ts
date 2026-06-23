@@ -19,11 +19,11 @@ export const routes: Routes = [
     title: 'Iniciar Sesión',
     canActivate: [guestGuard]
   },
-{
+  {
     path: 'equipo',
     loadComponent: () => import('./features/equipo/equipo').then(c => c.GestionarEquipo),
     canActivate: [authGuard, adminGuard],   // ← Verifica autenticación Y rol
-  }, 
+  },
   {
     path: 'cargar-producto',
     loadComponent: () => import('./features/cargar-producto/cargar-producto').then(c => c.CargarProducto),
@@ -46,6 +46,12 @@ export const routes: Routes = [
     path: 'catalogo',
     loadComponent: () => import('./features/catalog/catalog').then(c => c.Catalog),
     title: 'Catálogo de Productos',
+    canActivate: [authGuard]
+  },
+  {
+    path: 'aumentos',
+    loadComponent: () => import('./features/aumentos/aumentos').then(c => c.Aumentos),
+    title: 'Aumentos Masivos',
     canActivate: [authGuard]
   },
   {
