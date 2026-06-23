@@ -306,4 +306,17 @@
   .catalog-table td {
     padding: 6px 8px;
   }
+
+  .filters-row .search-wrapper {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .filters-row .filter-wrapper {
+    width: 100%;
+  }
+
+  .filters-row .filter-wrapper .search-wrapper {
+    max-width: 100%;
+  }
 }
