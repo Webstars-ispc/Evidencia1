@@ -4,7 +4,7 @@
     <app-volver></app-volver>
     
     <div class="form-section">
-      <div class="form-header">
+      <div class="form-header text-center mb-4">
         <h1 class="form-title">Editar Producto</h1>
         <p class="form-subtitle">Modificá los datos del producto</p>
       </div>
@@ -16,7 +16,7 @@
       @if (cargando()) {
         <p class="loading-text">Cargando producto...</p>
       } @else {
-        <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form">
+        <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form d-flex flex-column gap-3">
 
           <!-- nombre y codigo de barras -->
           <div class="row g-3">

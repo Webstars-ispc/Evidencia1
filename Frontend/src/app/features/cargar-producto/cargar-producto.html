@@ -4,7 +4,7 @@
     <app-volver></app-volver>
     
     <div class="form-section">
-      <div class="form-header">
+      <div class="form-header text-center mb-4">
         <h1 class="form-title">Cargar Producto</h1>
         <p class="form-subtitle">Ingresá los detalles de tu nuevo producto</p>
       </div>
@@ -19,7 +19,7 @@
       @if (cargandoCatalogos()) {
         <p class="loading-text">Cargando catálogos...</p>
       } @else {
-        <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form">
+        <form [formGroup]="form" (ngSubmit)="onEnviar($event)" class="product-form d-flex flex-column gap-3">
 
           <!-- nombre y codigo de barras -->
           <div class="row g-3">
@@ -46,7 +46,7 @@
 
             <div class="col-12 col-md-6">
               <label for="codigo_barras" class="form-label">Código de Barras</label>
-              <div class="input-with-button">
+              <div class="input-with-button d-flex gap-2 align-items-stretch">
                 <input
                   type="text"
                   id="codigo_barras"

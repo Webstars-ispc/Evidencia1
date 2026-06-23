@@ -4,32 +4,12 @@
   padding: 24px 0;
 }
 
-.gestion-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
 .gestion-title {
   font-family: 'Playfair Display', serif;
   font-size: 1.75rem;
-  color: #E1C582;
+  color: var(--color-dorado);
   margin: 0;
 }
-
-/* Botones de acción (agregar, editar, eliminar) */
-.actions-bar {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 16px;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
 
 /* Tabla */
 .table-responsive {
@@ -44,12 +24,12 @@
   border-collapse: collapse;
   font-family: Raleway, sans-serif;
   font-size: 0.85rem;
-  color: #b8c4d8;
+  color: var(--color-texto-principal);
 }
 
 .gestion-table th {
-  background: #284574;
-  color: #E1C582;
+  background: var(--color-fondo-medio);
+  color: var(--color-dorado);
   font-size: 1rem;
   font-weight: 600;
   padding: 12px 14px;
@@ -90,19 +70,13 @@
   }
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 .form-input,
 .form-select {
   padding: 10px 12px;
   border: 1px solid #3a5690;
   border-radius: 8px;
   background: #1f3560;
-  color: #b8c4d8;
+  color: var(--color-texto-principal);
   font-family: Raleway, sans-serif;
   font-size: 0.9rem;
   outline: none;
@@ -112,28 +86,21 @@
 }
 
 .form-input::placeholder {
-  color: #6e86b0;
+  color: var(--color-texto-muted);
 }
 
 .form-input:focus,
 .form-select:focus {
-  border-color: #E1C582;
-}
-
-.form-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
+  border-color: var(--color-dorado);
 }
 
 /* Mensajes de error por campo */
 .error-msg {
   font-family: Raleway, sans-serif;
   font-size: 0.75rem;
-  color: #e57373;
+  color: var(--color-error);
   margin-top: 4px;
 }
-
 
 /* Responsive */
 @media (max-width: 600px) {

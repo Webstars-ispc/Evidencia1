@@ -2,54 +2,53 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
 }
 
-.modal-box {
-  background: #284574;
+.modal-box-delete {
+  background: var(--color-fondo-medio);
   border-radius: 4px;
   padding: 24px;
   max-width: 420px;
   width: 90%;
 }
 
-.modal-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.modal-icon {
+.modal-icon-delete {
   font-size: 1.5rem;
 }
 
-.modal-title {
+.modal-title-delete {
   font-family: 'Raleway', sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
-  color: #E1C582;
+  color: var(--color-dorado);
   margin: 0;
 }
 
 .modal-text {
   font-family: 'Raleway', sans-serif;
   font-size: 0.9rem;
-  color: #b8c4d8;
-  margin: 0 0 20px;
+  color: var(--color-texto-principal);
   line-height: 1.5;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+.btn-cancel-delete {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 20px;
+  border: 1px solid var(--color-texto-secundario);
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-texto-principal);
 }
 
-.btn-modal {
+.btn-cancel-delete:hover {
+  background: var(--color-fondo-claro);
+}
+
+.btn-delete {
   font-family: 'Raleway', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
@@ -57,19 +56,6 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.btn-cancel {
-  background: transparent;
-  color: #b8c4d8;
-  border: 1px solid #7a8fad;
-}
-
-.btn-cancel:hover {
-  background: #1C2E5D;
-}
-
-.btn-delete {
   background: #dc2626;
   color: #fff;
 }

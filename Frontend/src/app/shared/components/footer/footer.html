@@ -1,20 +1,20 @@
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-top">
+    <div class="footer-top d-flex justify-content-between align-items-start gap-4 mb-3">
       <div class="footer-brand">
         <h3>Librería Nazareth</h3>
         <p>Sistema interno de gestión de stock, ventas y equipo para una librería polirrubro.</p>
       </div>
       <div class="footer-links">
         <h4>Navegación</h4>
-        <a [routerLink]="auth.logueado() ? '/home' : '/'">Inicio</a>
-        <a routerLink="/about">Quiénes somos</a>
+        <a [routerLink]="auth.logueado() ? '/home' : '/'" class="footer-link">Inicio</a>
+        <a routerLink="/about" class="footer-link">Quiénes somos</a>
         @if (!auth.logueado()) {
-        <a routerLink="/login">Iniciar sesión</a>
+        <a routerLink="/login" class="footer-link">Iniciar sesión</a>
         }
       </div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom d-flex justify-content-between align-items-center gap-3 pt-3">
       <p>© 2026 Librería Nazareth — Todos los derechos reservados</p>
       <span class="footer-team">WebStars — ISPC</span>
     </div>

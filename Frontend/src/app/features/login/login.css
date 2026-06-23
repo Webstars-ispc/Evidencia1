@@ -1,9 +1,6 @@
 .login-page {
   background: #161F48;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: calc(100dvh - 250px);
   font-family: 'Raleway', sans-serif;
 }
 
@@ -18,16 +15,14 @@
 
 .login-logo {
   font-family: 'Playfair Display', serif;
-  font-size: 22px;
+  font-size: 26px;
   color: #E1C582;
-  text-align: center;
   margin-bottom: 8px;
 }
 
 .login-subtitle {
-  font-size: 11px;
+  font-size: 12px;
   color: #7a8fad;
-  text-align: center;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 36px;
@@ -38,7 +33,6 @@
   border-radius: 6px;
   font-size: 13px;
   margin-bottom: 20px;
-  text-align: center;
 }
 
 .alert-error {
@@ -53,13 +47,9 @@
   color: #a9dfbf;
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
+.form-label-login {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   color: #b8c4d8;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -67,8 +57,7 @@
   font-weight: 500;
 }
 
-.form-group input,
-.form-group select {
+.form-input-login {
   width: 100%;
   background: #161F48;
   border: 1px solid #284574;
@@ -81,21 +70,15 @@
   outline: none;
 }
 
-.form-group input::placeholder {
+.form-input-login::placeholder {
   color: #7a8fad;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.form-input-login:focus {
   border-color: #D2A047;
 }
 
-.form-group select option {
-  background: #161F48;
-}
-
 .btn-login {
-  width: 100%;
   background: #D2A047;
   color: #161F48;
   border: none;

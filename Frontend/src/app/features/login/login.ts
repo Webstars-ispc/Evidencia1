@@ -37,7 +37,7 @@ export class Login {
         this.authService.getProfile().subscribe();
         this.successMessage = '✅ Login exitoso. Redirigiendo...';
         setTimeout(() => {
-          this.router.navigate(['/catalogo']);
+          this.router.navigate(['/home']);
         }, 1000);
       },
       error: (error) => {

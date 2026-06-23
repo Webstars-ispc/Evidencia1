@@ -1,13 +1,13 @@
 <div class="catalog-container">
 
-  <div class="catalog-header">
+  <div class="catalog-header d-flex justify-content-between align-items-center gap-3 mb-4 flex-wrap">
     <h1 class="catalog-title">Catálogo de Productos</h1>
   </div>
 
   <app-volver></app-volver>
   
   <!-- Botones de acción -->
-  <div class="actions-bar">
+  <div class="actions-bar d-flex align-items-center gap-2 mb-4 flex-wrap">
     <button class="btn-action" (click)="abrirCargaExcel()" title="Cargar desde Excel">📂 Cargar Excel</button>
     <button class="btn-action" routerLink="/aumentos">Aumento/Descuento</button>
     <button class="btn-action btn-add" routerLink="/cargar-producto">Agregar Producto</button>
@@ -30,7 +30,7 @@
   </div>
 
   <!--Búsqueda y filtros -->
-  <div class="filters-row">
+  <div class="filters-row d-flex gap-3 mb-3 flex-wrap align-items-start">
     <!-- Buscador de productos -->
     <div class="search-wrapper">
       <span class="search-icon">🔍</span>
@@ -40,7 +40,7 @@
       @if (sugerenciasVisibles()) {
       <div class="suggestions-box">
         @for (s of sugerencias(); track s.id) {
-        <button class="suggestion-item" (click)="seleccionarSugerencia(s)">
+        <button class="suggestion-item d-flex justify-content-between align-items-center" (click)="seleccionarSugerencia(s)">
           <span class="suggestion-name">{{ s.nombre }}</span>
           <span class="suggestion-code">{{ s.codigo_barras }}</span>
         </button>
@@ -61,7 +61,7 @@
         @if (sugerenciasRubroAbiertas() && sugerenciasRubro().length > 0) {
         <div class="suggestions-box">
           @for (rubro of sugerenciasRubro(); track rubro.id) {
-          <button class="suggestion-item" (click)="seleccionarRubro(rubro)">
+          <button class="suggestion-item d-flex justify-content-between align-items-center" (click)="seleccionarRubro(rubro)">
             <span class="suggestion-name">{{ rubro.nombre }}</span>
           </button>
           }
@@ -82,7 +82,7 @@
         @if (sugerenciasMarcaAbiertas() && sugerenciasMarca().length > 0) {
         <div class="suggestions-box">
           @for (marca of sugerenciasMarca(); track marca.id) {
-          <button class="suggestion-item" (click)="seleccionarMarca(marca)">
+          <button class="suggestion-item d-flex justify-content-between align-items-center" (click)="seleccionarMarca(marca)">
             <span class="suggestion-name">{{ marca.nombre }}</span>
           </button>
           }
@@ -120,7 +120,7 @@
       </p>
     </div>
 
-    <div class="form-actions">
+    <div class="form-actions d-flex justify-content-end gap-2 mt-3">
       <button type="button" class="btn-action btn-danger" (click)="cerrarCargaExcel()">Cancelar</button>
     </div>
   </div>
@@ -170,7 +170,7 @@
   </div>
 
   @if (totalPaginas() > 1) {
-  <div class="pagination-bar">
+  <div class="pagination-bar d-flex justify-content-center align-items-center gap-1 mt-3">
     <button class="page-btn" [disabled]="paginaActual() === 1" (click)="irPagina(paginaActual() - 1)">
 
     </button>

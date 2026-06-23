@@ -1,7 +1,7 @@
 /* card del form */
 .form-section {
-  background: #1C2E5D;
-  border: 1px solid #284574;
+  background: var(--color-fondo-claro);
+  border: 1px solid var(--color-fondo-medio);
   border-radius: 4px;
   padding: 40px 32px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -11,17 +11,4 @@
   .form-section {
     padding: 24px 16px;
   }
-}
-
-.form-header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-
-/* formulario */
-.product-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
