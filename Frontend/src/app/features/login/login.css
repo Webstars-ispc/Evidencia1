@@ -1,12 +1,12 @@
 .login-page {
-  background: #161F48;
+  background: var(--color-fondo);
   min-height: calc(100dvh - 250px);
   font-family: 'Raleway', sans-serif;
 }
 
 .login-card {
-  background: #1C2E5D;
-  border: 1px solid #284574;
+  background: var(--color-fondo-claro);
+  border: 1px solid var(--color-borde);
   border-radius: 8px;
   padding: 48px 40px;
   width: 100%;
@@ -16,13 +16,13 @@
 .login-logo {
   font-family: 'Playfair Display', serif;
   font-size: 26px;
-  color: #E1C582;
+  color: var(--color-dorado);
   margin-bottom: 8px;
 }
 
 .login-subtitle {
   font-size: 12px;
-  color: #7a8fad;
+  color: var(--color-texto-secundario);
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 36px;
@@ -50,7 +50,7 @@
 .form-label-login {
   display: block;
   font-size: 12px;
-  color: #b8c4d8;
+  color: var(--color-texto-principal);
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin-bottom: 8px;
@@ -59,28 +59,28 @@
 
 .form-input-login {
   width: 100%;
-  background: #161F48;
-  border: 1px solid #284574;
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
   border-radius: 4px;
   padding: 12px 16px;
   font-size: 14px;
-  color: #E1C582;
+  color: var(--color-dorado);
   font-family: 'Raleway', sans-serif;
   box-sizing: border-box;
   outline: none;
 }
 
 .form-input-login::placeholder {
-  color: #7a8fad;
+  color: var(--color-texto-secundario);
 }
 
 .form-input-login:focus {
-  border-color: #D2A047;
+  border-color: var(--color-dorado-oscuro);
 }
 
 .btn-login {
-  background: #D2A047;
-  color: #161F48;
+  background: var(--color-dorado-oscuro);
+  color: var(--color-fondo);
   border: none;
   padding: 14px;
   font-size: 13px;

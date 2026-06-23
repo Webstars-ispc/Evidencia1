@@ -66,15 +66,15 @@ export class Catalog implements OnInit {
   readonly PAGINA_TAMANIO = 50;
 
   columnas = [
-    { key: 'nombre', label: 'Producto' },
-    { key: 'codigo_barras', label: 'Código Barras' },
-    { key: 'rubro', label: 'Rubro' },
-    { key: 'marca', label: 'Marca' },
-    { key: 'precio_costo', label: 'Precio Costo' },
-    { key: 'precio_venta', label: 'Precio Venta' },
-    { key: 'stock', label: 'Stock' },
-    { key: 'vendidos', label: 'Vendidos (30d)' },
-    { key: 'fecha_creacion', label: 'Fecha Creación' },
+    { key: 'nombre', label: 'Producto', hideMobile: false },
+    { key: 'codigo_barras', label: 'Código Barras', hideMobile: true },
+    { key: 'rubro', label: 'Rubro', hideMobile: true },
+    { key: 'marca', label: 'Marca', hideMobile: true },
+    { key: 'precio_costo', label: 'Precio Costo', hideMobile: true },
+    { key: 'precio_venta', label: 'Precio Venta', hideMobile: false },
+    { key: 'stock', label: 'Stock', hideMobile: false },
+    { key: 'vendidos', label: 'Vendidos (30d)', hideMobile: true },
+    { key: 'fecha_creacion', label: 'Fecha Creación', hideMobile: true },
   ];
 
   sugerenciasVisibles = computed(() =>

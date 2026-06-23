@@ -144,7 +144,7 @@
             <input type="checkbox" [checked]="todosSeleccionados()" (change)="toggleSeleccionTodos()" />
           </th>
           @for (col of columnas; track col.key) {
-          <th>{{ col.label }}</th>
+          <th [class.d-none]="col.hideMobile" [class.d-md-table-cell]="col.hideMobile">{{ col.label }}</th>
           }
         </tr>
       </thead>
@@ -155,7 +155,7 @@
             <input type="checkbox" [checked]="isSelected(producto.id)" (change)="toggleSeleccion(producto.id)" />
           </td>
           @for (col of columnas; track col.key) {
-          <td>{{ celdaValue(producto, col.key) }}</td>
+          <td [class.d-none]="col.hideMobile" [class.d-md-table-cell]="col.hideMobile">{{ celdaValue(producto, col.key) }}</td>
           }
         </tr>
         } @empty {

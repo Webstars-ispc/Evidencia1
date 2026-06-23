@@ -295,6 +295,15 @@
 
 @media (max-width: 600px) {
   .catalog-title {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
+  }
+
+  .catalog-table {
+    font-size: 0.75rem;
+  }
+
+  .catalog-table th,
+  .catalog-table td {
+    padding: 6px 8px;
   }
 }
