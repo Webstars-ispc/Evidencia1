@@ -22,6 +22,14 @@ export class GestionarEquipo implements OnInit {
   mostrandoModalEliminar = false;
   usuarioAEliminar: any = null;
 
+  columnas = [
+    { key: 'id', label: 'ID', hideMobile: true },
+    { key: 'username', label: 'Usuario', hideMobile: false },
+    { key: 'email', label: 'Email', hideMobile: true },
+    { key: 'role', label: 'Rol', hideMobile: false },
+    { key: 'acciones', label: 'Acciones', hideMobile: false },
+];
+
   constructor(
     private usuariosService: UsuariosService,
     private cdr: ChangeDetectorRef,

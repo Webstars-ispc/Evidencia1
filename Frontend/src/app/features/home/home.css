@@ -76,7 +76,7 @@
 
 .stat-value {
   font-family: 'Raleway', sans-serif;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: var(--color-dorado);
   white-space: nowrap;

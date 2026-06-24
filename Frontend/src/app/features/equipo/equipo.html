@@ -4,7 +4,7 @@
     </div>
 
     <app-volver></app-volver>
-    
+
     <div class="actions-bar d-flex align-items-center gap-2 mb-3 flex-wrap">
         <button class="btn-action btn-add" (click)="mostrarFormulario()">+ Agregar Usuario</button>
     </div>
@@ -77,19 +77,19 @@
         <table class="gestion-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
+                    @for (col of columnas; track col.key) {
+                    <th [class.d-none]="col.hideMobile" [class.d-md-table-cell]="col.hideMobile">{{ col.label }}</th>
+                    }
                 </tr>
             </thead>
             <tbody>
                 @for (user of usuarios; track user.id) {
                 <tr class="gestion-row">
-                    <td>{{ user.id }}</td>
+                    <td [class.d-none]="columnas[0].hideMobile" [class.d-md-table-cell]="columnas[0].hideMobile">{{
+                        user.id }}</td>
                     <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
+                    <td [class.d-none]="columnas[2].hideMobile" [class.d-md-table-cell]="columnas[2].hideMobile">{{
+                        user.email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
                         <button class="btn-action btn-edit" (click)="editarUsuario(user)">Editar</button>
@@ -104,11 +104,11 @@
     @if (mostrandoModalEliminar) {
     <div class="modal-overlay" (click)="cancelarEliminacion()">
         <div class="modal-box" (click)="$event.stopPropagation()">
-        <p class="modal-text">¿Seguro que quieres eliminar a {{ usuarioAEliminar?.username }}?</p>
-        <div class="modal-actions">
-            <button class="modal-btn modal-cancel" (click)="cancelarEliminacion()">Cancelar</button>
-            <button class="modal-btn modal-confirm" (click)="confirmarEliminacion()">Eliminar</button>
-        </div>
+            <p class="modal-text">¿Seguro que quieres eliminar a {{ usuarioAEliminar?.username }}?</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-cancel" (click)="cancelarEliminacion()">Cancelar</button>
+                <button class="modal-btn modal-confirm" (click)="confirmarEliminacion()">Eliminar</button>
+            </div>
         </div>
     </div>
     }
