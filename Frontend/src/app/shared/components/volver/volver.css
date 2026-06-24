@@ -14,3 +14,10 @@
 .volver-link:hover {
     text-decoration: underline;
 }
+
+/* responsive */
+@media (max-width: 765px) {
+  .volver-link {
+    font-size: 1.2rem;
+  }
+}
