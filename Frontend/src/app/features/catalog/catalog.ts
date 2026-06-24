@@ -54,6 +54,7 @@ export class Catalog implements OnInit {
   // Filtros
   filtroRubroTexto = signal('');
   filtroMarcaTexto = signal('');
+  filtroStock = signal<string>('');
   sugerenciasRubroAbiertas = signal(false);
   sugerenciasMarcaAbiertas = signal(false);
 
@@ -147,6 +148,22 @@ export class Catalog implements OnInit {
       resultado = resultado.filter(p =>
         p.marca_nombre && p.marca_nombre.toLowerCase().includes(q)
       );
+    }
+
+    // Filtrar por stock
+    if (this.filtroStock()) {
+      const valor = this.filtroStock();
+      if (valor === 'menos5') {
+        resultado = resultado.filter(p => p.stock < 5);
+      } else if (valor === 'menos10') {
+        resultado = resultado.filter(p => p.stock < 10);
+      } else if (valor === 'menos20') {
+        resultado = resultado.filter(p => p.stock < 20);
+      } else if (valor === 'menos30') {
+        resultado = resultado.filter(p => p.stock < 30);
+      } else if (valor === 'mas50') {
+        resultado = resultado.filter(p => p.stock > 50);
+      }
     }
 
     return resultado.sort(
@@ -267,6 +284,11 @@ export class Catalog implements OnInit {
   onFiltroMarcaChange(event: Event) {
     this.filtroMarcaTexto.set((event.target as HTMLInputElement).value);
     this.sugerenciasMarcaAbiertas.set(true);
+    this.paginaActual.set(1);
+  }
+
+  onFiltroStockChange(event: Event) {
+    this.filtroStock.set((event.target as HTMLSelectElement).value);
     this.paginaActual.set(1);
   }
 

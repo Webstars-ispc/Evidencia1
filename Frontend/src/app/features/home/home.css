@@ -68,23 +68,23 @@
 
 .stat-label {
   font-family: 'Raleway', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--color-texto-secundario);
   margin: 0 0 4px;
 }
 
 .stat-value {
   font-family: 'Raleway', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--color-dorado);
   white-space: nowrap;
   margin: 0 0 4px;
 }
 
 .stat-value--danger {
-  color: #dc2626;
+  color: var(--color-error);
 }
 
 .stat-sub {
@@ -140,7 +140,7 @@
 
 .action-label {
   font-family: 'Raleway', sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--color-dorado);
 }

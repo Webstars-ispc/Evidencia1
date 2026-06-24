@@ -5,7 +5,7 @@
   </div>
 
   <app-volver></app-volver>
-  
+
   <!-- Botones de acción -->
   <div class="actions-bar d-flex align-items-center gap-2 mb-4 flex-wrap">
     <button class="btn-action" (click)="abrirCargaExcel()" title="Cargar desde Excel">📂 Cargar Excel</button>
@@ -40,7 +40,8 @@
       @if (sugerenciasVisibles()) {
       <div class="suggestions-box">
         @for (s of sugerencias(); track s.id) {
-        <button class="suggestion-item d-flex justify-content-between align-items-center" (click)="seleccionarSugerencia(s)">
+        <button class="suggestion-item d-flex justify-content-between align-items-center"
+          (click)="seleccionarSugerencia(s)">
           <span class="suggestion-name">{{ s.nombre }}</span>
           <span class="suggestion-code">{{ s.codigo_barras }}</span>
         </button>
@@ -61,7 +62,8 @@
         @if (sugerenciasRubroAbiertas() && sugerenciasRubro().length > 0) {
         <div class="suggestions-box">
           @for (rubro of sugerenciasRubro(); track rubro.id) {
-          <button class="suggestion-item d-flex justify-content-between align-items-center" (click)="seleccionarRubro(rubro)">
+          <button class="suggestion-item d-flex justify-content-between align-items-center"
+            (click)="seleccionarRubro(rubro)">
             <span class="suggestion-name">{{ rubro.nombre }}</span>
           </button>
           }
@@ -82,12 +84,27 @@
         @if (sugerenciasMarcaAbiertas() && sugerenciasMarca().length > 0) {
         <div class="suggestions-box">
           @for (marca of sugerenciasMarca(); track marca.id) {
-          <button class="suggestion-item d-flex justify-content-between align-items-center" (click)="seleccionarMarca(marca)">
+          <button class="suggestion-item d-flex justify-content-between align-items-center"
+            (click)="seleccionarMarca(marca)">
             <span class="suggestion-name">{{ marca.nombre }}</span>
           </button>
           }
         </div>
         }
+      </div>
+    </div>
+
+    <!-- Filtro por Stock -->
+    <div class="filter-wrapper">
+      <div class="search-wrapper">
+        <span class="search-icon">📦</span>
+        <select class="search-input" [value]="filtroStock()" (change)="onFiltroStockChange($event)">
+          <option value="">Stock: sin filtro</option>
+          <option value="menos10">Menos de 10 unidades</option>
+          <option value="menos20">Menos de 20 unidades</option>
+          <option value="menos30">Menos de 30 unidades</option>
+          <option value="mas50">Más de 50 unidades</option>
+        </select>
       </div>
     </div>
   </div>
@@ -155,7 +172,8 @@
             <input type="checkbox" [checked]="isSelected(producto.id)" (change)="toggleSeleccion(producto.id)" />
           </td>
           @for (col of columnas; track col.key) {
-          <td [class.d-none]="col.hideMobile" [class.d-md-table-cell]="col.hideMobile">{{ celdaValue(producto, col.key) }}</td>
+          <td [class.d-none]="col.hideMobile" [class.d-md-table-cell]="col.hideMobile">{{ celdaValue(producto, col.key)
+            }}</td>
           }
         </tr>
         } @empty {

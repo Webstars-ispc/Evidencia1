@@ -302,6 +302,9 @@
     font-size: 0.75rem;
   }
 
+  .catalog-table th {
+    font-size: 0.95rem;
+  }
   .catalog-table th,
   .catalog-table td {
     padding: 6px 8px;
