@@ -33,7 +33,7 @@ export class Login {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
-        this.authService.saveToken(response.access);
+        this.authService.saveTokens(response.access, response.refresh);
         this.authService.getProfile().subscribe();
         this.successMessage = '✅ Login exitoso. Redirigiendo...';
         setTimeout(() => {

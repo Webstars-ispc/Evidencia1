@@ -29,3 +29,15 @@
   </div>
 </div>
 }
+<!-- Modal de sesión por expirar -->
+@if (auth.mostrarModalExpiracion()) {
+<div class="modal-overlay">
+  <div class="modal-box">
+    <p class="modal-text">⚠️ Tu sesión está por expirar. ¿Deseás extenderla?</p>
+    <div class="modal-actions">
+      <button class="modal-btn modal-cancel" (click)="auth.logout(); router.navigate(['/login'])">No</button>
+      <button class="modal-btn modal-confirm" (click)="auth.extenderSesion()">Sí</button>
+    </div>
+  </div>
+</div>
+}
