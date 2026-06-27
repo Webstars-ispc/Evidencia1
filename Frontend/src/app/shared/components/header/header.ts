@@ -10,7 +10,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class Header {
   auth = inject(AuthService);
-  private router = inject(Router);
+  router = inject(Router);
   mostrandoModalLogout = signal(false);
 
   confirmarLogout() {
