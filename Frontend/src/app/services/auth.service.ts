@@ -100,7 +100,7 @@ export class AuthService {
         this.logout();
         this.router.navigate(['/login']);
       }
-    }, 3000);
+    }, 600000); // Verificar cada 10 minutos
   }
 
   // Extender la sesión
